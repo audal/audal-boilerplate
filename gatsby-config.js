@@ -1,6 +1,10 @@
 module.exports = {
   siteMetadata: {
     title: "audal-boilerplate",
+    siteUrl: "",
+    description: "",
+    author: "",
+    keywords: ["", ""]
   },
   plugins: [
     /*"gatsby-plugin-sass",*/
@@ -10,6 +14,7 @@ module.exports = {
     "gatsby-transformer-sharp",
     `gatsby-plugin-typescript`,
     "gatsby-plugin-layout",
+    "gatsby-plugin-react-svg",
     {
       resolve: "@chakra-ui/gatsby-plugin",
       options: {
