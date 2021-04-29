@@ -1,11 +1,4 @@
 module.exports = {
-  siteMetadata: {
-    title: "audal-boilerplate",
-    siteUrl: "",
-    description: "",
-    author: "",
-    keywords: ["", ""]
-  },
   plugins: [
     /*"gatsby-plugin-sass",*/
     "gatsby-plugin-image",
