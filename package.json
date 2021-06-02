@@ -58,6 +58,7 @@
     "gatsby-plugin-typescript": "^3.2.0",
     "gatsby-source-filesystem": "^3.2.0",
     "gatsby-transformer-sharp": "^3.2.0",
+    "gsap": "^3.6.1",
     "nodemailer": "^6.6.1",
     "prettier": "^2.2.1",
     "react": "^17.0.2",
