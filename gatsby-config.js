@@ -16,13 +16,10 @@ module.exports = {
       },
     },
     {
-      resolve: `@el7cosmos/gatsby-plugin-prefetch-google-fonts`,
+      resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [
-          {
-            family: `Inter`,
-            variants: [`400`, `400i`, `700`]
-          }
+          `Inter\:400,400i,500,600,700`
         ]
       }
     },
