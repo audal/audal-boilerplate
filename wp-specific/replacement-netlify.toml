@@ -1,0 +1,30 @@
+[functions]
+directory = "functions"
+
+[dev]
+framework = "gatsby"
+command = "npm run build"
+environment = { WP_URL = 'something.wpengine.com' }
+
+[build]
+command = "npm run build"
+publish = "public"
+environment = { WP_URL = 'something.wpengine.com' }
+
+[context.production]
+command = "npm run build"
+publish = "public"
+
+[context.production.environment]
+WP_URL='something.wpengine.com'
+
+[context.branch-deploy.environment]
+overrideNodeEnv = "development"
+WP_URL='something.wpengine.com'
+
+
+[[redirects]]
+from = "/wp-content/*"
+to = "https://something.wpengine.com/wp-content/:splat"
+status = 200
+force = true

@@ -1,10 +1,22 @@
-import React from 'react';
-import {Helmet} from "react-helmet";
-import {graphql, useStaticQuery} from "gatsby";
+import * as React from "react";
+import { Helmet } from "react-helmet";
+import { useStaticQuery, graphql } from "gatsby";
 
-export function Seo({ description, lang, meta, title, image}) {
+interface Props {
+    title: string;
+    description?: string;
+    shareImage?: string;
+    location?: any;
+}
 
-    /*const { site } = useStaticQuery(
+export const Seo: React.FC<Props> = ({ description, title, shareImage, location }) => {
+    let prettyHref = "";
+
+    if (location?.href) {
+        prettyHref = location.href.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split(".")[0];
+    }
+
+    const { site } = useStaticQuery(
         graphql`
             query {
                 site {
@@ -17,16 +29,16 @@ export function Seo({ description, lang, meta, title, image}) {
                 }
             }
         `
-    )
+    );
 
-    const keywords = site.siteMetadata.keywords
-    const metaDescription = description || site.siteMetadata.description
-    const defaultTitle = site.siteMetadata?.title
+    const metaDescription = description || site.siteMetadata?.description;
+    const defaultTitle = site.siteMetadata?.title;
+    const keywords = site.siteMetadata?.keywords;
 
     return (
         <Helmet
             htmlAttributes={{
-                lang,
+                lang: "en-US",
             }}
             title={title}
             titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
@@ -48,24 +60,24 @@ export function Seo({ description, lang, meta, title, image}) {
                     content: metaDescription,
                 },
                 {
+                    property: `og:image`,
+                    content: shareImage,
+                },
+                {
+                    property: `og:url`,
+                    content: prettyHref,
+                },
+                {
                     property: `og:type`,
                     content: `website`,
                 },
                 {
-                    property: `og:image`,
-                    content: image,
-                },
-                {
                     name: `twitter:card`,
-                    content: `summary`,
+                    property: `summary_large_image`,
                 },
                 {
-                    name: `twitter:image`,
-                    content: image,
-                },
-                {
-                    name: `twitter:creator`,
-                    content: site.siteMetadata?.author || ``,
+                    name: `twitter:url`,
+                    property: prettyHref,
                 },
                 {
                     name: `twitter:title`,
@@ -73,9 +85,13 @@ export function Seo({ description, lang, meta, title, image}) {
                 },
                 {
                     name: `twitter:description`,
-                    content: metaDescription,
+                    content: description,
                 },
-            ].concat(meta)}
+                {
+                    name: `twitter:image`,
+                    content: shareImage,
+                },
+            ]}
         />
-    );*/
-}
+    );
+};

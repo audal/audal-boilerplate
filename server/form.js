@@ -1,5 +1,5 @@
 const {ThrowString} = require("appsby");
-const {AppsbyAPI, AppsbyValidateName, AppsbyValidateEmailAddress} = require("appsby");
+const {AppsbyAPI} = require("appsby");
 const nodemailer = require("nodemailer");
 
 class Form extends AppsbyAPI {
@@ -16,9 +16,6 @@ class Form extends AppsbyAPI {
 
         console.log(data)
 
-        let name = await AppsbyValidateName(data.name);
-        let emailAddress = await AppsbyValidateEmailAddress(data.email);
-
         let transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
             port: 465,
@@ -32,21 +29,21 @@ class Form extends AppsbyAPI {
         let email = `
           <b>You've received a form submission</b>
           <br />
-          Name: ${name}
+          Name: ${data.name}
           <br />
-          Email: ${emailAddress}
+          Email: ${data.emailAddress}
         `
 
         let text = `
           You've received a form submission \r\n
-          Name: ${name} \r\n
-          Email: ${emailAddress} \r\n
+          Name: ${data.name} \r\n
+          Email: ${data.emailAddress} \r\n
         `
 
         let message = {
             from: "from email",
             to: "recipient email",
-            replyTo: emailAddress,
+            replyTo: data.emailAddress,
             subject: "Form Submission",
             text: text,
             html: email
