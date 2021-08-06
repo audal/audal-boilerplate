@@ -1,4 +1,4 @@
-
+const fse = require('fs-extra')
 
 
 // Use this if site is an single-page scroller, in conjunction with dynamic anchors component
