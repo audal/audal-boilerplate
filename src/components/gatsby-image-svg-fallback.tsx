@@ -42,8 +42,6 @@ export interface GatsbyImageSVGFallbackProps extends UseImageProps, Omit<HTMLCha
 
 export function GatsbyImageSVGFallback({src, alt, ...props}: GatsbyImageSVGFallbackProps) {
 
-    console.log(src)
-
     if (typeof src === "string") {
         return <Chakra.Image alt={alt ? alt : ""} src={src} {...props} />
     } else if (src?.localFile?.childImageSharp) {
