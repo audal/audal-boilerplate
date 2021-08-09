@@ -1,5 +1,4 @@
-const fse = require('fs-extra')
-
+const fse = require("fs-extra");
 
 // Use this if site is an single-page scroller, in conjunction with dynamic anchors component
 
@@ -12,24 +11,24 @@ const fse = require('fs-extra')
 }*/
 
 exports.createSchemaCustomization = ({ actions }) => {
-    const { createFieldExtension, createTypes } = actions
-    createFieldExtension({
-        name: "svgData",
-        extend(options, prevFieldConfig) {
-            return {
-                async resolve(source) {
-                    if (source.extension === "svg") {
-                        let svg = await fse.readFile(source.absolutePath, 'utf8')
-                        return svg;
-                    }
-                    return null
-                },
-            }
+  const { createFieldExtension, createTypes } = actions;
+  createFieldExtension({
+    name: "svgData",
+    extend(options, prevFieldConfig) {
+      return {
+        async resolve(source) {
+          if (source.extension === "svg") {
+            let svg = await fse.readFile(source.absolutePath, "utf8");
+            return svg;
+          }
+          return null;
         },
-    })
-    createTypes(`
+      };
+    },
+  });
+  createTypes(`
     type File implements Node {
       svgData: String @svgData
     }
-  `)
-}
+  `);
+};

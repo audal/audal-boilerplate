@@ -3,95 +3,106 @@ import { Helmet } from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
 
 interface Props {
-    title: string;
-    description?: string;
-    shareImage?: string;
-    location?: any;
+  title: string;
+  description?: string;
+  shareImage?: string;
+  location?: ReachHelperProps;
 }
 
-export const Seo: React.FC<Props> = ({ description, title, shareImage, location }) => {
-    let prettyHref = "";
+interface ReachHelperProps {
+  href: string;
+}
 
-    if (location?.href) {
-        prettyHref = location.href.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split(".")[0];
-    }
+export const Seo = ({
+  description,
+  title,
+  shareImage,
+  location,
+}: Props): React.ReactElement => {
+  let prettyHref = "";
 
-    const { site } = useStaticQuery(
-        graphql`
-            query {
-                site {
-                    siteMetadata {
-                        title
-                        description
-                        author
-                        keywords
-                    }
-                }
-            }
-        `
-    );
+  if (location?.href) {
+    prettyHref = location.href
+      .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
+      .split(".")[0];
+  }
 
-    const metaDescription = description || site.siteMetadata?.description;
-    const defaultTitle = site.siteMetadata?.title;
-    const keywords = site.siteMetadata?.keywords;
+  const { site } = useStaticQuery(
+    graphql`
+      query {
+        site {
+          siteMetadata {
+            title
+            description
+            author
+            keywords
+          }
+        }
+      }
+    `
+  );
 
-    return (
-        <Helmet
-            htmlAttributes={{
-                lang: "en-US",
-            }}
-            title={title}
-            titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
-            meta={[
-                {
-                    name: `description`,
-                    content: metaDescription,
-                },
-                {
-                    name: `keywords`,
-                    content: keywords,
-                },
-                {
-                    property: `og:title`,
-                    content: title,
-                },
-                {
-                    property: `og:description`,
-                    content: metaDescription,
-                },
-                {
-                    property: `og:image`,
-                    content: shareImage,
-                },
-                {
-                    property: `og:url`,
-                    content: prettyHref,
-                },
-                {
-                    property: `og:type`,
-                    content: `website`,
-                },
-                {
-                    name: `twitter:card`,
-                    property: `summary_large_image`,
-                },
-                {
-                    name: `twitter:url`,
-                    property: prettyHref,
-                },
-                {
-                    name: `twitter:title`,
-                    content: title,
-                },
-                {
-                    name: `twitter:description`,
-                    content: description,
-                },
-                {
-                    name: `twitter:image`,
-                    content: shareImage,
-                },
-            ]}
-        />
-    );
+  const metaDescription = description || site.siteMetadata?.description;
+  const defaultTitle = site.siteMetadata?.title;
+  const keywords = site.siteMetadata?.keywords;
+
+  return (
+    <Helmet
+      htmlAttributes={{
+        lang: "en-US",
+      }}
+      title={title}
+      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      meta={[
+        {
+          name: `description`,
+          content: metaDescription,
+        },
+        {
+          name: `keywords`,
+          content: keywords,
+        },
+        {
+          property: `og:title`,
+          content: title,
+        },
+        {
+          property: `og:description`,
+          content: metaDescription,
+        },
+        {
+          property: `og:image`,
+          content: shareImage,
+        },
+        {
+          property: `og:url`,
+          content: prettyHref,
+        },
+        {
+          property: `og:type`,
+          content: `website`,
+        },
+        {
+          name: `twitter:card`,
+          property: `summary_large_image`,
+        },
+        {
+          name: `twitter:url`,
+          property: prettyHref,
+        },
+        {
+          name: `twitter:title`,
+          content: title,
+        },
+        {
+          name: `twitter:description`,
+          content: description,
+        },
+        {
+          name: `twitter:image`,
+          content: shareImage,
+        },
+      ]}
+    />
+  );
 };

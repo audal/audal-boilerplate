@@ -1,8 +1,8 @@
-import React from 'react';
-import * as Chakra from '@chakra-ui/react';
-import { Seo } from 'gatsby-plugin-wpgraphql-seo';
-import * as htmlEntities from 'html-entities';
-import { graphql, Link } from 'gatsby';
+import React from "react";
+import * as Chakra from "@chakra-ui/react";
+import { Seo } from "gatsby-plugin-wpgraphql-seo";
+import * as htmlEntities from "html-entities";
+import { graphql, Link } from "gatsby";
 
 /*
 
@@ -13,10 +13,13 @@ import { graphql, Link } from 'gatsby';
 
 export default function BlogTemplate({ data, pageContext }) {
   return (
-      <>
-        <Seo title={htmlEntities.decode(data.wp.seo.schema.siteName)} postSchema={JSON.parse(data.wp.seo.contentTypes.post.schema.raw)} />
-        <Chakra.Box>{JSON.stringify(data)}</Chakra.Box>
-      </>
+    <>
+      <Seo
+        title={htmlEntities.decode(data.wp.seo.schema.siteName)}
+        postSchema={JSON.parse(data.wp.seo.contentTypes.post.schema.raw)}
+      />
+      <Chakra.Box>{JSON.stringify(data)}</Chakra.Box>
+    </>
   );
 }
 
@@ -53,18 +56,18 @@ export const query = graphql`
         }
         link
         uri
-          categories {
-              nodes {
-                  link
-                  name
-              }
+        categories {
+          nodes {
+            link
+            name
           }
-          tags {
-              nodes {
-                  link
-                  name
-              }
+        }
+        tags {
+          nodes {
+            link
+            name
           }
+        }
         date(formatString: "LL")
         excerpt
         featuredImage {

@@ -15,6 +15,7 @@ module.exports = {
     "gatsby-plugin-layout",
     "gatsby-plugin-react-svg",
     `gatsby-plugin-emotion-next-compat`,
+    `gatsby-plugin-audal`,
     /*`gatsby-plugin-yoast-sitemap`,
     {
       resolve: `gatsby-source-wordpress`,
@@ -52,8 +53,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-netlify`,
       options: {
-        mergeLinkHeaders: false
-      }
+        mergeLinkHeaders: false,
+      },
     },
     {
       resolve: "@chakra-ui/gatsby-plugin",
@@ -65,10 +66,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [
-          `Inter\:400,400i,500,600,700`
-        ]
-      }
+        fonts: [`Inter\:400,400i,500,600,700`],
+      },
     },
     {
       resolve: "gatsby-source-filesystem",

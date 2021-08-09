@@ -1,19 +1,25 @@
-import * as React from 'react';
-import { renderToString } from 'react-dom/server';
-import { extractCritical } from '@emotion/server';
-import { cache } from '@emotion/css';
-import { CacheProvider } from '@emotion/react';
+import * as React from "react";
+import { renderToString } from "react-dom/server";
+import { extractCritical } from "@emotion/server";
+import { cache } from "@emotion/css";
+import { CacheProvider } from "@emotion/react";
 
-export const replaceRenderer = ({ replaceBodyHTMLString, bodyComponent, setHeadComponents }) => {
-  const { html, ids, css } = extractCritical(renderToString(<CacheProvider value={cache}>{bodyComponent}</CacheProvider>));
+export const replaceRenderer = ({
+  replaceBodyHTMLString,
+  bodyComponent,
+  setHeadComponents,
+}) => {
+  const { html, ids, css } = extractCritical(
+    renderToString(<CacheProvider value={cache}>{bodyComponent}</CacheProvider>)
+  );
   setHeadComponents([
     <style
       key="emotion"
-      data-emotion={`css ${ids.join(' ')}`}
+      data-emotion={`css ${ids.join(" ")}`}
       dangerouslySetInnerHTML={{
-        __html: css
+        __html: css,
       }}
-    />
+    />,
   ]);
   replaceBodyHTMLString(html);
 };
