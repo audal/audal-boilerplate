@@ -24,8 +24,8 @@ const theme = {
   styles: {
     global: {
       ":root": {
-        "--background-col": "black",
-        "--text-col": "white",
+        "--background-col": null,
+        "--text-col": null,
       },
       html: {
         backgroundColor: "var(--background-col) !important",
@@ -72,8 +72,8 @@ const theme = {
   },
   shadows: { ...defaultTheme.shadows, outline: "0 !important" },
   fonts: {
-    heading: "Inter",
-    body: "Inter",
+    heading: null,
+    body: null
   },
 };
 
