@@ -11,12 +11,18 @@ module.exports = {
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
-    `gatsby-plugin-typescript`,
     "gatsby-plugin-layout",
     "gatsby-plugin-react-svg",
-    `gatsby-plugin-emotion-next-compat`,
+    `gatsby-plugin-emotion-ssg`,
     `gatsby-plugin-audal`,
-    /*`gatsby-plugin-yoast-sitemap`,
+    /*     `gatsby-plugin-pressless`,
+        {
+          resolve: `gatsby-plugin-yoast-sitemap`,
+          options: {
+            baseUrl: process.env.WP_URL,
+            gatsbyUrl: "enter your gatsby url here"
+          }
+        },
     {
       resolve: `gatsby-source-wordpress`,
       options: {

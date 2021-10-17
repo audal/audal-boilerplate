@@ -12,9 +12,9 @@ import mergeRefs from "react-merge-refs";
  *  */
 
 export default function ScrollableSection({ href, meta, ...props }) {
-  let location = useLocation();
-  let ref = React.useRef();
-  let [inViewRef, inView] = useInView({
+  const location = useLocation();
+  const ref = React.useRef();
+  const [inViewRef, inView] = useInView({
     threshold: 0.2,
     initialInView: false,
     triggerOnce: false,
@@ -26,7 +26,7 @@ export default function ScrollableSection({ href, meta, ...props }) {
     if (!inView) {
       if (parsedName === parsedLocation) {
         // @ts-ignore
-        let dims = ref?.current.getBoundingClientRect();
+        const dims = ref?.current.getBoundingClientRect();
         if (dims) {
           window.scrollTo(window.scrollX, dims.top - 100);
         }

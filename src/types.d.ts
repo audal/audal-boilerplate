@@ -1,10 +1,8 @@
 declare module "*.jpg";
 declare module "*.png";
 
-declare interface AccordionData {
-  title: string;
-  details: string;
-}
+type IWPImage = import("./components/gatsby-image-svg-fallback").IWPImageProps;
+type ISharpImage = import("./components/gatsby-image-svg-fallback").ISharpImage;
 
 declare namespace NodeJS {
   interface Global {

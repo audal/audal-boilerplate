@@ -7,7 +7,7 @@ interface ISharpGatsbyData {
   gatsbyImageData: IGatsbyImageData;
 }
 
-interface ISharpImage {
+export interface ISharpImage {
   childImageSharp?: ISharpGatsbyData;
   svgData?: string;
   publicURL?: string;
@@ -38,10 +38,30 @@ interface UseImageProps {
   crossOrigin?: ImgHTMLAttributes<any>["crossOrigin"];
 }
 
+export interface IWPImage extends Chakra.ImageProps {
+  localFile?: ISharpImage;
+  altText?: string;
+}
+
+export interface IWPImageProps extends Chakra.ImageProps {
+  localFile?: ISharpImage;
+  altText?: string;
+}
+
 export interface GatsbyImageSVGFallbackProps
   extends UseImageProps,
     Omit<HTMLChakraProps<"img">, keyof UseImageProps>,
     ImageOptions {}
+
+export const WPImage = ({
+  altText,
+  localFile,
+  ...props
+}: IWPImageProps): React.ReactElement => {
+  return (
+    <GatsbyImageSVGFallback src={{ localFile }} alt={altText} {...props} />
+  );
+};
 
 export function GatsbyImageSVGFallback({
   src,
@@ -54,18 +74,9 @@ export function GatsbyImageSVGFallback({
     return (
       <Chakra.Image
         as={GatsbyImage}
+        placeholder="tracedSVG"
         alt={alt ? alt : ""}
         image={src.localFile.childImageSharp.gatsbyImageData}
-        {...props}
-      />
-    );
-  } else if (src?.localFile?.svgData) {
-    //@ts-expect-error Use of box as wrapper when props are inherited from Image type. No easy way to make this validate.
-    return (
-      <Chakra.Box
-        css={{ svg: { width: "100%", height: "100%" } }}
-        height="100%"
-        dangerouslySetInnerHTML={{ __html: src.localFile.svgData }}
         {...props}
       />
     );
@@ -77,6 +88,9 @@ export function GatsbyImageSVGFallback({
         {...props}
       />
     );
+  } else if (src?.localFile === undefined) {
+    // add an optional fallback image here
+    return <Chakra.Image alt={alt ? alt : ""} {...props} />;
   } else {
     return <Chakra.Image {...props} />;
   }

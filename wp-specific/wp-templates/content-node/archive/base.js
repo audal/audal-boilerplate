@@ -24,7 +24,7 @@ export default function BlogTemplate({ data, pageContext }) {
 }
 
 export const query = graphql`
-  query($skip: Int!, $limit: Int!) {
+  query ($skip: Int!, $limit: Int!) {
     wp {
       seo {
         schema {

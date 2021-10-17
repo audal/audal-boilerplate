@@ -10,7 +10,7 @@ export default function Post({ data, pageContext }) {
 }
 
 export const query = graphql`
-  query($id: String!) {
+  query ($id: String!) {
     allWpPost(filter: { id: { eq: $id } }) {
       nodes {
         template {

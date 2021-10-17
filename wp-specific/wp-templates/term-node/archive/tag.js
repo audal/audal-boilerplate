@@ -23,7 +23,7 @@ export default function BlogTemplate({ data, pageContext }) {
 }
 
 export const query = graphql`
-  query($slug: String!, $skip: Int!, $limit: Int!) {
+  query ($slug: String!, $skip: Int!, $limit: Int!) {
     allWpTag(filter: { slug: { eq: $slug } }) {
       nodes {
         name

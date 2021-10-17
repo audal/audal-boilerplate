@@ -1,4 +1,3 @@
-import { GlobalState } from "react-gstate";
 import React from "react";
 import {
   motion,
@@ -9,122 +8,71 @@ import {
 import { useWindowSize } from "@react-hook/window-size";
 import * as Chakra from "@chakra-ui/react";
 
-export interface AnimationState {
-  pageHeight: number;
-  viewportWidth: number;
-  viewportHeight: number;
-  renderedOnce: boolean;
-  isChanging: boolean;
-}
+export const getViewportWidth = () => {
+  if (typeof window !== "undefined") {
+    return Math.max(
+      document.documentElement.clientWidth || 0,
+      window.innerWidth || 0
+    );
+  }
+  return 0;
+};
 
-class AnimationStateStore extends GlobalState<AnimationState> {
-  getViewportWidth = () => {
-    if (typeof window !== "undefined") {
-      return Math.max(
-        document.documentElement.clientWidth || 0,
-        window.innerWidth || 0
-      );
+export const getViewportHeight = () => {
+  if (typeof window !== "undefined") {
+    return Math.max(
+      document.documentElement.clientHeight || 0,
+      window.innerHeight || 0
+    );
+  }
+  return 0;
+};
+
+export const getPageHeight = () => {
+  if (typeof window !== "undefined") {
+    return document.body.clientHeight;
+  }
+  return 0;
+};
+
+export const syntheticScrollTo = (offset, callback) => {
+  const fixedOffset = offset.toFixed();
+  const onScroll = function () {
+    if (window.pageYOffset.toFixed() === fixedOffset) {
+      window.removeEventListener("scroll", onScroll);
+      callback();
     }
-    return 0;
   };
 
-  getViewportHeight = () => {
-    if (typeof window !== "undefined") {
-      return Math.max(
-        document.documentElement.clientHeight || 0,
-        window.innerHeight || 0
-      );
-    }
-    return 0;
-  };
+  window.addEventListener("scroll", onScroll);
+  onScroll();
+  window.scrollTo({
+    top: offset,
+    behavior: "smooth",
+  });
+};
 
-  getPageHeight = () => {
-    if (typeof window !== "undefined") {
-      return document.body.clientHeight;
-    }
-    return 0;
-  };
+export const getPositionOfElement = (ref) => {
+  if (ref.current) {
+    const { top, right, bottom, left, width, height, x, y } =
+      ref.current.getBoundingClientRect();
 
-  currentPageAsScrollRef = { current: 0 };
-  isChangingRef = { current: false };
-  isDesktopAsStateRef = { current: true };
-
-  setIsChangingRef = (data) => {
-    this.isChangingRef.current = data;
-    this.setState({ isChanging: data });
-  };
-
-  syntheticScrollTo = (offset, callback) => {
-    const fixedOffset = offset.toFixed();
-    const onScroll = function () {
-      if (window.pageYOffset.toFixed() === fixedOffset) {
-        window.removeEventListener("scroll", onScroll);
-        callback();
-      }
+    const pageTop = window.pageYOffset + top;
+    const pageBottom = pageTop + height;
+    return {
+      top,
+      right,
+      bottom,
+      left,
+      width,
+      height,
+      x,
+      y,
+      pageTop,
+      pageBottom,
     };
-
-    window.addEventListener("scroll", onScroll);
-    onScroll();
-    window.scrollTo({
-      top: offset,
-      behavior: "smooth",
-    });
-  };
-
-  initialRun = () => {
-    if (typeof window !== "undefined") {
-      window.onresize = this.doResize;
-      this.setState({
-        renderedOnce: true,
-        viewportWidth: this.getViewportWidth(),
-        viewportHeight: this.getViewportHeight(),
-        pageHeight: this.getPageHeight(),
-      });
-    }
-  };
-
-  doResize = () => {
-    this.initialRun();
-  };
-
-  getPositionOfElement = (ref) => {
-    if (ref.current) {
-      const {
-        top,
-        right,
-        bottom,
-        left,
-        width,
-        height,
-        x,
-        y,
-      } = ref.current.getBoundingClientRect();
-
-      let pageTop = window.pageYOffset + top;
-      let pageBottom = pageTop + height;
-      return {
-        top,
-        right,
-        bottom,
-        left,
-        width,
-        height,
-        x,
-        y,
-        pageTop,
-        pageBottom,
-      };
-    }
-  };
-}
-
-export const AnimationState = new AnimationStateStore({
-  viewportWidth: 1920,
-  viewportHeight: 1080,
-  pageHeight: 1080,
-  renderedOnce: false,
-  isChanging: false,
-});
+  }
+};
 
 export const useScrollTrigger = (depth = 1) => {
   const containerRef = React.useRef();
@@ -132,16 +80,16 @@ export const useScrollTrigger = (depth = 1) => {
 
   const { scrollY } = useViewportScroll();
 
-  let [pageTop, setPageTop] = React.useState(0);
-  let [pageBottom, setPageBottom] = React.useState(0);
-  let [childWidth, setChildWidth] = React.useState(0);
-  let [childHeight, setChildHeight] = React.useState(0);
-  let [positionStyle, setPositionStyle] = React.useState("relative");
+  const [pageTop, setPageTop] = React.useState(0);
+  const [pageBottom, setPageBottom] = React.useState(0);
+  const [childWidth, setChildWidth] = React.useState(0);
+  const [childHeight, setChildHeight] = React.useState(0);
+  const [positionStyle, setPositionStyle] = React.useState("relative");
 
   useAnimatableLayoutEffect(() => {
     if (containerRef?.current && childRef?.current) {
-      let childPos = AnimationState.getPositionOfElement(childRef);
-      let containerPos = AnimationState.getPositionOfElement(containerRef);
+      const childPos = getPositionOfElement(childRef);
+      const containerPos = getPositionOfElement(containerRef);
 
       if (containerPos.height === 0) {
         containerPos.pageBottom =
@@ -149,11 +97,15 @@ export const useScrollTrigger = (depth = 1) => {
         containerPos.height = childPos.height * depth;
       }
 
-      let pageTopCalc = containerPos.pageTop;
-      let pageBottomCalc = containerPos.pageBottom - viewportHeight;
+      let pageTopCalc =
+        containerPos.pageTop -
+        childPos.height * depth +
+        getViewportHeight() * 0.5;
+      let pageBottomCalc =
+        containerPos.pageBottom - getViewportHeight() + childPos.height * depth;
 
-      if (childPos.height > AnimationState.getViewportHeight()) {
-        let vhP = AnimationState.getViewportHeight() * 0.3;
+      if (childPos.height > getViewportHeight()) {
+        const vhP = getViewportHeight() * 0.3;
         pageTopCalc = containerPos.pageTop - vhP;
         pageBottomCalc = containerPos.pageTop - vhP + childPos.height;
       }
@@ -164,30 +116,29 @@ export const useScrollTrigger = (depth = 1) => {
       setChildWidth(childPos.width);
       setChildHeight(childPos.height);
 
-      let pS =
-        childPos.height < AnimationState.getViewportHeight()
-          ? "sticky"
-          : "relative";
+      const pS = childPos.height < getViewportHeight() ? "sticky" : "relative";
       setPositionStyle(pS);
     }
-  }, [childRef]);
+  }, []);
 
   const transform = useTransform(scrollY, [pageTop, pageBottom], [0, 100]);
   const physics = { damping: 15, mass: 0.27, stiffness: 55 };
-  const progress = useSpring(transform, physics);
+  const progressSpring = useSpring(transform, physics);
+  const progress = useTransform(progressSpring, [0, 100], ["0%", "-100%"]);
 
-  let viewportHeight = AnimationState.getViewportHeight();
+  const viewportHeight = getViewportHeight();
 
   return {
     containerRef,
     childRef,
     progress,
+    rawProgress: progressSpring,
     childWidth,
     childHeight,
     containerStyles: {
       style: {
         height:
-          childHeight < AnimationState.getViewportHeight()
+          childHeight < getViewportHeight()
             ? `${childHeight * depth}px`
             : "auto",
       },
@@ -195,27 +146,32 @@ export const useScrollTrigger = (depth = 1) => {
     childStyles: {
       style: {
         position: positionStyle,
-        top:
-          childHeight > viewportHeight
-            ? "30%"
-            : `${viewportHeight / 2 - childHeight / 2}px`,
+        top: childHeight > viewportHeight ? "30%" : `50vh`,
+        transform: childHeight > viewportHeight ? "none" : "translateY(-50%)",
       },
     },
   };
 };
 
-export const Parallax = ({ x, y, children }) => {
-  let brk = Chakra.useBreakpoint("base");
-  let isUnderDesktop = brk === "base" || x === "sm" || x === "md";
+interface ParallaxProps extends Chakra.BoxProps {
+  x?: number[];
+  y?: number[];
+}
 
+export const Parallax = ({
+  x = [0, 0],
+  y = [0, 0],
+  children,
+  ...props
+}: ParallaxProps) => {
   const containerRef = React.useRef();
 
-  let [pageTop, setPageTop] = React.useState(0);
-  let [pageBottom, setPageBottom] = React.useState(0);
+  const [pageTop, setPageTop] = React.useState(0);
+  const [pageBottom, setPageBottom] = React.useState(0);
 
   const doCalc = () => {
     if (containerRef?.current) {
-      let containerPos = AnimationState.getPositionOfElement(containerRef);
+      const containerPos = getPositionOfElement(containerRef);
       setPageTop(containerPos.pageTop);
       setPageBottom(containerPos.pageBottom);
     }
@@ -225,26 +181,41 @@ export const Parallax = ({ x, y, children }) => {
 
   const transform = useTransform(
     scrollY,
-    [Math.max(pageTop - AnimationState.getViewportHeight(), 0), pageBottom],
+    [Math.max(pageTop - getViewportHeight(), 0), pageBottom],
     [y[0], y[1]]
   );
+
+  const transformX = useTransform(
+    scrollY,
+    [Math.max(pageTop - getViewportHeight(), 0), pageBottom],
+    [x[0], x[1]]
+  );
+
   const physics = { damping: 30, mass: 0.05, stiffness: 200 }; // easing of smooth scroll
-  const progress = useSpring(transform, physics);
+  const progress = useSSRSpring(transform, physics, y[0]);
+  const progressX = useSSRSpring(transformX, physics, x[0]);
 
   useAnimatableLayoutEffect(() => {
     doCalc();
   }, [containerRef, pageTop, pageBottom]);
 
   return (
-    <div ref={containerRef}>
+    <Chakra.Box ref={containerRef} {...props}>
       <Chakra.Box
         as={motion.div}
-        style={{ y: progress }}
-        transform={isUnderDesktop ? "none!important" : "auto"}
+        style={{ x: progressX, y: progress }}
+        css={{
+          transform: `translateY(${y[0]}px) translateX(${x[0]}px)`,
+          "@media (max-width: 62em)": {
+            transform: "none!important",
+            opacity: "1!important",
+          },
+        }}
+        opacity={{ base: "" }}
       >
         {children}
       </Chakra.Box>
-    </div>
+    </Chakra.Box>
   );
 };
 
@@ -255,8 +226,7 @@ export const useAnimatableLayoutEffect = (effect, deps = []) => {
     if (typeof window !== "undefined") {
       effect();
 
-      // It's crazy that setInterval is cheaper than Intersection Observer. Oh well.
-      let timer = setInterval(() => {
+      const timer = setTimeout(() => {
         effect();
       }, 1000);
 
@@ -265,4 +235,23 @@ export const useAnimatableLayoutEffect = (effect, deps = []) => {
       };
     }
   }, [...deps, windowWidth, windowHeight]);
+};
+
+const useSSRSpring = (transform, physics, initialValue) => {
+  const [hasRenderedOnce, setHasRenderedOnce] = React.useState(false);
+  const progress = useSpring(transform, physics);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setHasRenderedOnce(true);
+    }, 500);
+  }, []);
+
+  if (!hasRenderedOnce) {
+    // @ts-ignore
+    progress.current = progress.prev = initialValue;
+    progress.set(initialValue);
+  }
+
+  return progress;
 };

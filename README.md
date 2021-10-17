@@ -8,18 +8,23 @@
 
 <h4 align="center">This is the default starting point for all Audal Labs projects‍.</h4>
 
-<pre align="center">npm i && npm start</pre>
+<pre align="center">yarn install && yarn start</pre>
 
 ## 🚀 Quick start
 
-This project uses Netlify Dev. Start development with `npm start`. Typescript can be used optionally.
+This project uses Netlify Dev. Start development with `yarn start`. Typescript can be used optionally or in combination with regular JS.
+
+#### Please note! Yarn is to be used over NPM on all new projects.
 
 ## 🧐 What's inside?
 
 - `src` is your general source files for this build. This includes all Gatsby's default file folders.
 - `src/templates` is where Gatsby will look for file templates to match the ingested data.
-- `functions` contains the Netlify handler to power server-less Lambda functions.
-- `server` gives you the Appsby framework directly to build server-less endpoints easily.
+- `src/components/transitions` gives you access to over 80 pre-made transition animations for your projects.
+- `src/components/animation-helpers` gives you a set of easy-to-use tools to help do custom animations in your projects, including Parallax and GSAP ScrollTrigger-style effects.
+- `src/components/dynamic-anchors` gives you a set of components to make SSR ready #anchor links that work upon re-hydration, which with some modification, can turn your Gatsby project into a SSR-safe one-page website.
+- `src/components/gatsby-image-svg-fallback.tsx` gives you two components that you can use to work with `gatsby-source-wordpress` outputted images easier, with fallback support.
+- `src/utils` gives you lots of useful hooks and utilities for building fantastic projects.
 
 ## 🔨 Development
 

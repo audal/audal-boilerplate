@@ -18,7 +18,7 @@ export default function Page({ data, pageContext }) {
 }
 
 export const query = graphql`
-  query($id: String!) {
+  query ($id: String!) {
     allWpPage(filter: { id: { eq: $id } }) {
       nodes {
         template {
