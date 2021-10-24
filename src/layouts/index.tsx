@@ -1,12 +1,12 @@
-import React from "react";
-import * as Chakra from "@chakra-ui/react";
-import { PageProps } from "gatsby";
-import Header from "../components/header";
-import Footer from "../components/footer";
-import "keen-slider/keen-slider.min.css";
-import Transition from "../components/transitions/transition";
-import "focus-visible/dist/focus-visible";
-import { Global, css } from "@emotion/react";
+import React from 'react';
+import * as Chakra from '@chakra-ui/react';
+import { PageProps } from 'gatsby';
+import Header from '../components/header';
+import Footer from '../components/footer';
+import 'keen-slider/keen-slider.min.css';
+import Transition from '../components/transitions/transition';
+import 'focus-visible/dist/focus-visible';
+import { Global, css } from '@emotion/react';
 
 const Layout = ({ children, location }: PageProps): React.ReactElement => {
   /*
