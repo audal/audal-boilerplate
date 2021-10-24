@@ -1,21 +1,21 @@
 {
-  "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src",
-    "jsx": "react",
-    "lib": ["esnext", "dom"],
-    "moduleResolution": "node",
-    "noImplicitAny": false,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "plugins": [
-      {
-        "name": "typescript-styled-plugin"
-      }
-    ],
-    "target": "es2015"
-  },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "public/*"]
+	"compilerOptions": {
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": "./src",
+		"jsx": "react",
+		"lib": ["esnext", "dom"],
+		"moduleResolution": "node",
+		"noImplicitAny": false,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"plugins": [
+			{
+				"name": "typescript-styled-plugin"
+			}
+		],
+		"target": "es2015"
+	},
+	"include": ["**/*.ts", "**/*.tsx"],
+	"exclude": ["node_modules", "public/*"]
 }

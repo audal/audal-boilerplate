@@ -12,89 +12,89 @@ import { graphql, Link } from "gatsby";
 */
 
 export default function BlogTemplate({ data, pageContext }) {
-  return (
-    <>
-      <Seo
-        title={htmlEntities.decode(data.wp.seo.schema.siteName)}
-        postSchema={JSON.parse(data.wp.seo.contentTypes.post.schema.raw)}
-      />
-      <Chakra.Box>{JSON.stringify(data)}</Chakra.Box>
-    </>
-  );
+	return (
+		<>
+			<Seo
+				title={htmlEntities.decode(data.wp.seo.schema.siteName)}
+				postSchema={JSON.parse(data.wp.seo.contentTypes.post.schema.raw)}
+			/>
+			<Chakra.Box>{JSON.stringify(data)}</Chakra.Box>
+		</>
+	);
 }
 
 export const query = graphql`
-  query ($skip: Int!, $limit: Int!) {
-    wp {
-      seo {
-        schema {
-          siteName
-        }
-        contentTypes {
-          post {
-            schema {
-              raw
-            }
-          }
-        }
-      }
-    }
-    allWpPost(skip: $skip, limit: $limit) {
-      nodes {
-        title
-        author {
-          node {
-            id
-            uri
-            name
-            firstName
-            avatar {
-              url
-            }
-            description
-          }
-        }
-        link
-        uri
-        categories {
-          nodes {
-            link
-            name
-          }
-        }
-        tags {
-          nodes {
-            link
-            name
-          }
-        }
-        date(formatString: "LL")
-        excerpt
-        featuredImage {
-          node {
-            altText
-            localFile {
-              publicURL
-              childImageSharp {
-                gatsbyImageData
-              }
-            }
-          }
-        }
-        seo {
-          breadcrumbs {
-            text
-            url
-          }
-          canonical
-          cornerstone
-          focuskw
-          metaDesc
-          metaKeywords
-          twitterDescription
-          title
-        }
-      }
-    }
-  }
+	query ($skip: Int!, $limit: Int!) {
+		wp {
+			seo {
+				schema {
+					siteName
+				}
+				contentTypes {
+					post {
+						schema {
+							raw
+						}
+					}
+				}
+			}
+		}
+		allWpPost(skip: $skip, limit: $limit) {
+			nodes {
+				title
+				author {
+					node {
+						id
+						uri
+						name
+						firstName
+						avatar {
+							url
+						}
+						description
+					}
+				}
+				link
+				uri
+				categories {
+					nodes {
+						link
+						name
+					}
+				}
+				tags {
+					nodes {
+						link
+						name
+					}
+				}
+				date(formatString: "LL")
+				excerpt
+				featuredImage {
+					node {
+						altText
+						localFile {
+							publicURL
+							childImageSharp {
+								gatsbyImageData
+							}
+						}
+					}
+				}
+				seo {
+					breadcrumbs {
+						text
+						url
+					}
+					canonical
+					cornerstone
+					focuskw
+					metaDesc
+					metaKeywords
+					twitterDescription
+					title
+				}
+			}
+		}
+	}
 `;

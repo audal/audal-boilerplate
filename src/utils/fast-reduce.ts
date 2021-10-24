@@ -4,18 +4,18 @@
  * */
 
 export function fastReduce<TData = object>(
-  inputArray: TData[],
-  identifier: keyof TData
+	inputArray: TData[],
+	identifier: keyof TData
 ): TData[] {
-  const result = [];
-  const map = new Map();
+	const result = [];
+	const map = new Map();
 
-  for (const item of inputArray) {
-    if (!map.has(item[identifier])) {
-      map.set(item[identifier], true); // set any value to Map
-      result.push(item);
-    }
-  }
+	for (const item of inputArray) {
+		if (!map.has(item[identifier])) {
+			map.set(item[identifier], true); // set any value to Map
+			result.push(item);
+		}
+	}
 
-  return result;
+	return result;
 }

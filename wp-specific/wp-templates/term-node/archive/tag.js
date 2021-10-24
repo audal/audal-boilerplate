@@ -12,97 +12,97 @@ import { graphql, Link } from "gatsby";
 */
 
 export default function BlogTemplate({ data, pageContext }) {
-  const post = data.allWpTag.nodes[0];
+	const post = data.allWpTag.nodes[0];
 
-  return (
-    <>
-      <Seo post={post} title={htmlEntities.decode(post.seo.title)} />
-      <Chakra.Box w="100%">{JSON.stringify(post)}</Chakra.Box>
-    </>
-  );
+	return (
+		<>
+			<Seo post={post} title={htmlEntities.decode(post.seo.title)} />
+			<Chakra.Box w="100%">{JSON.stringify(post)}</Chakra.Box>
+		</>
+	);
 }
 
 export const query = graphql`
-  query ($slug: String!, $skip: Int!, $limit: Int!) {
-    allWpTag(filter: { slug: { eq: $slug } }) {
-      nodes {
-        name
-        description
-        seo {
-          breadcrumbs {
-            text
-            url
-          }
-          canonical
-          cornerstone
-          focuskw
-          metaDesc
-          metaKeywords
-          twitterDescription
-          title
-        }
-      }
-    }
-    allWpPost(
-      filter: { tags: { nodes: { elemMatch: { slug: { eq: $slug } } } } }
-      skip: $skip
-      limit: $limit
-    ) {
-      nodes {
-        title
-        author {
-          node {
-            id
-            uri
-            name
-            firstName
-            avatar {
-              url
-            }
-            description
-          }
-        }
-        link
-        uri
-        categories {
-          nodes {
-            link
-            name
-          }
-        }
-        tags {
-          nodes {
-            link
-            name
-          }
-        }
-        date(formatString: "LL")
-        excerpt
-        featuredImage {
-          node {
-            altText
-            localFile {
-              publicURL
-              childImageSharp {
-                gatsbyImageData
-              }
-            }
-          }
-        }
-        seo {
-          breadcrumbs {
-            text
-            url
-          }
-          canonical
-          cornerstone
-          focuskw
-          metaDesc
-          metaKeywords
-          twitterDescription
-          title
-        }
-      }
-    }
-  }
+	query ($slug: String!, $skip: Int!, $limit: Int!) {
+		allWpTag(filter: { slug: { eq: $slug } }) {
+			nodes {
+				name
+				description
+				seo {
+					breadcrumbs {
+						text
+						url
+					}
+					canonical
+					cornerstone
+					focuskw
+					metaDesc
+					metaKeywords
+					twitterDescription
+					title
+				}
+			}
+		}
+		allWpPost(
+			filter: { tags: { nodes: { elemMatch: { slug: { eq: $slug } } } } }
+			skip: $skip
+			limit: $limit
+		) {
+			nodes {
+				title
+				author {
+					node {
+						id
+						uri
+						name
+						firstName
+						avatar {
+							url
+						}
+						description
+					}
+				}
+				link
+				uri
+				categories {
+					nodes {
+						link
+						name
+					}
+				}
+				tags {
+					nodes {
+						link
+						name
+					}
+				}
+				date(formatString: "LL")
+				excerpt
+				featuredImage {
+					node {
+						altText
+						localFile {
+							publicURL
+							childImageSharp {
+								gatsbyImageData
+							}
+						}
+					}
+				}
+				seo {
+					breadcrumbs {
+						text
+						url
+					}
+					canonical
+					cornerstone
+					focuskw
+					metaDesc
+					metaKeywords
+					twitterDescription
+					title
+				}
+			}
+		}
+	}
 `;
