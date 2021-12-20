@@ -1,21 +1,21 @@
 module.exports = {
-  siteMetadata: {
-    title: `Audal Boilerplate - make sure this is updated`,
-    description: `Default Audal Labs starting project`,
-    author: `Audal Labs`,
-    keywords: `audal, labs, digital, experiences`,
-  },
-  plugins: [
-    "gatsby-plugin-sass",
-    "gatsby-plugin-image",
-    "gatsby-plugin-react-helmet",
-    "gatsby-plugin-sharp",
-    "gatsby-transformer-sharp",
-    "gatsby-plugin-layout",
-    "gatsby-plugin-react-svg",
-    `gatsby-plugin-emotion-ssg`,
-    `gatsby-plugin-audal`,
-    /*     `gatsby-plugin-pressless`,
+	siteMetadata: {
+		title: `Audal Boilerplate - make sure this is updated`,
+		description: `Default Audal Labs starting project`,
+		author: `Audal Labs`,
+		keywords: `audal, labs, digital, experiences`,
+	},
+	plugins: [
+		"gatsby-plugin-sass",
+		"gatsby-plugin-image",
+		"gatsby-plugin-react-helmet",
+		"gatsby-plugin-sharp",
+		"gatsby-transformer-sharp",
+		"gatsby-plugin-layout",
+		"gatsby-plugin-react-svg",
+		`gatsby-plugin-emotion-ssg`,
+		`gatsby-plugin-audal`,
+		/*     `gatsby-plugin-pressless`,
         {
           resolve: `gatsby-plugin-yoast-sitemap`,
           options: {
@@ -56,32 +56,32 @@ module.exports = {
         ]
       }
     },*/
-    {
-      resolve: `gatsby-plugin-netlify`,
-      options: {
-        mergeLinkHeaders: false,
-      },
-    },
-    {
-      resolve: "@chakra-ui/gatsby-plugin",
-      options: {
-        isResettingCSS: true,
-        isUsingColorMode: false,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-google-fonts`,
-      options: {
-        fonts: [`Inter\:400,400i,500,600,700`],
-      },
-    },
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        name: "images",
-        path: "./src/images/",
-      },
-      __key: "images",
-    },
-  ],
+		{
+			resolve: `gatsby-plugin-netlify`,
+			options: {
+				mergeLinkHeaders: false,
+			},
+		},
+		{
+			resolve: "@chakra-ui/gatsby-plugin",
+			options: {
+				isResettingCSS: true,
+				isUsingColorMode: false,
+			},
+		},
+		{
+			resolve: `gatsby-plugin-google-fonts`,
+			options: {
+				fonts: [`Inter\:400,400i,500,600,700`],
+			},
+		},
+		{
+			resolve: "gatsby-source-filesystem",
+			options: {
+				name: "images",
+				path: "./src/images/",
+			},
+			__key: "images",
+		},
+	],
 };

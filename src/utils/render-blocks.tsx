@@ -4,87 +4,87 @@ import useScrollPosition from "@react-hook/window-scroll";
 import * as Chakra from "@chakra-ui/react";
 
 interface RenderBlocksProps {
-  blocks: any[];
-  postType: string;
+	blocks: any[];
+	postType: string;
 }
 
 const RenderBlocks = ({
-  blocks,
-  postType,
+	blocks,
+	postType,
 }: RenderBlocksProps): React.ReactElement[] => {
-  if (!blocks || !Array.isArray(blocks) || !postType) {
-    return;
-  }
+	if (!blocks || !Array.isArray(blocks) || !postType) {
+		return;
+	}
 
-  blocks = blocks.map(
-    (
-      { fieldGroupName, ...el }: { fieldGroupName: string; el: any },
-      i: number
-    ) => {
-      if (!fieldGroupName) return null;
+	blocks = blocks.map(
+		(
+			{ fieldGroupName, ...el }: { fieldGroupName: string; el: any },
+			i: number
+		) => {
+			if (!fieldGroupName) return null;
 
-      fieldGroupName = fieldGroupName.replace(postType, "");
+			fieldGroupName = fieldGroupName.replace(postType, "");
 
-      const block = {
-        //_Acf_ContentBlocks_AnimatedHero: AnimatedHero,
-      }[fieldGroupName];
+			const block = {
+				//_Acf_ContentBlocks_AnimatedHero: AnimatedHero,
+			}[fieldGroupName];
 
-      if (!block) return null;
+			if (!block) return null;
 
-      if (fieldGroupName !== "_Acf_ContentBlocks_AnimatedHero" && i > 2) {
-        // @ts-ignore
-        return (
-          <ScrollFadeIn>
-            {React.createElement(block, { ...el, key: i })}
-          </ScrollFadeIn>
-        );
-      }
+			if (fieldGroupName !== "_Acf_ContentBlocks_AnimatedHero" && i > 2) {
+				// @ts-ignore
+				return (
+					<ScrollFadeIn>
+						{React.createElement(block, { ...el, key: i })}
+					</ScrollFadeIn>
+				);
+			}
 
-      // @ts-ignore
-      return React.createElement(block, { ...el, key: i });
-    }
-  );
+			// @ts-ignore
+			return React.createElement(block, { ...el, key: i });
+		}
+	);
 
-  return blocks;
+	return blocks;
 };
 
 export default RenderBlocks;
 
 export const ScrollFadeIn = ({ initialInView = false, ...props }) => {
-  const [isSsr, setIsSsr] = React.useState(true);
+	const [isSsr, setIsSsr] = React.useState(true);
 
-  const { ref, inView } = useInView({
-    rootMargin: "128px",
-    threshold: 0.2,
-    initialInView: isSsr ? true : initialInView,
-  });
+	const { ref, inView } = useInView({
+		rootMargin: "128px",
+		threshold: 0.2,
+		initialInView: isSsr ? true : initialInView,
+	});
 
-  React.useEffect(() => {
-    setIsSsr(false);
-  }, []);
+	React.useEffect(() => {
+		setIsSsr(false);
+	}, []);
 
-  const previousScrollPosition = React.useRef<number>(0);
-  const scrollY = useScrollPosition(5);
-  const scrollDirection =
-    previousScrollPosition.current > scrollY ? "up" : "down";
-  previousScrollPosition.current = scrollY;
+	const previousScrollPosition = React.useRef<number>(0);
+	const scrollY = useScrollPosition(5);
+	const scrollDirection =
+		previousScrollPosition.current > scrollY ? "up" : "down";
+	previousScrollPosition.current = scrollY;
 
-  return (
-    <Chakra.Box width="100%" overflow="hidden">
-      <Chakra.Box
-        ref={ref}
-        width="100%"
-        transition="opacity 0.7s, transform 0.4s"
-        style={{
-          transform: inView
-            ? "translateY(0px)"
-            : scrollDirection === "down"
-            ? "translateX(20px)"
-            : "translateX(-50px)",
-          opacity: inView ? 1 : 0,
-        }}
-        {...props}
-      />
-    </Chakra.Box>
-  );
+	return (
+		<Chakra.Box width="100%" overflow="hidden">
+			<Chakra.Box
+				ref={ref}
+				width="100%"
+				transition="opacity 0.7s, transform 0.4s"
+				style={{
+					transform: inView
+						? "translateY(0px)"
+						: scrollDirection === "down"
+						? "translateX(20px)"
+						: "translateX(-50px)",
+					opacity: inView ? 1 : 0,
+				}}
+				{...props}
+			/>
+		</Chakra.Box>
+	);
 };

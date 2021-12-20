@@ -11,22 +11,22 @@ const fse = require("fs-extra");
 }*/
 
 exports.createSchemaCustomization = ({ actions }) => {
-  const { createFieldExtension, createTypes } = actions;
-  createFieldExtension({
-    name: "svgData",
-    extend(options, prevFieldConfig) {
-      return {
-        async resolve(source) {
-          if (source.extension === "svg") {
-            let svg = await fse.readFile(source.absolutePath, "utf8");
-            return svg;
-          }
-          return null;
-        },
-      };
-    },
-  });
-  createTypes(`
+	const { createFieldExtension, createTypes } = actions;
+	createFieldExtension({
+		name: "svgData",
+		extend(options, prevFieldConfig) {
+			return {
+				async resolve(source) {
+					if (source.extension === "svg") {
+						let svg = await fse.readFile(source.absolutePath, "utf8");
+						return svg;
+					}
+					return null;
+				},
+			};
+		},
+	});
+	createTypes(`
     type File implements Node {
       svgData: String @svgData
     }

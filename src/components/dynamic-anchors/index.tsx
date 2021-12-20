@@ -12,58 +12,58 @@ import mergeRefs from "react-merge-refs";
  *  */
 
 export default function ScrollableSection({ href, meta, ...props }) {
-  const location = useLocation();
-  const ref = React.useRef();
-  const [inViewRef, inView] = useInView({
-    threshold: 0.2,
-    initialInView: false,
-    triggerOnce: false,
-  });
-  const parsedName = href.replace(/^\//, "") || null;
-  const parsedLocation = location.pathname.replace(/^\//, "") || null;
+	const location = useLocation();
+	const ref = React.useRef();
+	const [inViewRef, inView] = useInView({
+		threshold: 0.2,
+		initialInView: false,
+		triggerOnce: false,
+	});
+	const parsedName = href.replace(/^\//, "") || null;
+	const parsedLocation = location.pathname.replace(/^\//, "") || null;
 
-  useEffect(() => {
-    if (!inView) {
-      if (parsedName === parsedLocation) {
-        // @ts-ignore
-        const dims = ref?.current.getBoundingClientRect();
-        if (dims) {
-          window.scrollTo(window.scrollX, dims.top - 100);
-        }
-      }
-    }
-  }, [location]);
+	useEffect(() => {
+		if (!inView) {
+			if (parsedName === parsedLocation) {
+				// @ts-ignore
+				const dims = ref?.current.getBoundingClientRect();
+				if (dims) {
+					window.scrollTo(window.scrollX, dims.top - 100);
+				}
+			}
+		}
+	}, [location]);
 
-  useEffect(() => {
-    if (inView && parsedLocation !== parsedName) {
-      if (meta?.title) {
-        document.title = meta.title;
-      }
-      window.history.pushState({}, meta?.title ? meta.title : "", parsedName);
-    }
-  }, [inView]);
+	useEffect(() => {
+		if (inView && parsedLocation !== parsedName) {
+			if (meta?.title) {
+				document.title = meta.title;
+			}
+			window.history.pushState({}, meta?.title ? meta.title : "", parsedName);
+		}
+	}, [inView]);
 
-  return <div ref={mergeRefs([inViewRef, ref])} {...props} />;
+	return <div ref={mergeRefs([inViewRef, ref])} {...props} />;
 }
 
 export const ScrollableLink = ({ href, onClick, ...props }) => {
-  const handleClick = () => {
-    const parsedName = href.replace(/^\//, "") || null;
-    navigate(parsedName);
+	const handleClick = () => {
+		const parsedName = href.replace(/^\//, "") || null;
+		navigate(parsedName);
 
-    if (onClick && typeof onClick === "function") {
-      onClick();
-    }
-  };
+		if (onClick && typeof onClick === "function") {
+			onClick();
+		}
+	};
 
-  return (
-    <Chakra.Link
-      _hover={{ textDecoration: "none" }}
-      style={{ boxShadow: "none" }}
-      as={Link}
-      to={href}
-      onClick={handleClick}
-      {...props}
-    />
-  );
+	return (
+		<Chakra.Link
+			_hover={{ textDecoration: "none" }}
+			style={{ boxShadow: "none" }}
+			as={Link}
+			to={href}
+			onClick={handleClick}
+			{...props}
+		/>
+	);
 };
