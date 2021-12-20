@@ -9,7 +9,7 @@
 	],
 	"scripts": {
 		"develop": "gatsby develop",
-		"start": "netlify dev",
+		"start": "gatsby develop",
 		"build": "gatsby build",
 		"serve": "gatsby serve",
 		"clean": "gatsby clean",
@@ -40,6 +40,7 @@
 		"prop-types": "^15.7.2"
 	},
 	"dependencies": {
+		"gsap": "@gsap/shockingly@^3.9.0",
 		"@chakra-ui/anatomy": "^1.0.1",
 		"@chakra-ui/gatsby-plugin": "^2.0.1",
 		"@chakra-ui/react": "^1.6.10",
