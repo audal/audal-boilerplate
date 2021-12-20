@@ -1,7 +1,12 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const fse = require("fs-extra");
 
-// Use this if site is an single-page scroller, in conjunction with dynamic anchors component
+// can now use process.env.WP_URL, etc...
+require("dotenv").config({
+	path: `.env.${process.env.NODE_ENV}`,
+});
 
+// Use this if site is an single-page scroller, in conjunction with dynamic anchors component
 /*exports.onCreatePage = ({ page, actions }) => {
     const { createPage } = actions
     if (page.path === `/`) {
