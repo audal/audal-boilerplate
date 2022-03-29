@@ -1,22 +1,22 @@
+/** @jsxImportSource @compiled/react */
 import React from "react";
-import * as Chakra from "@chakra-ui/react";
 
 /*
 	This component creates opacity transition based on the shouldChange prop changing.
  */
 
-interface Props extends Chakra.FlexProps {
+interface Props {
   shouldChange: string;
 }
 
 const FadeTransition: React.FC<Props> = ({ shouldChange, children }) => {
-  const prevChildren = React.useRef<React.ReactNode>();
-  const currentChildren = React.useRef<React.ReactNode>();
-  const currentContainer = React.useRef<HTMLDivElement>();
+  const prevChildren = React.useRef<React.ReactNode>(null);
+  const currentChildren = React.useRef<React.ReactNode>(null);
+  const currentContainer = React.useRef<HTMLDivElement>(null);
 
   const [isAnimating, setIsAnimating] = React.useState<boolean>(false);
 
-  const currentKey = React.useRef<string>(null);
+  const currentKey = React.useRef<string>("");
 
   if (
     currentKey?.current !== null &&
@@ -34,18 +34,26 @@ const FadeTransition: React.FC<Props> = ({ shouldChange, children }) => {
   }
 
   return (
-    <Chakra.Flex width="100%" height="100%" flexGrow={1} position="relative">
-      <Chakra.Flex
-        width="100%"
-        height="100%"
+    <div css={{
+      display: "flex",
+      width: "100%",
+      height: "100%",
+      flexGrow: 1,
+      position: "relative"
+    }}>
+      <div css={{
+        display: "flex",
+        width: "100%",
+        height: "100%",
+        transition: "0.2s",
+        opacity: isAnimating ? 0 : 1,
+        flexGrow: 1
+      }}
         ref={currentContainer}
-        transition="0.2s"
-        opacity={isAnimating ? 0 : 1}
-        flexGrow={1}
       >
         {isAnimating ? prevChildren.current : children}
-      </Chakra.Flex>
-    </Chakra.Flex>
+      </div>
+    </div>
   );
 };
 

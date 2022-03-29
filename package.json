@@ -21,6 +21,7 @@
     "complete": "npm run pretty && npm run lint:fix && npm run type-check"
   },
   "devDependencies": {
+    "@compiled/webpack-loader": "^0.8.6",
     "@types/node": "^16.11.1",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
@@ -39,25 +40,18 @@
     "prop-types": "^15.7.2"
   },
   "dependencies": {
-    "@chakra-ui/anatomy": "^1.0.1",
-    "@chakra-ui/gatsby-plugin": "^2.0.1",
-    "@chakra-ui/react": "^1.6.10",
-    "@emotion/css": "^11.1.3",
-    "@emotion/react": "^11.1.5",
-    "@emotion/server": "^11.4.0",
-    "@emotion/styled": "^11.1.5",
+    "@compiled/babel-plugin": "^0.14.1",
+    "@compiled/react": "^0.10.4",
     "@react-hook/resize-observer": "^1.2.0",
     "@react-hook/window-scroll": "^1.3.0",
     "@react-hook/window-size": "^3.0.7",
     "focus-visible": "^5.2.0",
-    "framer-motion": "^4.1.2",
     "fs-extra": "^10.0.0",
     "gatsby": "^3.14.3",
     "gatsby-image": "^3.11.0",
     "gatsby-plugin-audal": "^1.0.0",
-    "gatsby-plugin-emotion-ssg": "0.0.1",
     "gatsby-plugin-google-fonts": "^1.0.1",
-    "gatsby-plugin-image": "^1.2.1",
+    "gatsby-plugin-image": "^2.10.1",
     "gatsby-plugin-layout": "^2.2.0",
     "gatsby-plugin-netlify": "^3.10.0",
     "gatsby-plugin-pressless": "latest",
@@ -68,7 +62,6 @@
     "gatsby-plugin-sharp": "^3.2.0",
     "gatsby-plugin-sitemap": "^4.10.0",
     "gatsby-plugin-wpgraphql-seo": "^1.2.2",
-    "gatsby-plugin-yoast-sitemap": "0.0.1",
     "gatsby-source-filesystem": "^3.2.0",
     "gatsby-transformer-sharp": "^3.2.0",
     "html-entities": "^2.3.2",
@@ -83,7 +76,6 @@
     "react-helmet": "^6.1.0",
     "react-intersection-observer": "^8.31.0",
     "react-merge-refs": "^1.1.0",
-    "react-transition-group": "^4.4.2",
     "sass": "^1.43.2",
     "typescript": "^4.2.4"
   }

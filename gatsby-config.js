@@ -13,7 +13,6 @@ module.exports = {
     "gatsby-transformer-sharp",
     "gatsby-plugin-layout",
     "gatsby-plugin-react-svg",
-    `gatsby-plugin-emotion-ssg`,
     `gatsby-plugin-audal`,
     /*     `gatsby-plugin-pressless`,
         {
@@ -60,13 +59,6 @@ module.exports = {
       resolve: `gatsby-plugin-netlify`,
       options: {
         mergeLinkHeaders: false,
-      },
-    },
-    {
-      resolve: "@chakra-ui/gatsby-plugin",
-      options: {
-        isResettingCSS: true,
-        isUsingColorMode: false,
       },
     },
     {

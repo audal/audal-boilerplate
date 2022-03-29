@@ -1,7 +1,5 @@
-import React, { ImgHTMLAttributes } from "react";
-import * as Chakra from "@chakra-ui/react";
+import React, {ImgHTMLAttributes} from "react";
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
-import { HTMLChakraProps, SystemProps } from "@chakra-ui/react";
 
 interface ISharpGatsbyData {
   gatsbyImageData: IGatsbyImageData;
@@ -17,41 +15,26 @@ interface ISharpImageLocalFile {
   localFile: ISharpImage;
 }
 
-interface ImageOptions {
-  fallbackSrc?: string;
-  htmlWidth?: string | number;
-  htmlHeight?: string | number;
-  fallback?: React.ReactElement;
-  loading?: "eager" | "lazy";
-  fit?: SystemProps["objectFit"];
-  align?: SystemProps["objectPosition"];
-  ignoreFallback?: boolean;
-}
-
 interface UseImageProps {
   src?: string | ISharpImageLocalFile;
   srcSet?: string;
   sizes?: string;
-  onLoad?(event: React.SyntheticEvent<HTMLImageElement, Event>): void;
-  onError?(error: string | React.SyntheticEvent<HTMLImageElement, Event>): void;
   ignoreFallback?: boolean;
-  crossOrigin?: ImgHTMLAttributes<any>["crossOrigin"];
 }
 
-export interface IWPImage extends Chakra.ImageProps {
+export interface IWPImage extends ImgHTMLAttributes<any> {
   localFile?: ISharpImage;
   altText?: string;
 }
 
-export interface IWPImageProps extends Chakra.ImageProps {
+export interface IWPImageProps extends ImgHTMLAttributes<any> {
   localFile?: ISharpImage;
   altText?: string;
 }
 
 export interface GatsbyImageSVGFallbackProps
   extends UseImageProps,
-    Omit<HTMLChakraProps<"img">, keyof UseImageProps>,
-    ImageOptions {}
+    Omit<ImgHTMLAttributes<any>, keyof UseImageProps>{}
 
 export const WPImage = ({
   altText,
@@ -69,11 +52,10 @@ export function GatsbyImageSVGFallback({
   ...props
 }: GatsbyImageSVGFallbackProps): React.ReactElement {
   if (typeof src === "string") {
-    return <Chakra.Image alt={alt ? alt : ""} src={src} {...props} />;
+    return <img alt={alt ? alt : ""} src={src} {...props} />;
   } else if (src?.localFile?.childImageSharp) {
     return (
-      <Chakra.Image
-        as={GatsbyImage}
+      <GatsbyImage
         placeholder="tracedSVG"
         alt={alt ? alt : ""}
         image={src.localFile.childImageSharp.gatsbyImageData}
@@ -82,7 +64,7 @@ export function GatsbyImageSVGFallback({
     );
   } else if (src?.localFile?.publicURL) {
     return (
-      <Chakra.Image
+      <img
         src={src.localFile.publicURL}
         alt={alt ? alt : ""}
         {...props}
@@ -90,8 +72,8 @@ export function GatsbyImageSVGFallback({
     );
   } else if (src?.localFile === undefined) {
     // add an optional fallback image here
-    return <Chakra.Image alt={alt ? alt : ""} {...props} />;
+    return <img alt={alt ? alt : ""} {...props} />;
   } else {
-    return <Chakra.Image {...props} />;
+    return <img {...props} />;
   }
 }

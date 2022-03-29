@@ -1,4 +1,5 @@
 const fse = require("fs-extra");
+const { CompiledExtractPlugin } = require('@compiled/webpack-loader');
 
 // Use this if site is an single-page scroller, in conjunction with dynamic anchors component
 
@@ -32,3 +33,28 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
   `);
 };
+
+/*exports.onCreateWebpackConfig = ({actions}) => {
+    actions.setWebpackConfig({
+        module: {
+            rules: [
+                {
+                    test: /\.(js|ts|tsx)$/,
+                    exclude: /node_modules/,
+                    use: [
+                        { loader: 'babel-loader' },
+                        {
+                            loader: '@compiled/webpack-loader',
+                            options: {
+                                extract: true,
+                            },
+                        },
+                    ],
+                },
+            ],
+        },
+        plugins: [
+            new CompiledExtractPlugin(),
+        ],
+    })
+}*/
