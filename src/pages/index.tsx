@@ -12,6 +12,8 @@ import {
 import Tooltip from "../components/primitives/tooltip";
 import Spinner from "../components/primitives/spinner";
 import {Modal, ModalCloseButton, ModalContent, ModalTrigger} from "../components/primitives/modal";
+import Input from "../components/primitives/input";
+import FormProvider from "../components/primitives/form-provider";
 
 const Index = (): React.ReactElement => (
   <div css={{width: "100%"}}>
@@ -40,6 +42,17 @@ const Index = (): React.ReactElement => (
 			  </AccordionPanel>
 		  </AccordionItem>
 	  </Accordion>
+	  <Input name="hi" />
+	  <FormProvider onSubmit={(e) => {
+	  	console.log(e)
+	  }}>
+		  <Input name="email" type="email" />
+		  <Input name="phone" type="tel" />
+		  <Input name="number" type="number" />
+		  <Input name="hi" minLength={20} />
+		  <Input name="password" type="password" />
+		  <button type="submit">Submit</button>
+	  </FormProvider>
   </div>
 );
 

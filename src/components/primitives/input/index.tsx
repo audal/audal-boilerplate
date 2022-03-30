@@ -7,7 +7,8 @@ export interface InputProps extends CompiledJSXPropsOmitRef<HTMLInputElement> {
 	minLength?: number,
 	maxLength?: number,
 	validationErrorMessage?: string
-	required?: boolean
+	required?: boolean,
+	type?: "email" | "text" | "tel" | "number" | "password"
 }
 
 const FormAlert: React.FC = (props) => (
@@ -16,6 +17,7 @@ const FormAlert: React.FC = (props) => (
 
 const Input = ({ type = "text", name, validationRegex, minLength, maxLength, validationErrorMessage, required = false, value, onChange, onBlur, disabled, ...props }: InputProps) => {
 
+	// @ts-ignore Someone might still do this even though it's not defined in the type
 	if (type === "submit") {
 		throw new Error('Audal Components: The Input Primitive should not be used as a submit button. Please use <button type="submit" /> instead.')
 	}
@@ -24,8 +26,9 @@ const Input = ({ type = "text", name, validationRegex, minLength, maxLength, val
 		password: /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
 		email: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 		tel: /^[+]?(1\-|1\s|1|\d{3}\-|\d{3}\s|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/g,
-		number: /^-?\d+\.?\d*$/
-	}[type] as RegExp
+		number: /^-?\d+\.?\d*$/,
+		text: undefined
+	}[type]
 
 	const formContext = useFormProvider()
 
