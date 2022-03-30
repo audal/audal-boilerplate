@@ -14,7 +14,7 @@ module.exports = {
     "gatsby-plugin-react-svg",
     `gatsby-plugin-audal`,
 	"gatsby-plugin-webpack-bundle-analyser-v2",
-	`gatsby-plugin-preact`,
+	//`gatsby-plugin-preact`,
     /*     `gatsby-plugin-pressless`,
         {
           resolve: `gatsby-plugin-yoast-sitemap`,
