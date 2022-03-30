@@ -18,6 +18,8 @@ import {
 	ModalContent,
 	ModalTrigger,
 } from "../components/primitives/modal";
+import Input from "../components/primitives/input";
+import FormProvider from "../components/primitives/form-provider";
 
 const Index = (): React.ReactElement => (
 	<div css={{ width: "100%" }}>
@@ -45,14 +47,27 @@ const Index = (): React.ReactElement => (
 				</AccordionPanel>
 			</AccordionItem>
 		</Accordion>
-		<RadioGroup defaultValue="default" aria-label="View density">
-			<CheckBox id="r1" value="hello">
-				Hello
-			</CheckBox>
-			<CheckBox id="r2" value="hello2">
-				Hello2
-			</CheckBox>
-		</RadioGroup>
+		<Input name="hi" />
+		<FormProvider
+			onSubmit={(e) => {
+				console.log(e);
+			}}
+		>
+			<Input name="email" type="email" required />
+			<Input name="phone" type="tel" />
+			<Input name="number" type="number" />
+			<Input name="hi" minLength={20} />
+			<Input name="password" type="password" />
+			<RadioGroup defaultValue="default" aria-label="View density">
+				<CheckBox id="r1" value="hello">
+					Hello
+				</CheckBox>
+				<CheckBox id="r2" value="hello2">
+					Hello2
+				</CheckBox>
+			</RadioGroup>
+			<button type="submit">Submit</button>
+		</FormProvider>
 	</div>
 );
 
