@@ -1,13 +1,14 @@
 /** @jsxImportSource @compiled/react */
 import React from 'react';
 
+
+export type VisuallyHiddenProps = React.HTMLProps<HTMLDivElement>
+
 /**
  * A component to render text for screen-readers. A simple span with css rules to hide the text in an accessible way.
  *
  * @alias VisuallyHiddenProps
  * */
-export type VisuallyHiddenProps = React.HTMLProps<HTMLDivElement>
-
 const VisuallyHidden = (props: VisuallyHiddenProps): JSX.Element => {
 	return <span css={{
 		border: 0,

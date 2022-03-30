@@ -2,15 +2,6 @@ import React from 'react'
 import {useFormProvider} from "../form-provider";
 import FormAlert from "../form-alert";
 
-/**
- * An `<input />` component that is accessible. If used with `<FormProvider />`,
- * it'll also automatically validate the input based on type, and show clear error messages
- * while linking its value to the FormProvider's onSubmit event.
- * Regexes, min/max length, and messages are built in, but can be overwritten using optional extra props.
- *
- * @alias InputProps
- */
-
 export interface InputProps extends CompiledJSXPropsOmitRef<HTMLInputElement> {
 	/**
 	 * Name of the input - will be used for the form validation if using FormContext so make sure it's unique.
@@ -51,7 +42,14 @@ export interface InputProps extends CompiledJSXPropsOmitRef<HTMLInputElement> {
 }
 
 
-
+/**
+ * An `<input />` component that is accessible. If used with `<FormProvider />`,
+ * it'll also automatically validate the input based on type, and show clear error messages
+ * while linking its value to the FormProvider's onSubmit event.
+ * Regexes, min/max length, and messages are built in, but can be overwritten using optional extra props.
+ *
+ * @alias InputProps
+ */
 const Input = ({ type = "text", name, validationRegex, minLength, maxLength, validationErrorMessage, required = false, value, onChange, onBlur, disabled, ...props }: InputProps) => {
 
 	// @ts-ignore Someone might still do this even though it's not defined in the type
