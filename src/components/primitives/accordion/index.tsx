@@ -45,7 +45,6 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(({ all
 			{React.Children.map(children, (child, index) => {
 				// @ts-ignore
 				if (React.isValidElement(child) && child.type.name === "AccordionItem") {
-					console.log(child)
 					return React.cloneElement(child, { value: `accordion-${index}` })
 				}
 				// @ts-ignore
@@ -59,7 +58,7 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(({ all
 });
 
 
-export type AccordionItemProps = AccordionPrimitive.AccordionItemProps
+export type AccordionItemProps = Omit<AccordionPrimitive.AccordionItemProps, "value">
 /**
  * A single instance of an Accordion (i.e. one collapsible section).
  * This must be used within an <Accordion /> component to function correctly.
@@ -68,7 +67,7 @@ export type AccordionItemProps = AccordionPrimitive.AccordionItemProps
 export const AccordionItem = (props: AccordionItemProps): JSX.Element => {
 
 	return (
-		<AccordionPrimitive.AccordionItem {...props} />
+		<AccordionPrimitive.AccordionItem {...props as AccordionPrimitive.AccordionItemProps} />
 	)
 }
 
