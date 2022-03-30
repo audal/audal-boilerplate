@@ -12,8 +12,16 @@ import {
 import { RadioGroup, RadioContent } from "../components/primitives/radio";
 import Tooltip from "../components/primitives/tooltip";
 import Spinner from "../components/primitives/spinner";
-import {Modal, ModalCloseButton, ModalContent, ModalTrigger} from "../components/primitives/modal";
-import {NavigationMenuDemo} from "../components/primitives/mega-menu/index"
+import {
+	Modal,
+	ModalCloseButton,
+	ModalContent,
+	ModalTrigger,
+} from "../components/primitives/modal";
+import Input from "../components/primitives/input";
+import FormProvider from "../components/primitives/form-provider";
+import Button from "../components/primitives/button";
+import NavigationMenuDemo from "../components/primitives/mega-menu";
 
 const Index = (): React.ReactElement => (
   <div css={{width: "100%"}}>
@@ -46,5 +54,20 @@ const Index = (): React.ReactElement => (
 	  </Accordion>
   </div>
 );
+
+const TestButton = () => {
+	const [load, setLoad] = React.useState(false)
+
+	React.useEffect(() => {
+		setTimeout(() => {
+			setLoad(true)
+		}, 2000)
+		setTimeout(() => {
+			setLoad(false)
+		}, 6000)
+	}, [])
+	return <Button loading={load} type="submit" css={{cursor: "not-allowed"}}>Submit</Button>
+
+}
 
 export default Index;
