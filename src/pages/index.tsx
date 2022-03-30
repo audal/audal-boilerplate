@@ -9,7 +9,7 @@ import {
 	AccordionItem,
 	AccordionPanel,
 } from "../components/primitives/accordion";
-import { RadioGroup, CheckBox } from "../components/primitives/checkbox";
+import { RadioGroup, RadioContent } from "../components/primitives/radio";
 import Tooltip from "../components/primitives/tooltip";
 import Spinner from "../components/primitives/spinner";
 import {
@@ -60,12 +60,8 @@ const Index = (): React.ReactElement => (
 			<Input name="hi" minLength={20} />
 			<Input placeholder="hi" name="password" type="password" />
 			<RadioGroup defaultValue="default" aria-label="View density">
-				<CheckBox id="r1" value="hello">
-					Hello
-				</CheckBox>
-				<CheckBox id="r2" value="hello2">
-					Hello2
-				</CheckBox>
+				<RadioContent value="hello">Hello</RadioContent>
+				<RadioContent value="hello2">Hello2</RadioContent>
 			</RadioGroup>
 			<Button type="submit">Submit</Button>
 		</FormProvider>
