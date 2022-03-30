@@ -12,10 +12,12 @@ import {
 import Tooltip from "../components/primitives/tooltip";
 import Spinner from "../components/primitives/spinner";
 import {Modal, ModalCloseButton, ModalContent, ModalTrigger} from "../components/primitives/modal";
+import {NavigationMenuDemo} from "../components/primitives/mega-menu/index"
 
 const Index = (): React.ReactElement => (
   <div css={{width: "100%"}}>
     <div>Blank Page</div>
+	  <NavigationMenuDemo/>
 	  <Spinner/>
 	  <Modal>
 		  <ModalTrigger>
