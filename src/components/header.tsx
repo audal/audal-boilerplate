@@ -11,7 +11,7 @@ const Header: React.FC = () => {
         as="header"
         css={{
           position: "sticky",
-          zIndex: "100",
+          zIndex: "10",
           top: 0,
           height: "150px",
           width: "100%",

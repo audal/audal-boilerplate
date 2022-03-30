@@ -8,8 +8,8 @@ import "focus-visible/dist/focus-visible";
 import "./reset.css"
 import { SkipNavContent, SkipNavLink } from "@reach/skip-nav";
 import "@reach/skip-nav/styles.css";
-import { useLocation } from "@reach/router";
-import {LayoutTransition} from "../components/transitions/layout-transition";
+import FadeTransition from "../components/transitions/fade-transition";
+import Provider from "../components/primitives/provider";
 
 export interface LayoutContextType {
 	actions: {
@@ -24,7 +24,6 @@ export interface LayoutContextType {
 export const LayoutContext = React.createContext<LayoutContextType>(null as any);
 
 const LayoutContextProvider = ({ children, location }: PageProps): React.ReactElement => {
-	const { pathname } = useLocation();
 	/*
 	 * Children can add functions to execute when transition state changes
 	 * */
@@ -58,7 +57,8 @@ const LayoutContextProvider = ({ children, location }: PageProps): React.ReactEl
 	};
 
 	return (
-		<LayoutContext.Provider
+		<Provider>
+			<LayoutContext.Provider
 			value={{
 				actions: {
 					onTransitionStart,
@@ -71,13 +71,14 @@ const LayoutContextProvider = ({ children, location }: PageProps): React.ReactEl
 			<SkipNavLink />
 			<div css={{ display: "flex", minHeight: "100vh", flexDirection: "column" }}>
 				<Header />
-				<LayoutTransition shouldChange={location.pathname}>
+				<FadeTransition shouldChange={location.pathname}>
 					<SkipNavContent as="main">{children}</SkipNavContent>
-					<Footer  />
-				</LayoutTransition>
+				</FadeTransition>
+				<Footer  />
 			</div>
 
 		</LayoutContext.Provider>
+		</Provider>
 	);
 };
 

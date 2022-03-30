@@ -1,16 +1,13 @@
 /** @jsxImportSource @compiled/react */
 import React from "react";
-import Image, { ImageProps } from "next/image";
-import useJarallax from "hooks/use-jarallax";
-import { twMerge } from "tailwind-merge";
-import { Box } from "primitives/box";
 import { useInView } from "react-intersection-observer";
 import { useWindowSize } from "@react-hook/window-size";
+import gsap from "gsap";
+import {GatsbyImageSVGFallback} from "../gatsby-image-svg-fallback";
 import {
 	useAnimatableLayoutEffect,
-	useAnimatableLayoutEffectNoTransitions,
-} from "hooks/use-animatable-layout-effect";
-import gsap from "gsap";
+	useAnimatableLayoutEffectNoTransitions
+} from "../../utils/use-animatable-layout-effect";
 
 export enum IntersectionVariants {
 	topDown = "polygon(0 0, 100% 0, 100% 9%, 0 16%)",
@@ -33,7 +30,6 @@ export const AnimatedImageClipped = ({
 										 ...props
 									 }: AnimatedImageProps): JSX.Element => {
 	const clipRef = React.useRef<HTMLDivElement>(null);
-	const imageParallaxRef = useJarallax(0.7, "scroll", "vertical");
 	const { ref: inViewRef, inView, entry } = useInView({ threshold: 0.3, triggerOnce: true });
 	const [imageOffset, setImageOffset] = React.useState(0);
 
@@ -77,22 +73,18 @@ export const AnimatedImageClipped = ({
 	return (
 		<>
 			<div ref={inViewRef} className={`absolute`} style={{ marginTop: `${imageOffset}px` }} />
-			<Box ref={imageParallaxRef} className={twMerge("w-full h-full", className)}>
-				<div
-					ref={clipRef}
-					className={`w-full h-full jarallax-img`}
-					style={{ transform: "translateX(0)" }}
-				>
-					<Image
-						objectFit="cover"
-						className={twMerge("w-full h-full", imageClassName)}
-						alt="image"
-						layout="fill"
-						priority
-						{...props}
-					/>
-				</div>
-			</Box>
+			<div
+				ref={clipRef}
+				style={{ transform: "translateX(0)" }}
+			>
+				<GatsbyImageSVGFallback
+					css={{
+						width: "100%",
+						height: "100%"
+					}}
+					{...props}
+				/>
+			</div>
 		</>
 	);
 };

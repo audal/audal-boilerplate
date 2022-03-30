@@ -78,7 +78,7 @@ export const LayoutTransition = ({
 			top: 0,
 			width: "100%",
 			opacity: 1,
-			backgroundColor: "black",
+			backgroundColor: "white",
 			filter: "contrast(1) saturate(1) grayscale(0)",
 			y: window.innerHeight,
 		});
@@ -203,7 +203,6 @@ export const LayoutTransition = ({
 	return (
 		<div
 			style={{
-				backgroundColor: "black",
 				marginTop: "-1px" /* Stop margin collapse from children */,
 				paddingTop: "1px",
 			}}

@@ -3,7 +3,7 @@ import React from "react";
 import {GatsbyImageSVGFallback} from "../gatsby-image-svg-fallback";
 import useJarallax from "../../utils/use-jarallax";
 
-export interface AnimatedImageProps {
+export interface AnimatedImageProps extends CompiledJSXProps<HTMLImageElement>{
 	containerCss?: AnyKeyCssProps;
 }
 
