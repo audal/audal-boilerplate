@@ -20,6 +20,7 @@ import {
 } from "../components/primitives/modal";
 import Input from "../components/primitives/input";
 import FormProvider from "../components/primitives/form-provider";
+import Button from "../components/primitives/button";
 
 const Index = (): React.ReactElement => (
 	<div css={{ width: "100%" }}>
@@ -57,7 +58,7 @@ const Index = (): React.ReactElement => (
 			<Input name="phone" type="tel" />
 			<Input name="number" type="number" />
 			<Input name="hi" minLength={20} />
-			<Input name="password" type="password" />
+			<Input placeholder="hi" name="password" type="password" />
 			<RadioGroup defaultValue="default" aria-label="View density">
 				<CheckBox id="r1" value="hello">
 					Hello
@@ -66,7 +67,7 @@ const Index = (): React.ReactElement => (
 					Hello2
 				</CheckBox>
 			</RadioGroup>
-			<button type="submit">Submit</button>
+			<Button type="submit">Submit</Button>
 		</FormProvider>
 	</div>
 );

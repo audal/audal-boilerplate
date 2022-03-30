@@ -2,12 +2,18 @@
 import React from 'react'
 import {useFormProvider} from "../form-provider";
 import FormAlert from "../form-alert";
+import usePersistedId from "../utils/use-persisted-id";
+import VisuallyHidden from "../visually-hidden";
 
 export interface InputProps extends CompiledJSXPropsOmitRef<HTMLInputElement> {
 	/**
 	 * Name of the input - will be used for the form validation if using FormContext so make sure it's unique.
 	 */
 	name: string,
+	/**
+	 * Placeholder is always required.
+	 * */
+	placeholder: string,
 	/**
 	 * The type of the field. Notice that "submit" is not included -
 	 * This is an intentional omission, you should be using <button type="submit" />
@@ -73,6 +79,8 @@ const Input = ({ type = "text", name, validationRegex, minLength, maxLength, val
 	* */
 	const formContext = useFormProvider()
 
+	const id = usePersistedId()
+
 	/*
 	* Set up our register function to be react-hook-form if the context exists,
 	* if it doesn't, pass the props we destructed back to the element
@@ -100,18 +108,19 @@ const Input = ({ type = "text", name, validationRegex, minLength, maxLength, val
 				position: 'relative'
 			}}>
 				<input
+					id={id}
 					aria-invalid={formContext && formContext.errors && formContext.errors[name] ? "true" : "false"}
 					type={type}
 					css={{
-						paddingRight: '7px',
-						paddingTop: '4px',
-						paddingBottom: '4px',
-						width: '100%'
+						padding: '4px 7px',
+						width: '100%',
+						border: '1px solid #0002',
+						borderRadius: '3px'
 					}}
 					{...registerFn}
 					{...props}
 				/>
-				{required && <span css={{
+				{required && <label htmlFor={id} css={{
 					height: '100%',
 					top: 0,
 					right: '7px',
@@ -133,9 +142,9 @@ const Input = ({ type = "text", name, validationRegex, minLength, maxLength, val
 						transition: 'color 0.2s',
 						marginTop: '1px'
 					}}>
-					*
+					* <VisuallyHidden>This is a Required Field</VisuallyHidden>
 				</span>
-				</span>}
+				</label>}
 			</span>
 			{formContext && formContext.errors && formContext.errors[name] && validationErrorMessage &&
 				<FormAlert>
