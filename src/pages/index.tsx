@@ -9,7 +9,6 @@ import {
 	AccordionItem,
 	AccordionPanel,
 } from "../components/primitives/accordion";
-import { CheckBox } from "../components/primitives/checkbox";
 import Tooltip from "../components/primitives/tooltip";
 import Spinner from "../components/primitives/spinner";
 import {
@@ -18,12 +17,16 @@ import {
 	ModalContent,
 	ModalTrigger,
 } from "../components/primitives/modal";
-import { NavigationMenuDemo } from "../components/primitives/mega-menu/index";
+import Input from "../components/primitives/input";
+import FormProvider from "../components/primitives/form-provider";
+import Button from "../components/primitives/button";
+import NavigationMenuDemo from "../components/primitives/mega-menu";
 
 const Index = (): React.ReactElement => (
 	<div css={{ width: "100%" }}>
-		<div>Blank Page</div>
 		<NavigationMenuDemo />
+		<div>Blank Page</div>
+
 		<Spinner />
 		<Modal>
 			<ModalTrigger>Edit profile</ModalTrigger>
@@ -47,8 +50,25 @@ const Index = (): React.ReactElement => (
 				</AccordionPanel>
 			</AccordionItem>
 		</Accordion>
-		<CheckBox>Hello</CheckBox>
 	</div>
 );
+
+const TestButton = () => {
+	const [load, setLoad] = React.useState(false);
+
+	React.useEffect(() => {
+		setTimeout(() => {
+			setLoad(true);
+		}, 2000);
+		setTimeout(() => {
+			setLoad(false);
+		}, 6000);
+	}, []);
+	return (
+		<Button loading={load} type="submit" css={{ cursor: "not-allowed" }}>
+			Submit
+		</Button>
+	);
+};
 
 export default Index;

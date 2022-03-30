@@ -68,11 +68,11 @@ const LayoutContextProvider = ({ children, location }: PageProps): React.ReactEl
 				},
 			}}
 		>
-			<SkipNavLink />
+			<SkipNavLink contentId="skip-nav" />
 			<div css={{ display: "flex", minHeight: "100vh", flexDirection: "column" }}>
 				<Header />
 				<FadeTransition shouldChange={location.pathname}>
-					<SkipNavContent as="main">{children}</SkipNavContent>
+					<SkipNavContent id="skip-nav" as="main">{children}</SkipNavContent>
 				</FadeTransition>
 				<Footer  />
 			</div>
