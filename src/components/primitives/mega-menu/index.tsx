@@ -81,9 +81,9 @@ const StyledTriggerWithCaret = React.forwardRef(({ children, ...props }, forward
 			position: 'relative',
 			color: 'black',
 			top: 1,
-			'[data-state=open] &': { transform: 'rotate(-180deg)' },
+			'[data-state=open] &': { transform: 'rotate(-180deg)', transition: 'transform 250ms ease' },
 			'@media (prefers-reduced-motion: no-preference)': {
-				transition: 'transform 250ms ease',
+				transition: 'none',
 			},
 		}}
 		/>
@@ -222,8 +222,14 @@ const ContentListItemCallout = React.forwardRef(({ children, ...props }, forward
 ));
 
 
+export const MenuTrigger = ({MenuText}) => {
+   return (
+	<NavigationMenuTrigger>{MenuText}</NavigationMenuTrigger>
+   )
+}
 
-export const NavigationMenuDemo = () => {
+
+export const MenuWrapper = ({children}) => {
 	return (
 		<NavigationMenuPrimitive.Root
 		css={{
@@ -233,36 +239,93 @@ export const NavigationMenuDemo = () => {
 			width: '100vw',
 			zIndex: 1,
 		}}
-		
 		>
+           {children}
+          <div
+			css={{
+				position: 'absolute',
+				display: 'flex',
+				justifyContent: 'center',
+				width: '100%',
+				top: '100%',
+				left: 0,
+				perspective: '2000px',
+			}}
+			>
+				<NavigationMenuPrimitive.Viewport
+				css={{
+					position: 'relative',
+					transformOrigin: 'top center',
+					marginTop: 10,
+					width: '100%',
+					backgroundColor: 'white',
+					borderRadius: 6,
+					overflow: 'hidden',
+					boxShadow: 'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
+					height: 'var(--radix-navigation-menu-viewport-height)',
+				
+					'@media only screen and (min-width: 600px)': {
+						width: 'var(--radix-navigation-menu-viewport-width)',
+						transition: 'width, height, 300ms ease',
+						'&[data-state="open"]': { animation: `${scaleIn} 200ms ease` },
+						'&[data-state="closed"]': { animation: `${scaleOut} 200ms ease` },
+					},
+					'@media (prefers-reduced-motion: no-preference)': {
+						animation: 'none !important'
+					},
+				}}
+				/>
+			</div>
+		</NavigationMenuPrimitive.Root>
+	)
+}
+
+
+export const MenuPanel = () => {
+	return (
+		<></>
+	)
+}
+
+
+export const NavigationMenuDemo = () => {
+	return (
+	      <MenuWrapper>
 			<NavigationMenuPrimitive.List
 			css={{
-				
+				width: '100%',
 				display: 'flex',
 				justifyContent: 'center',
 				backgroundColor: 'white',
 				padding: 4,
-				borderRadius: 6,
+				borderRadius: 0,
 				listStyle: 'none',
-				boxShadow: `0 2px 10px #000`,
 			}}
 			>
 				<NavigationMenuItem>
-					<NavigationMenuTrigger>Learn</NavigationMenuTrigger>
+					<MenuTrigger
+					MenuText='Learn'
+					/>
 					<NavigationMenuPrimitive.Content
 					css={{
 						position: 'absolute',
 						top: 0,
 						left: 0,
-						width: '100%',
-						'@media only screen and (min-width: 600px)': { width: 'auto' },
-						'@media (prefers-reduced-motion: no-preference)': {
-							animationDuration: '250ms',
-							animationTimingFunction: 'ease',
-							'&[data-motion="from-start"]': { animationName: enterFromLeft },
+						width: '100vw',
+						'@media only screen and (min-width: 600px)': {
+							 width: '100vw',
+							 display: 'flex',
+							 alignItems: 'center',
+							 justifyContent: 'center',
+							 '&[data-motion="from-start"]': { animationName: enterFromLeft },
 							'&[data-motion="from-end"]': { animationName: enterFromRight },
 							'&[data-motion="to-start"]': { animationName: exitToLeft },
 							'&[data-motion="to-end"]': { animationName: exitToRight },
+							animationDuration: '250ms'
+						},
+						'@media (prefers-reduced-motion: no-preference)': {
+							animation: 'none!important'
+							
 						},
 					}}
 					>
@@ -294,21 +357,29 @@ export const NavigationMenuDemo = () => {
 				</NavigationMenuItem>
 
 				<NavigationMenuItem>
-					<NavigationMenuTrigger>Overview</NavigationMenuTrigger>
+					<MenuTrigger
+					MenuText='Overview'
+					/>
 					<NavigationMenuPrimitive.Content
 					css={{
 						position: 'absolute',
 						top: 0,
 						left: 0,
-						width: '100%',
-						'@media only screen and (min-width: 600px)': { width: 'auto' },
-						'@media (prefers-reduced-motion: no-preference)': {
-							animationDuration: '250ms',
+						width: '100vw',
+						'@media only screen and (min-width: 600px)': { 
+						 width: '100vw',
+						 display: 'flex',
+						 alignItems: 'center',
+						 justifyContent: 'center', 
+						 animationDuration: '250ms',
 							animationTimingFunction: 'ease',
 							'&[data-motion="from-start"]': { animationName: enterFromLeft },
 							'&[data-motion="from-end"]': { animationName: enterFromRight },
 							'&[data-motion="to-start"]': { animationName: exitToLeft },
 							'&[data-motion="to-end"]': { animationName: exitToRight },
+						},
+						'@media (prefers-reduced-motion: no-preference)': {
+							animation: 'none!important'
 						},
 					}}
 					>
@@ -371,41 +442,7 @@ export const NavigationMenuDemo = () => {
 				<NavigationMenuIndicator />
 			</NavigationMenuPrimitive.List>
 
-			<div
-			css={{
-				position: 'absolute',
-				display: 'flex',
-				justifyContent: 'center',
-				width: '100%',
-				top: '100%',
-				left: 0,
-				perspective: '2000px',
-			}}
-			>
-				<NavigationMenuPrimitive.Viewport
-				css={{
-					position: 'relative',
-					transformOrigin: 'top center',
-					marginTop: 10,
-					width: '100%',
-					backgroundColor: 'white',
-					borderRadius: 6,
-					overflow: 'hidden',
-					boxShadow: 'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
-					height: 'var(--radix-navigation-menu-viewport-height)',
-				
-					'@media only screen and (min-width: 600px)': {
-						width: 'var(--radix-navigation-menu-viewport-width)',
-					},
-					'@media (prefers-reduced-motion: no-preference)': {
-						transition: 'width, height, 300ms ease',
-						'&[data-state="open"]': { animation: `${scaleIn} 200ms ease` },
-						'&[data-state="closed"]': { animation: `${scaleOut} 200ms ease` },
-					},
-				}}
-				/>
-			</div>
-		</NavigationMenuPrimitive.Root>
+			</MenuWrapper>
 	);
 };
 

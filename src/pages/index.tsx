@@ -17,8 +17,9 @@ import {NavigationMenuDemo} from "../components/primitives/mega-menu/index"
 
 const Index = (): React.ReactElement => (
   <div css={{width: "100%"}}>
-    <div>Blank Page</div>
 	  <NavigationMenuDemo/>
+    <div>Blank Page</div>
+	  
 	  <Spinner/>
 	  <Modal>
 		  <ModalTrigger>
