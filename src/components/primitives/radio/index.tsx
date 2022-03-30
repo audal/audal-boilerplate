@@ -51,7 +51,7 @@ export const RadioContent = ({
 					"&:hover": { backgroundColor: "#0001" },
 					"&[data-state=checked], &:hover[data-state=checked]": {
 						background: "blue",
-						borderColor: "blue"
+						borderColor: "blue",
 					},
 				}}
 				value="default"
