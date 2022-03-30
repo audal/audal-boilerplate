@@ -1,5 +1,6 @@
 import React from 'react'
 import {useFormProvider} from "../form-provider";
+import FormAlert from "../form-alert";
 
 export interface InputProps extends CompiledJSXPropsOmitRef<HTMLInputElement> {
 	name: string,
@@ -11,9 +12,7 @@ export interface InputProps extends CompiledJSXPropsOmitRef<HTMLInputElement> {
 	type?: "email" | "text" | "tel" | "number" | "password"
 }
 
-const FormAlert: React.FC = (props) => (
-	<span role="alert" css={{ color: 'red' }} {...props} />
-)
+
 
 const Input = ({ type = "text", name, validationRegex, minLength, maxLength, validationErrorMessage, required = false, value, onChange, onBlur, disabled, ...props }: InputProps) => {
 
@@ -30,6 +29,11 @@ const Input = ({ type = "text", name, validationRegex, minLength, maxLength, val
 		text: undefined
 	}[type]
 
+	/*
+	* Get our form provider. It may not exist
+	* (if the input component is not inside a FormProvider and is using the component separately)
+	* so make sure to not access it directly without first checking.
+	* */
 	const formContext = useFormProvider()
 
 	/*
