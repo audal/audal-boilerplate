@@ -1,6 +1,6 @@
 /** @jsxImportSource @compiled/react */
 import React from 'react';
-import { keyframes, cx } from '@compiled/react';
+import { keyframes } from '@compiled/react';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import {DialogCloseProps, DialogContentImplProps} from "@radix-ui/react-dialog";
@@ -11,16 +11,15 @@ const overlayShow = keyframes({
 });
 
 const contentShow = keyframes({
-	'0%': { opacity: 0, transform: 'translate(-50%, -48%) scale(.96)' },
-	'100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+	'0%': { opacity: 0, transform: 'translate(-50%, -40%)' },
+	'20%': { opacity: 0, transform: 'translate(-50%, -40%)' },
+	'100%': { opacity: 1, transform: 'translate(-50%, -50%)' },
 });
 
 export const Modal = DialogPrimitive.Root;
 export const ModalTrigger = DialogPrimitive.Trigger;
 
 export const ModalContent = (props: CompiledJSXCustomProps<DialogContentImplProps>) => {
-
-	console.log(props)
 
 	return (
 		<DialogPrimitive.Portal>
@@ -29,8 +28,7 @@ export const ModalContent = (props: CompiledJSXCustomProps<DialogContentImplProp
 				position: 'fixed',
 				zIndex: 20,
 				inset: 0,
-				backdropFilter: "blur(8px)",
-				animation: `${overlayShow} 150ms forwards`,
+				animation: `${overlayShow} 250ms forwards`,
 				'@media (prefers-reduced-motion: reduce)': {
 					animation: 'none!important',
 				},
@@ -48,8 +46,9 @@ export const ModalContent = (props: CompiledJSXCustomProps<DialogContentImplProp
 				maxWidth: '450px',
 				maxHeight: '85vh',
 				padding: 25,
-				'@media (prefers-reduced-motion: no-preference)': {
-					animation: `${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1) forwards`,
+				animation: `${contentShow} 360ms forwards`,
+				'@media (prefers-reduced-motion: reduce)': {
+					animation: 'none!important'
 				},
 				'&:focus': { outline: 'none' },
 			}} {...props} />
