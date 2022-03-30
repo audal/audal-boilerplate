@@ -1,9 +1,9 @@
 /** @jsxImportSource @compiled/react */
 import React from 'react';
-import { styled, keyframes } from '@stitches/react';
+import {keyframes} from "@compiled/react";
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { CaretDownIcon } from '@radix-ui/react-icons';
-import { violet, mauve, indigo, purple, blackA } from '@radix-ui/colors';
+
 
 const enterFromRight = keyframes({
 	from: { transform: 'translateX(200px)', opacity: 0 },
@@ -157,7 +157,7 @@ const ContentListItem = React.forwardRef(({ children, title, ...props }, forward
 				fontWeight: 500,
 				lineHeight: 1.2,
 				marginBottom: 5,
-				color: violet.violet12,
+				color: 'black',
 			}}
 			>
 				{title}
@@ -165,7 +165,7 @@ const ContentListItem = React.forwardRef(({ children, title, ...props }, forward
 			<p
 			css={{
 				all: 'unset',
-				color: mauve.mauve11,
+				color: 'black',
 				lineHeight: 1.4,
 				fontWeight: 'initial',
 			}}
@@ -211,7 +211,7 @@ const ContentListItemCallout = React.forwardRef(({ children, ...props }, forward
 			<p
 				css={{
 					fontSize: 14,
-					color: mauve.mauve4,
+					color: 'black',
 					lineHeight: 1.3,
 				}}
 			>
@@ -244,7 +244,7 @@ export const NavigationMenuDemo = () => {
 				padding: 4,
 				borderRadius: 6,
 				listStyle: 'none',
-				boxShadow: `0 2px 10px ${blackA.blackA7}`,
+				boxShadow: `0 2px 10px #000`,
 			}}
 			>
 				<NavigationMenuItem>
@@ -266,7 +266,7 @@ export const NavigationMenuDemo = () => {
 						},
 					}}
 					>
-						<ul
+						<NavigationMenuPrimitive.Sub
 						css={{
 							display: 'grid',
 							padding: 22,
@@ -289,7 +289,7 @@ export const NavigationMenuDemo = () => {
 							<ContentListItem href="https://icons.modulz.app/" title="Icons">
 								A crisp set of 15x15 icons, balanced and consistent.
 							</ContentListItem>
-						</ul>
+						</NavigationMenuPrimitive.Sub>
 					</NavigationMenuPrimitive.Content>
 				</NavigationMenuItem>
 
@@ -312,7 +312,7 @@ export const NavigationMenuDemo = () => {
 						},
 					}}
 					>
-						<ul 
+						<NavigationMenuPrimitive.Sub
 						css={{
 							display: 'grid',
 							padding: 22,
@@ -349,7 +349,7 @@ export const NavigationMenuDemo = () => {
 							<ContentListItem title="Releases" href="/docs/primitives/overview/releases">
 								Radix Primitives releases and their changelogs.
 							</ContentListItem>
-						</ul>
+						</NavigationMenuPrimitive.Sub>
 					</NavigationMenuPrimitive.Content>
 				</NavigationMenuItem>
 

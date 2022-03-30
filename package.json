@@ -45,6 +45,7 @@
 		"@compiled/react": "^0.10.4",
 		"@radix-ui/colors": "^0.1.8",
 		"@radix-ui/react-accordion": "^0.1.6",
+		"@radix-ui/react-checkbox": "^0.1.5",
 		"@radix-ui/react-dialog": "^0.1.7",
 		"@radix-ui/react-icons": "^1.1.0",
 		"@radix-ui/react-navigation-menu": "^0.1.2",
