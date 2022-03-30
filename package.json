@@ -79,6 +79,7 @@
 		"react-fade-in": "^2.0.1",
 		"react-gstate": "^2.0.3",
 		"react-helmet": "^6.1.0",
+		"react-hook-form": "^7.29.0",
 		"react-intersection-observer": "^8.31.0",
 		"react-merge-refs": "^1.1.0",
 		"sass": "^1.44.0",
