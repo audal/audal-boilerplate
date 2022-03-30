@@ -1,14 +1,15 @@
 /** @jsxImportSource @compiled/react */
 import React from "react";
 import Logo from "../images/icon.png";
-import {AnimatedImageClipped} from "../components/animations/animated-image-clipped";
+import { AnimatedImageClipped } from "../components/animations/animated-image-clipped";
 import {
 	Accordion,
 	AccordionButton,
 	AccordionIcon,
 	AccordionItem,
-	AccordionPanel
+	AccordionPanel,
 } from "../components/primitives/accordion";
+import { RadioGroup, RadioContent } from "../components/primitives/radio";
 import Tooltip from "../components/primitives/tooltip";
 import Spinner from "../components/primitives/spinner";
 import {Modal, ModalCloseButton, ModalContent, ModalTrigger} from "../components/primitives/modal";

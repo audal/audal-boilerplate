@@ -11,10 +11,17 @@ const spin = keyframes({
 	},
 })
 
+
 export interface SpinnerProps {
 	size?: "xs" | "sm" | "md" | "lg" | "xl"
 }
 
+/**
+ * A spinner component taken from Chakra-UI.
+ * Features same size parameter as Chakra so in most cases should
+ * be a drop-in replacement.
+ * @alias SpinnerProps
+ * */
 const Spinner = ({ size = "md" }: SpinnerProps): JSX.Element => {
 
 	const foundSize = {

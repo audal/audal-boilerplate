@@ -3,6 +3,8 @@ import React from 'react';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import {keyframes} from "@compiled/react";
+import {AccordionMultipleProps, AccordionSingleProps} from "@radix-ui/react-accordion";
+import {IconProps} from "@radix-ui/react-icons/dist/types";
 
 const slideDown = keyframes({
 	from: { height: 0, opacity: 0 },
@@ -14,32 +16,87 @@ const slideUp = keyframes({
 	to: { height: 0, opacity: 0 },
 });
 
-export const Accordion = ({ allowMultiple = false, defaultIndex, children }) => (
-	<AccordionPrimitive.Root type={allowMultiple ? "multiple" : "single"} defaultValue="item-1" collapsible>
-		{children}
-	</AccordionPrimitive.Root>
-);
+export type AccordionProps =  {
+	/**
+	 * Allow multiple accordions open at one time. Default is false.
+	 * */
+	allowMultiple?: boolean
+	/**
+	 * Allow toggling any accordion open and close, versus forcing the last-interacted
+	 * one to stay open. Default is true.
+	 * */
+	allowToggle?: boolean
+	/**
+	 * Default accordion to have opened.
+	 * */
+	defaultIndex?: number
+} & (Omit<AccordionSingleProps, "type"> | Omit<AccordionMultipleProps, "type">)
 
-export const AccordionItem = ({ children }) => {
+/**
+ * Primary accordion component. This wraps <AccordionItem /> instances.
+ * @alias AccordionProps
+ * */
+export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(({ allowMultiple = false, allowToggle = true, defaultIndex, children, ...props }, ref) => {
+
+
 	return (
-		<AccordionPrimitive.AccordionItem value="item-2">
-			{children}
-		</AccordionPrimitive.AccordionItem>
+		// @ts-ignore The regular typing for this is dreadful and restrictive.
+		<AccordionPrimitive.Root ref={ref} type={allowMultiple ? "multiple" : "single"} collapsible={allowToggle} defaultValue={defaultIndex ? `accordion-${defaultIndex}` : undefined}>
+			{React.Children.map(children, (child, index) => {
+				// @ts-ignore
+				if (React.isValidElement(child) && child.type.name === "AccordionItem") {
+					return React.cloneElement(child, { value: `accordion-${index}` })
+				}
+				// @ts-ignore
+				if (child.type.name !== "AccordionItem") {
+					throw new Error("Audal Primitives: Only <AccordionItem /> components may be used within an Accordion.")
+				}
+				return null
+			})}
+		</AccordionPrimitive.Root>
+	)
+});
+
+
+export type AccordionItemProps = Omit<AccordionPrimitive.AccordionItemProps, "value">
+/**
+ * A single instance of an Accordion (i.e. one collapsible section).
+ * This must be used within an <Accordion /> component to function correctly.
+ * @alias AccordionItemProps
+ * */
+export const AccordionItem = (props: AccordionItemProps): JSX.Element => {
+
+	return (
+		<AccordionPrimitive.AccordionItem {...props as AccordionPrimitive.AccordionItemProps} />
 	)
 }
 
-export const AccordionButton = ({ children }) => {
+
+export type AccordionButtonProps = AccordionPrimitive.AccordionTriggerProps
+/**
+ * This will open the accordion. Use the asChild prop (set to true) to
+ * use your own fully custom button if necessary.
+ * This must be used within an <AccordionItem /> instance.
+ * @alias AccordionButtonProps
+ * */
+export const AccordionButton = React.forwardRef<HTMLButtonElement, AccordionButtonProps>((props, ref) => {
 	return (
-		<AccordionPrimitive.AccordionTrigger css={{
+		<AccordionPrimitive.AccordionTrigger ref={ref} css={{
 			width: "100%",
 			textAlign: "left"
-		}}>{children}</AccordionPrimitive.AccordionTrigger>
+		}} {...props} />
 	)
-}
+})
 
-export const AccordionPanel = ({ children }) => {
+export type AccordionPanelProps = AccordionPrimitive.AccordionContentProps
+/**
+ * This is the content area that will expand when the accordion is opened.
+ * This must be used within an <AccordionItem /> instance.
+ * @alias AccordionPanelProps
+ * */
+export const AccordionPanel = React.forwardRef<HTMLDivElement, AccordionPanelProps>((props, ref) => {
 	return (
-		<AccordionPrimitive.Content css={{
+		<AccordionPrimitive.Content ref={ref} css={{
 			overflow: "hidden",
 			width: "100%",
 			'&[data-state="open"]': {
@@ -51,22 +108,28 @@ export const AccordionPanel = ({ children }) => {
 			'@media (prefers-reduced-motion: reduce)': {
 				animation: 'none!important'
 			}
-		}}>
-
-			{children}
-		</AccordionPrimitive.Content>
+		}} {...props} />
 	)
-}
+})
 
-export const AccordionIcon = () => {
+export type AccordionIconProps = IconProps
+/**
+ * This is an open/close caret icon that will rotate when the accordion
+ * is opened or closed.
+ * This must be used within an <AccordionItem /> instance.
+ * @alias AccordionIconProps
+ * */
+export const AccordionIcon = React.forwardRef<SVGSVGElement, IconProps>((props, ref) => {
 
 	return (
-		<ChevronDownIcon css={{
+		<ChevronDownIcon ref={ref} css={{
 			transition: "transform 300ms cubic-bezier(0.87, 0, 0.13, 1)",
 			'@media (prefers-reduced-motion: reduce)': {
 				transition: 'none!important'
 			},
 			'[data-state=open] &': { transform: 'rotate(180deg)' },
-		}} />
+		}} {...props} />
 	)
-}
+})
+
+export default Accordion

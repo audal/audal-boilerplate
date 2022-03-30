@@ -229,6 +229,16 @@ select::-ms-expand {
     display: none;
 }
 
+button:focus-visible,
+input:focus-visible,
+optgroup:focus-visible,
+select:focus-visible,
+a:focus-visible,
+textarea:focus-visible {
+	box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.6);
+	outline: none;
+}
+
 .js-focus-visible :focus:not([data-focus-visible-added]) {
     outline: none;
     box-shadow: none;
