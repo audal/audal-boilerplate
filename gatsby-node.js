@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const fse = require("fs-extra");
-const { CompiledExtractPlugin } = require('@compiled/webpack-loader');
 
 // can now use process.env.WP_URL, etc...
 require("dotenv").config({
