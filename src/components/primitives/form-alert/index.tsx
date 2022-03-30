@@ -1,3 +1,4 @@
+/** @jsxImportSource @compiled/react */
 import React from "react";
 
 const FormAlert: React.FC = (props) => (

@@ -17,17 +17,46 @@ const slideUp = keyframes({
 });
 
 export type AccordionProps =  {
+	/**
+	 * Allow multiple accordions open at one time. Default is false.
+	 * */
 	allowMultiple?: boolean
+	/**
+	 * Allow toggling any accordion open and close, versus forcing the last-interacted
+	 * one to stay open. Default is true.
+	 * */
+	allowToggle?: boolean
+	/**
+	 * Default accordion to have opened.
+	 * */
+	defaultIndex?: number
 } & (Omit<AccordionSingleProps, "type"> | Omit<AccordionMultipleProps, "type">)
 
 /**
  * Primary accordion component. This wraps <AccordionItem /> instances.
  * @alias AccordionProps
  * */
-export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(({ allowMultiple = false, ...props }, ref) => (
-	// @ts-ignore The regular typing for this is dreadful and restrictive.
-	<AccordionPrimitive.Root ref={ref} type={allowMultiple ? "multiple" : "single"} {...props} />
-));
+export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(({ allowMultiple = false, allowToggle = true, defaultIndex, children, ...props }, ref) => {
+
+
+	return (
+		// @ts-ignore The regular typing for this is dreadful and restrictive.
+		<AccordionPrimitive.Root ref={ref} type={allowMultiple ? "multiple" : "single"} collapsible={allowToggle} defaultValue={defaultIndex ? `accordion-${defaultIndex}` : undefined}>
+			{React.Children.map(children, (child, index) => {
+				// @ts-ignore
+				if (React.isValidElement(child) && child.type.name === "AccordionItem") {
+					console.log(child)
+					return React.cloneElement(child, { value: `accordion-${index}` })
+				}
+				// @ts-ignore
+				if (child.type.name !== "AccordionItem") {
+					throw new Error("Audal Primitives: Only <AccordionItem /> components may be used within an Accordion.")
+				}
+				return null
+			})}
+		</AccordionPrimitive.Root>
+	)
+});
 
 
 export type AccordionItemProps = AccordionPrimitive.AccordionItemProps
@@ -37,6 +66,7 @@ export type AccordionItemProps = AccordionPrimitive.AccordionItemProps
  * @alias AccordionItemProps
  * */
 export const AccordionItem = (props: AccordionItemProps): JSX.Element => {
+
 	return (
 		<AccordionPrimitive.AccordionItem {...props} />
 	)

@@ -1,3 +1,4 @@
+/** @jsxImportSource @compiled/react */
 import React from 'react'
 import {useFormProvider} from "../form-provider";
 import FormAlert from "../form-alert";
@@ -95,12 +96,47 @@ const Input = ({ type = "text", name, validationRegex, minLength, maxLength, val
 
 	return (
 		<>
-			<input
-				aria-invalid={formContext && formContext.errors && formContext.errors[name] ? "true" : "false"}
-				type={type}
-				{...registerFn}
-				{...props}
-			/>
+			<span css={{
+				position: 'relative'
+			}}>
+				<input
+					aria-invalid={formContext && formContext.errors && formContext.errors[name] ? "true" : "false"}
+					type={type}
+					css={{
+						paddingRight: '7px',
+						paddingTop: '4px',
+						paddingBottom: '4px',
+						width: '100%'
+					}}
+					{...registerFn}
+					{...props}
+				/>
+				{required && <span css={{
+					height: '100%',
+					top: 0,
+					right: '7px',
+					position: 'absolute',
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+				}}>
+					<span css={{
+						fontSize: '16px',
+						paddingTop: "5px",
+						borderRadius: '999px',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						height: '16px',
+						width: '16px',
+						color: formContext && formContext.errors && formContext.errors[name] ? 'red' : 'black',
+						transition: 'color 0.2s',
+						marginTop: '1px'
+					}}>
+					*
+				</span>
+				</span>}
+			</span>
 			{formContext && formContext.errors && formContext.errors[name] && validationErrorMessage &&
 				<FormAlert>
 					{typeof validationErrorMessage === "function" ? validationErrorMessage(formContext.errors[name].type) : validationErrorMessage}

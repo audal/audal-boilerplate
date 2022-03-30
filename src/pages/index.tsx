@@ -46,7 +46,7 @@ const Index = (): React.ReactElement => (
 	  <FormProvider onSubmit={(e) => {
 	  	console.log(e)
 	  }}>
-		  <Input name="email" type="email" />
+		  <Input name="email" type="email" required />
 		  <Input name="phone" type="tel" />
 		  <Input name="number" type="number" />
 		  <Input name="hi" minLength={20} />
