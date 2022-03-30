@@ -57,13 +57,13 @@ const Index = (): React.ReactElement => (
 			<Input name="email" type="email" required />
 			<Input name="phone" type="tel" />
 			<Input name="number" type="number" />
-			<Input name="hi" minLength={20} />
+			<Input name="hi" minLength={20} className="hello" />
 			<Input placeholder="hi" name="password" type="password" />
 			<RadioGroup defaultValue="default" aria-label="View density">
 				<RadioContent value="hello">Hello</RadioContent>
 				<RadioContent value="hello2">Hello2</RadioContent>
 			</RadioGroup>
-			<Button type="submit">Submit</Button>
+			<Button type="submit" css={{cursor: "not-allowed"}}>Submit</Button>
 		</FormProvider>
 	</div>
 );

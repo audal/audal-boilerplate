@@ -34,14 +34,25 @@ export const RadioContent = ({
 		<div css={{ display: "flex", margin: "10px 0", alignItems: "center" }}>
 			<RadioGroupPrimitive.Item
 				css={{
-					all: "unset",
 					backgroundColor: "white",
+					border: "2px solid #0002",
+					display: "inline-flex",
+					alignItems: "center",
+					justifyContent: "center",
+					flexShrink: 0,
 					width: `${foundSize} !important`,
 					height: `${foundSize} !important`,
-					borderRadius: "100%",
-					boxShadow: `0 2px 10px black`,
-					"&:hover": { backgroundColor: "red" },
-					"&:focus": { boxShadow: `0 0 0 2px black` },
+					borderWidth: "2px",
+					borderStyle: "solid",
+					borderImage: "initial",
+					borderRadius: "999px",
+					borderColor: "inherit",
+					color: "#fff",
+					"&:hover": { backgroundColor: "#0001" },
+					"&[data-state=checked], &:hover[data-state=checked]": {
+						background: "blue",
+						borderColor: "blue"
+					},
 				}}
 				value="default"
 				id={id}
