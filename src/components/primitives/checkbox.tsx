@@ -13,7 +13,7 @@ interface CheckBoxProps {
 export const CheckBox = ({
 	children,
 	id,
-	size = "xl",
+	size = "md",
 	...props
 }: CheckBoxProps): JSX.Element => {
 	const foundSize = {
