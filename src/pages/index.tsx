@@ -74,10 +74,10 @@ const Index = (): React.ReactElement => (
 				<SelectOption value="apple">Apple</SelectOption>
 				<SelectOption value="banana">Banana</SelectOption>
 			</Select>
-			<RadioGroup defaultValue="default" aria-label="View density">
+			{/*<RadioGroup defaultValue="default" aria-label="View density">
 				<RadioContent value="hello">Hello</RadioContent>
 				<RadioContent value="hello2">Hello2</RadioContent>
-			</RadioGroup>
+		</RadioGroup>*/}
 			<TestButton />
 		</FormProvider>
 	</div>

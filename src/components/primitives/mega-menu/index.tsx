@@ -1,6 +1,6 @@
 /** @jsxImportSource @compiled/react */
 import React from 'react';
-import {keyframes} from "@compiled/react";
+import {keyframes} from "@stitches/react";
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { CaretDownIcon } from '@radix-ui/react-icons';
 
@@ -77,8 +77,16 @@ const StyledTriggerWithCaret = React.forwardRef(({className, children, ...props 
 	}}
 	>
 		{children}
-		<CaretDownIcon 
+		<CaretIcon/>
+	</NavigationMenuPrimitive.Trigger >
+));
+
+
+export const CaretIcon = ({className}) => {
+	return (
+      <CaretDownIcon 
 		aria-hidden 
+		className={className}
 		css={{ 
 			position: 'relative',
 			color: 'black',
@@ -89,9 +97,8 @@ const StyledTriggerWithCaret = React.forwardRef(({className, children, ...props 
 			},
 		}}
 		/>
-	</NavigationMenuPrimitive.Trigger >
-));
-
+	)
+}
 
 
 
@@ -112,11 +119,11 @@ const StyledIndicatorWithArrow = React.forwardRef((className, props, forwardedRe
 	top: '100%',
 	overflow: 'hidden',
 	zIndex: 1,
-	
+	transition: 'width, transform 250ms ease',
+	'&[data-state="visible"]': { animation: `${fadeIn} 200ms ease` },
+	'&[data-state="hidden"]': { animation: `${fadeOut} 200ms ease` },
 	'@media (prefers-reduced-motion: no-preference)': {
-		transition: 'width, transform 250ms ease',
-		'&[data-state="visible"]': { animation: `${fadeIn} 200ms ease` },
-		'&[data-state="hidden"]': { animation: `${fadeOut} 200ms ease` },
+		animation: 'none !important'
 	},
 	}}
 	>
@@ -229,9 +236,9 @@ const ContentListItemCallout = React.forwardRef(({className, children, ...props 
 ));
 
 
-export const MenuTrigger = ({MenuText, className}) => {
+export const MenuTrigger = ({children, className}) => {
    return (
-	<NavigationMenuTrigger className={className}>{MenuText}</NavigationMenuTrigger>
+	<NavigationMenuTrigger className={className}>{children}</NavigationMenuTrigger>
    )
 }
 
@@ -342,17 +349,19 @@ export const MenuContent = ({className, children}) => {
 						position: 'absolute',
 						top: 0,
 						left: 0,
-						width: '100vw',
+						width: '100%',
+						'&[data-motion="from-start"]': { animationName: enterFromLeft },
+						'&[data-motion="from-end"]': { animationName: enterFromRight },
+						'&[data-motion="to-start"]': { animationName: exitToLeft },
+						'&[data-motion="to-end"]': { animationName: exitToRight },
+						animationDuration: '250ms',
+						animationTimingFunction: 'ease',
 						'@media only screen and (min-width: 600px)': {
 							 width: '100vw',
 							 display: 'flex',
 							 alignItems: 'center',
 							 justifyContent: 'center',
-							 '&[data-motion="from-start"]': { animationName: enterFromLeft },
-							'&[data-motion="from-end"]': { animationName: enterFromRight },
-							'&[data-motion="to-start"]': { animationName: exitToLeft },
-							'&[data-motion="to-end"]': { animationName: exitToRight },
-							animationDuration: '250ms'
+						
 						},
 						'@media (prefers-reduced-motion: no-preference)': {
 							animation: 'none!important'
@@ -365,7 +374,7 @@ export const MenuContent = ({className, children}) => {
 	)
 }
 
-export const MenuSub = ({className, children}) => {
+export const SubMenu = ({className, children}) => {
 	return (
 		<NavigationMenuPrimitive.Sub
 		className={className}
@@ -393,11 +402,12 @@ export const NavigationMenuDemo = () => {
 			>
 				<MenuItem>
 					<MenuTrigger
-					MenuText='Learn'
-					/>
+					>
+						Learn
+					</MenuTrigger>
 					<MenuContent
 					>
-						<MenuSub
+						<SubMenu
 						>
 							<ContentListItemCallout />
 							<ContentListItem href="https://stitches.dev/" title="Stitches">
@@ -409,31 +419,19 @@ export const NavigationMenuDemo = () => {
 							<ContentListItem href="https://icons.modulz.app/" title="Icons">
 								A crisp set of 15x15 icons, balanced and consistent.
 							</ContentListItem>
-						</MenuSub>
+						</SubMenu>
 					</MenuContent>
 				</MenuItem>
 
 				<MenuItem>
 					<MenuTrigger
-					MenuText='Overview'
-					/>
+					>
+						Overview
+					</MenuTrigger>
 					<MenuContent
 					>
-						<MenuSub
-						css={{
-							display: 'grid',
-							padding: 22,
-							margin: 0,
-							columnGap: 10,
-							listStyle: 'none',
-							'@media only screen and (min-width: 600px)': {
-								width: 600,
-								gridAutoFlow: 'column',
-								gridTemplateRows: 'repeat(3, 1fr)',
-							},
-
-							
-						}}
+						<SubMenu
+						
 						>
 							<ContentListItem title="Introduction" href="/docs/primitives/overview/introduction">
 								Build high-quality, accessible design systems and web apps.
@@ -456,7 +454,7 @@ export const NavigationMenuDemo = () => {
 							<ContentListItem title="Releases" href="/docs/primitives/overview/releases">
 								Radix Primitives releases and their changelogs.
 							</ContentListItem>
-						</MenuSub>
+						</SubMenu>
 					</MenuContent>
 				</MenuItem>
 
