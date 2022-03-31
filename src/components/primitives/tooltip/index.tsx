@@ -24,34 +24,36 @@ const slideLeftAndFade = keyframes({
 });
 
 export interface TooltipProps {
-	title?: string
+	title?: string,
+	side?: "top" | "right" | "bottom" | "left"
 }
 
-const Tooltip: React.FC<TooltipProps> = ({ title, children }) => {
+const Tooltip: React.FC<TooltipProps> = ({ title, side = "bottom", children }) => {
 	return (
 		<TooltipPrimitive.Root>
 			<TooltipPrimitive.Trigger>
 				{children}
 			</TooltipPrimitive.Trigger>
-			<TooltipPrimitive.Content css={{
+			<TooltipPrimitive.Content side={side} css={{
 				borderRadius: 4,
-				padding: '10px 15px',
+				padding: '8px 14px',
 				fontSize: 15,
 				lineHeight: 1,
 				color: '#000',
 				backgroundColor: 'white',
 				boxShadow: 'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
-				'@media (prefers-reduced-motion: no-preference)': {
-					animationDuration: '400ms',
-					animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-					animationFillMode: 'forwards',
-					willChange: 'transform, opacity',
-					'&[data-state="delayed-open"]': {
-						'&[data-side="top"]': { animationName: slideDownAndFade },
-						'&[data-side="right"]': { animationName: slideLeftAndFade },
-						'&[data-side="bottom"]': { animationName: slideUpAndFade },
-						'&[data-side="left"]': { animationName: slideRightAndFade },
-					},
+				animationDuration: '400ms',
+				animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+				animationFillMode: 'forwards',
+				willChange: 'transform, opacity',
+				'&[data-state="delayed-open"]': {
+					'&[data-side="top"]': { animationName: slideDownAndFade },
+					'&[data-side="right"]': { animationName: slideLeftAndFade },
+					'&[data-side="bottom"]': { animationName: slideUpAndFade },
+					'&[data-side="left"]': { animationName: slideRightAndFade },
+				},
+				'@media (prefers-reduced-motion: reduce)': {
+					animation: "none!important"
 				},
 			}} sideOffset={5} >
 				{title}
