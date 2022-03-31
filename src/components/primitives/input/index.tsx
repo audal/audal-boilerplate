@@ -4,6 +4,7 @@ import {useFormProvider} from "../form-provider";
 import FormAlert from "../form-alert";
 import usePersistedId from "../utils/use-persisted-id";
 import VisuallyHidden from "../visually-hidden";
+import throwOnMissing from "../utils/throw-on-missing";
 
 export interface InputProps extends CompiledJSXPropsOmitRef<HTMLInputElement> {
 	/**
@@ -59,6 +60,7 @@ export interface InputProps extends CompiledJSXPropsOmitRef<HTMLInputElement> {
  */
 const Input = ({ type = "text", name, validationRegex, minLength, maxLength, validationErrorMessage, required = false, value, onChange, onBlur, disabled, ...props }: InputProps) => {
 
+	throwOnMissing(name, 'name', 'Input')
 	// @ts-ignore Someone might still do this even though it's not defined in the type
 	if (type === "submit") {
 		throw new Error('Audal Components: The Input Primitive should not be used as a submit button. Please use <button type="submit" /> instead.')
