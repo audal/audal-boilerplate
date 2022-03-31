@@ -5,6 +5,7 @@ import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { CaretDownIcon } from '@radix-ui/react-icons';
 
 
+
 const enterFromRight = keyframes({
 	from: { transform: 'translateX(200px)', opacity: 0 },
 	to: { transform: 'translateX(0)', opacity: 1 },
@@ -62,10 +63,11 @@ const itemStyles = {
 
 
 
-const StyledTriggerWithCaret = React.forwardRef(({ children, ...props }, forwardedRef) => (
+const StyledTriggerWithCaret = React.forwardRef(({className, children, ...props }, forwardedRef) => (
 	<NavigationMenuPrimitive.Trigger 
 	{...props} 
 	ref={forwardedRef}
+	className={className}
 	css={{ 
 	...itemStyles,
 	display: 'flex',
@@ -96,10 +98,12 @@ const StyledTriggerWithCaret = React.forwardRef(({ children, ...props }, forward
 
 
 
-const StyledIndicatorWithArrow = React.forwardRef((props, forwardedRef) => (
+
+const StyledIndicatorWithArrow = React.forwardRef((className, props, forwardedRef) => (
 	<NavigationMenuPrimitive.Indicator 
 	{...props} 
 	ref={forwardedRef}
+	
 	css={{ 
 		display: 'flex',
 	alignItems: 'flex-end',
@@ -108,7 +112,7 @@ const StyledIndicatorWithArrow = React.forwardRef((props, forwardedRef) => (
 	top: '100%',
 	overflow: 'hidden',
 	zIndex: 1,
-
+	
 	'@media (prefers-reduced-motion: no-preference)': {
 		transition: 'width, transform 250ms ease',
 		'&[data-state="visible"]': { animation: `${fadeIn} 200ms ease` },
@@ -139,45 +143,48 @@ const NavigationMenuIndicator = StyledIndicatorWithArrow;
 
 
 
-const ContentListItem = React.forwardRef(({ children, title, ...props }, forwardedRef) => (
-	<li
-	css={{
-		padding: 12,
-		borderRadius: 6,
-		'&:hover': { backgroundColor: 'grey' },
-	}}
-	>
-		<NavigationMenuPrimitive.Link
-			{...props}
-			ref={forwardedRef}
-			
-		>
-			<div
-			css={{
-				fontWeight: 500,
-				lineHeight: 1.2,
-				marginBottom: 5,
-				color: 'black',
-			}}
-			>
-				{title}
-			</div>
-			<p
-			css={{
-				all: 'unset',
-				color: 'black',
-				lineHeight: 1.4,
-				fontWeight: 'initial',
-			}}
-			>
-				{children}
-			</p>
-		</NavigationMenuPrimitive.Link>
-	</li>
+export const ContentListItem = React.forwardRef(({className, children, title, ...props }, forwardedRef) => (
+					<li
+					className={className}
+					css={{
+						padding: 12,
+						borderRadius: 6,
+						'&:hover': { backgroundColor: 'grey' },
+					}}
+					>
+						<NavigationMenuPrimitive.Link
+							{...props}
+							ref={forwardedRef}
+							
+						>
+							<div
+							css={{
+								fontWeight: 500,
+								lineHeight: 1.2,
+								marginBottom: 5,
+								color: 'black',
+							}}
+							>
+								{title}
+							</div>
+							<p
+							css={{
+								all: 'unset',
+								color: 'black',
+								lineHeight: 1.4,
+								fontWeight: 'initial',
+							}}
+							>
+								{children}
+							</p>
+						</NavigationMenuPrimitive.Link>
+					</li>
+	
+	
 ));
 
-const ContentListItemCallout = React.forwardRef(({ children, ...props }, forwardedRef) => (
-	<li css={{ gridRow: 'span 3' }}>
+const ContentListItemCallout = React.forwardRef(({className, children, ...props }, forwardedRef) => (
+	<li className={className} css={{ gridRow: 'span 3' }}>
 		<NavigationMenuPrimitive.Link
 			{...props}
 			href="/"
@@ -222,16 +229,17 @@ const ContentListItemCallout = React.forwardRef(({ children, ...props }, forward
 ));
 
 
-export const MenuTrigger = ({MenuText}) => {
+export const MenuTrigger = ({MenuText, className}) => {
    return (
-	<NavigationMenuTrigger>{MenuText}</NavigationMenuTrigger>
+	<NavigationMenuTrigger className={className}>{MenuText}</NavigationMenuTrigger>
    )
 }
 
 
-export const MenuWrapper = ({children}) => {
+export const MenuWrapper = ({className, children}) => {
 	return (
 		<NavigationMenuPrimitive.Root
+		className={className}
 		css={{
 			position: 'relative',
 			display: 'flex',
@@ -281,32 +289,55 @@ export const MenuWrapper = ({children}) => {
 }
 
 
-export const MenuPanel = () => {
+export const MenuLink = ({link, title, className }) => {
 	return (
-		<></>
+		<NavigationMenuPrimitive.Link
+					href={link}
+					className={className}
+					css={{
+						...itemStyles,
+						display: 'block',
+						textDecoration: 'none',
+						fontSize: 15,
+						lineHeight: 1,
+					}}
+					>
+						{title}
+					</NavigationMenuPrimitive.Link>
 	)
 }
 
-
-export const NavigationMenuDemo = () => {
+export const MenuItem = ({children, className}) => {
 	return (
-	      <MenuWrapper>
-			<NavigationMenuPrimitive.List
-			css={{
-				width: '100%',
-				display: 'flex',
-				justifyContent: 'center',
-				backgroundColor: 'white',
-				padding: 4,
-				borderRadius: 0,
-				listStyle: 'none',
-			}}
-			>
-				<NavigationMenuItem>
-					<MenuTrigger
-					MenuText='Learn'
-					/>
-					<NavigationMenuPrimitive.Content
+		<NavigationMenuItem className={className}>
+			{children}
+		</NavigationMenuItem>
+	)
+}
+
+export const MenuList = ({className, children}) => {
+  return (
+	<NavigationMenuPrimitive.List
+	className={className}
+	css={{
+		width: '100%',
+		display: 'flex',
+		justifyContent: 'center',
+		backgroundColor: 'white',
+		padding: 4,
+		borderRadius: 0,
+		listStyle: 'none',
+	}}
+	>
+		{children}
+	</NavigationMenuPrimitive.List>
+  )
+}
+
+export const MenuContent = ({className, children}) => {
+	return (
+              <NavigationMenuPrimitive.Content
+			        className={className}
 					css={{
 						position: 'absolute',
 						top: 0,
@@ -329,18 +360,44 @@ export const NavigationMenuDemo = () => {
 						},
 					}}
 					>
-						<NavigationMenuPrimitive.Sub
-						css={{
-							display: 'grid',
-							padding: 22,
-							margin: 0,
-							columnGap: 10,
-							listStyle: 'none',
-							'@media only screen and (min-width: 600px)': {
-								width: 500,
-								gridTemplateColumns: '.75fr 1fr',
-							},
-						}}
+						{children}
+					</NavigationMenuPrimitive.Content>
+	)
+}
+
+export const MenuSub = ({className, children}) => {
+	return (
+		<NavigationMenuPrimitive.Sub
+		className={className}
+		css={{
+			display: 'grid',
+			padding: 22,
+			margin: 0,
+			columnGap: 10,
+			listStyle: 'none',
+			'@media only screen and (min-width: 600px)': {
+				width: 500,
+				gridTemplateColumns: '.75fr 1fr',
+			},
+		}}
+		>
+			{children}
+		</NavigationMenuPrimitive.Sub>
+	)
+}
+
+export const NavigationMenuDemo = () => {
+	return (
+	      <MenuWrapper>
+			<MenuList
+			>
+				<MenuItem>
+					<MenuTrigger
+					MenuText='Learn'
+					/>
+					<MenuContent
+					>
+						<MenuSub
 						>
 							<ContentListItemCallout />
 							<ContentListItem href="https://stitches.dev/" title="Stitches">
@@ -352,38 +409,17 @@ export const NavigationMenuDemo = () => {
 							<ContentListItem href="https://icons.modulz.app/" title="Icons">
 								A crisp set of 15x15 icons, balanced and consistent.
 							</ContentListItem>
-						</NavigationMenuPrimitive.Sub>
-					</NavigationMenuPrimitive.Content>
-				</NavigationMenuItem>
+						</MenuSub>
+					</MenuContent>
+				</MenuItem>
 
-				<NavigationMenuItem>
+				<MenuItem>
 					<MenuTrigger
 					MenuText='Overview'
 					/>
-					<NavigationMenuPrimitive.Content
-					css={{
-						position: 'absolute',
-						top: 0,
-						left: 0,
-						width: '100vw',
-						'@media only screen and (min-width: 600px)': { 
-						 width: '100vw',
-						 display: 'flex',
-						 alignItems: 'center',
-						 justifyContent: 'center', 
-						 animationDuration: '250ms',
-							animationTimingFunction: 'ease',
-							'&[data-motion="from-start"]': { animationName: enterFromLeft },
-							'&[data-motion="from-end"]': { animationName: enterFromRight },
-							'&[data-motion="to-start"]': { animationName: exitToLeft },
-							'&[data-motion="to-end"]': { animationName: exitToRight },
-						},
-						'@media (prefers-reduced-motion: no-preference)': {
-							animation: 'none!important'
-						},
-					}}
+					<MenuContent
 					>
-						<NavigationMenuPrimitive.Sub
+						<MenuSub
 						css={{
 							display: 'grid',
 							padding: 22,
@@ -420,27 +456,20 @@ export const NavigationMenuDemo = () => {
 							<ContentListItem title="Releases" href="/docs/primitives/overview/releases">
 								Radix Primitives releases and their changelogs.
 							</ContentListItem>
-						</NavigationMenuPrimitive.Sub>
-					</NavigationMenuPrimitive.Content>
-				</NavigationMenuItem>
+						</MenuSub>
+					</MenuContent>
+				</MenuItem>
 
-				<NavigationMenuItem>
-					<NavigationMenuPrimitive.Link
-					href="https://github.com/radix-ui"
-					css={{
-						...itemStyles,
-						display: 'block',
-						textDecoration: 'none',
-						fontSize: 15,
-						lineHeight: 1,
-					}}
-					>
-						Github
-					</NavigationMenuPrimitive.Link>
-				</NavigationMenuItem>
+				<MenuItem>
+					<MenuLink
+					link="https://github.com/radix-ui"
+					title='Github'
+					/>
+						
+				</MenuItem>
 
 				<NavigationMenuIndicator />
-			</NavigationMenuPrimitive.List>
+			</MenuList>
 
 			</MenuWrapper>
 	);
