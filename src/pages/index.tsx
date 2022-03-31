@@ -21,13 +21,18 @@ import Input from "../components/primitives/input";
 import FormProvider from "../components/primitives/form-provider";
 import Button from "../components/primitives/button";
 import NavigationMenuDemo from "../components/primitives/mega-menu";
+import Select, {
+	SelectGroup,
+	SelectLabel,
+	SelectOption,
+	SelectSeparator,
+} from "../components/primitives/select";
 
 const Index = (): React.ReactElement => (
 	<div css={{ width: "100%" }}>
-		<NavigationMenuDemo />
 		<div>Blank Page</div>
-
 		<Spinner />
+		<NavigationMenuDemo />
 		<Modal>
 			<ModalTrigger>Edit profile</ModalTrigger>
 			<ModalContent
@@ -50,6 +55,31 @@ const Index = (): React.ReactElement => (
 				</AccordionPanel>
 			</AccordionItem>
 		</Accordion>
+		<Select placeholder="Hello!" name="boo">
+			<SelectOption value="apple">Apple</SelectOption>
+			<SelectOption value="banana">Banana</SelectOption>
+		</Select>
+		<Input name="hi" />
+		<FormProvider
+			onSubmit={(e) => {
+				console.log(e);
+			}}
+		>
+			<Input name="email" type="email" required />
+			<Input name="phone" type="tel" />
+			<Input name="number" type="number" />
+			<Input name="hi" minLength={20} className="hello" />
+			<Input placeholder="hi" name="password" type="password" />
+			<Select placeholder="Hello!" name="heheheh">
+				<SelectOption value="apple">Apple</SelectOption>
+				<SelectOption value="banana">Banana</SelectOption>
+			</Select>
+			<RadioGroup defaultValue="default" aria-label="View density">
+				<RadioContent value="hello">Hello</RadioContent>
+				<RadioContent value="hello2">Hello2</RadioContent>
+			</RadioGroup>
+			<TestButton />
+		</FormProvider>
 	</div>
 );
 

@@ -1,6 +1,7 @@
 /** @jsxImportSource @compiled/react */
 import React from 'react'
 import {
+	Control,
 	FieldErrors,
 	FieldValues,
 	SubmitHandler,
@@ -12,6 +13,7 @@ import {
 
 export interface IFormContext {
 	register: UseFormRegister<FieldValues>
+	control: Control
 	handleSubmit: UseFormHandleSubmit<FieldValues>
 	errors: FieldErrors
 	setValue: UseFormSetValue<any>
@@ -40,12 +42,13 @@ const FormContext = React.createContext<IFormContext>(null as any)
  * */
 const FormProvider = React.forwardRef<HTMLFormElement, FormProviderProps>(({children, onSubmit}, ref) => {
 
-	const { register, handleSubmit, formState: { errors }, setValue, getValues } = useForm();
+	const { register, handleSubmit, control, formState: { errors }, setValue } = useForm();
 
 	return (
 		<FormContext.Provider
 			value={{
 				register,
+				control,
 				handleSubmit,
 				errors,
 				setValue
