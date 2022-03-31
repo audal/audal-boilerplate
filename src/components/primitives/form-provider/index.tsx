@@ -42,8 +42,9 @@ const FormContext = React.createContext<IFormContext>(null as any)
  * */
 const FormProvider = React.forwardRef<HTMLFormElement, FormProviderProps>(({children, onSubmit}, ref) => {
 
-	const { register, handleSubmit, control, formState: { errors }, setValue } = useForm();
+	const { register, handleSubmit, control, formState: { errors }, setValue, getValues } = useForm();
 
+	
 	return (
 		<FormContext.Provider
 			value={{
@@ -51,7 +52,8 @@ const FormProvider = React.forwardRef<HTMLFormElement, FormProviderProps>(({chil
 				control,
 				handleSubmit,
 				errors,
-				setValue
+				setValue,
+				getValues
 			}}
 		>
 			<form ref={ref} css={{ border: Object.keys(errors).length != 0 ? '1px solid red' : '1px solid transparent', width: '100%' }} onSubmit={handleSubmit(onSubmit)}>

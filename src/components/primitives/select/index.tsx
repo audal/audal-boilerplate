@@ -1,5 +1,5 @@
 /** @jsxImportSource @compiled/react */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { violet, mauve, blackA } from '@radix-ui/colors';
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
 import * as SelectPrimitive from '@radix-ui/react-select';
@@ -7,6 +7,7 @@ import {useFormProvider} from "../form-provider";
 import usePersistedId from "../utils/use-persisted-id";
 import { Controller } from 'react-hook-form';
 import throwOnMissing from "../utils/throw-on-missing";
+import FormAlert from "../form-alert";
 
 
 export const SelectOption = ({ children, value, disabled }) => {
@@ -46,7 +47,7 @@ export const SelectOption = ({ children, value, disabled }) => {
 	)
 }
 
-const SelectBase = ({ children, onChange, onBlur, placeholder, name, required, disabled, value }) => {
+const SelectBase = ({ children, onChange, onBlur, placeholder, name, required, disabled, value, formContext, inputBoxStyle }) => {
 
 	if (!children) {
 		children = [
@@ -62,8 +63,16 @@ const SelectBase = ({ children, onChange, onBlur, placeholder, name, required, d
 		children = [<SelectOption disabled value={placeholder}>{placeholder}</SelectOption>, ...children]
 	}
 
+	React.useEffect(() => {
+		if(!placeholder && formContext){
+			formContext.setValue(name, children[0].props.value)
+		}
+	}, []);
+
+
 	return (
-		<SelectPrimitive.Root onValueChange={onChange} onOpenChange={onBlur} value={value} name={name} defaultValue={children[0].props.value}>
+	<div>
+		<SelectPrimitive.Root onValueChange={onChange} onOpenChange={onBlur} value={value} name={name} defaultValue={children[0].props.value} {...formContext?.register(name, { required: required })}>
 			<SelectPrimitive.SelectTrigger css={{
 				padding: '4px 7px',
 				width: '100%',
@@ -81,7 +90,7 @@ const SelectBase = ({ children, onChange, onBlur, placeholder, name, required, d
 				backgroundColor: 'white',
 				color: '#000',
 				'&:hover': { backgroundColor: mauve.mauve3 },
-			}} aria-label={name} disabled={disabled} aria-disabled={disabled}>
+			}} className={inputBoxStyle} aria-label={name} disabled={disabled} aria-disabled={disabled}>
 				<SelectPrimitive.Value />
 				<SelectPrimitive.Icon>
 					<ChevronDownIcon />
@@ -123,10 +132,14 @@ const SelectBase = ({ children, onChange, onBlur, placeholder, name, required, d
 				</SelectPrimitive.SelectScrollDownButton>
 			</SelectPrimitive.Content>
 		</SelectPrimitive.Root>
+		{formContext?.errors[name]?.type === "required" && (
+			<FormAlert>Required</FormAlert>
+		)}
+	</div>
 	);
 }
 
-export const Select = ({ placeholder, children, value, onChange, name }) => {
+export const Select = ({ placeholder, children, value, onChange, name, required=false, className }) => {
 
 	throwOnMissing(name, 'name', 'Select')
 
@@ -136,10 +149,11 @@ export const Select = ({ placeholder, children, value, onChange, name }) => {
 		return (
 			<SelectBase value={value} onChange={(e) => {
 				formContext.setValue(name, e)
+				console.log("values", formContext.getValues())
 				if (onChange) {
 					onChange(e)
 				}
-			}} name={name} placeholder={placeholder}>
+			}} name={name} placeholder={placeholder} required={required} formContext={formContext} inputBoxStyle={className}>
 				{children}
 			</SelectBase>
 		)
