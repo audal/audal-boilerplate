@@ -13,12 +13,19 @@ import {
 } from "../components/primitives/accordion";
 import Tooltip from "../components/primitives/tooltip";
 import Spinner from "../components/primitives/spinner";
-import {Modal, ModalCloseButton, ModalContent, ModalTrigger} from "../components/primitives/modal";
+import {
+	Modal,
+	ModalCloseButton,
+	ModalContent,
+	ModalTrigger,
+} from "../components/primitives/modal";
 import { DrawerComponent } from "../components/primitives/drawer";
 import Input from "../components/primitives/input";
 import FormProvider from "../components/primitives/form-provider";
 import Button from "../components/primitives/button";
 import NavigationMenuDemo from "../components/primitives/mega-menu";
+import { CheckBox, CheckBoxGroup } from "../components/primitives/checkbox";
+import { RadioContent, Radio } from "../components/primitives/radio";
 import Select, {
 	SelectGroup,
 	SelectLabel,
@@ -54,19 +61,34 @@ const Index = (): React.ReactElement => (
 				</AccordionPanel>
 			</AccordionItem>
 		</Accordion>
-		<Input name="hi" />
+		{/* <Input name="hi" /> */}
 		<FormProvider
 			onSubmit={(e) => {
 				console.log(e);
 			}}
 		>
-			<Input name="email" type="email" />
-			<Input name="phone" type="tel" />
-			<Input name="number" type="number" />
-			<Input name="hi" minLength={20} className="hello" />
+			<Input name="email" type="email" placeholder="email" required />
+			<Input name="phone" type="tel" placeholder="tel" />
+			<Input name="number" type="number" placeholder="number" />
+			<Input name="hi" minLength={20} className="hello" placeholder="hi" />
 			<Input placeholder="hi" name="password" type="password" />
-			{/* <div style={{background: "red", paddingTop: "50px", paddingBottom: "50px"}}> */}
-			<Select placeholder="Hello!" name="heheheh" required css={{height: "80px", background: "red", color: "white"}}>
+			<CheckBoxGroup name="check" required>
+				Agree
+			</CheckBoxGroup>
+			<Radio required name="batman">
+				<RadioContent value="hello" disabled={false}>
+					hello
+				</RadioContent>
+				<RadioContent value="hello2" disabled={false}>
+					hello2
+				</RadioContent>
+			</Radio>
+			<Select
+				placeholder="Hello!"
+				name="heheheh"
+				required
+				css={{ height: "80px", background: "red", color: "white" }}
+			>
 				<SelectOption value="apple">Apple</SelectOption>
 				<SelectOption value="banana">Banana</SelectOption>
 			</Select>
