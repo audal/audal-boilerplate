@@ -3,33 +3,43 @@ import React from "react";
 // import { violet, blackA } from "@radix-ui/colors";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import usePersistedId from "../utils/use-persisted-id";
+import { useFormProvider } from "../form-provider";
+import FormAlert from "../form-alert";
+import VisuallyHidden from "../visually-hidden";
 
 export const RadioGroup = RadioGroupPrimitive.Root;
-interface RadioContentProps {
-	children: any;
-	size?: "xs" | "sm" | "md" | "lg" | "xl";
-}
+// interface RadioContentProps extends CompiledJSXPropsOmitRef<HTMLInputElement> {
+// 	name: string;
+// 	children: any;
+// 	sizes?: "xs" | "sm" | "md" | "lg" | "xl";
+// 	required?: boolean;
+// 	checked?: boolean;
+// 	value?: string | boolean | undefined;
+// 	validationErrorMessage?: string | ((type: "required") => string);
+// }
 
 export const RadioContent = ({
+	sizes = "md",
 	children,
-	size = "md",
-	...props
-}: RadioContentProps): JSX.Element => {
-	const foundSize = {
+	value,
+	disabled,
+}): JSX.Element => {
+	const foundsize = {
 		xs: "0.75rem",
 		sm: "1rem",
 		md: "1.5rem",
 		lg: "2rem",
 		xl: "3rem",
-	}[size];
-	const innerSize = {
+	}[sizes];
+	const innersizes = {
 		xs: "0.35rem",
 		sm: "0.5rem",
 		md: "0.75rem",
 		lg: "1rem",
 		xl: "1.5rem",
-	}[size];
+	}[sizes];
 	const id = usePersistedId();
+
 	return (
 		<div css={{ display: "flex", margin: "10px 0", alignItems: "center" }}>
 			<RadioGroupPrimitive.Item
@@ -40,8 +50,8 @@ export const RadioContent = ({
 					alignItems: "center",
 					justifyContent: "center",
 					flexShrink: 0,
-					width: `${foundSize} !important`,
-					height: `${foundSize} !important`,
+					width: `${foundsize} !important`,
+					height: `${foundsize} !important`,
 					borderWidth: "2px",
 					borderStyle: "solid",
 					borderImage: "initial",
@@ -54,9 +64,10 @@ export const RadioContent = ({
 						borderColor: "blue",
 					},
 				}}
-				value="default"
+				value={value}
 				id={id}
-				{...props}
+				disabled={disabled}
+				aria-disabled={disabled}
 			>
 				<RadioGroupPrimitive.Indicator
 					css={{
@@ -69,8 +80,8 @@ export const RadioContent = ({
 						"&::after": {
 							content: '""',
 							display: "block",
-							width: `${innerSize} !important`,
-							height: `${innerSize} !important`,
+							width: `${innersizes} !important`,
+							height: `${innersizes} !important`,
 							borderRadius: "50%",
 							backgroundColor: "red",
 						},
@@ -80,7 +91,7 @@ export const RadioContent = ({
 			<label
 				css={{
 					color: "black",
-					fontSize: 15,
+					fontsizes: 15,
 					lineHeight: 1,
 					userSelect: "none",
 					paddingLeft: 15,
@@ -92,3 +103,72 @@ export const RadioContent = ({
 		</div>
 	);
 };
+
+export const RadioBase = ({
+	children,
+	onChange,
+	name,
+	required,
+	value,
+	formContext,
+}) => {
+	if (!Array.isArray(children)) {
+		children = [children];
+	}
+	React.useEffect(() => {
+		if (formContext) {
+			formContext?.setValue(name, children[0].props.value);
+		}
+	}, []);
+	return (
+		<RadioGroupPrimitive.Root
+			onValueChange={onChange}
+			value={value}
+			name={name}
+			defaultValue={children[0].props.value}
+			{...formContext?.register(name, { required: required })}
+		>
+			{children}
+			{formContext?.errors[name]?.type === "required" && (
+				<FormAlert>Required</FormAlert>
+			)}
+		</RadioGroupPrimitive.Root>
+	);
+};
+
+export const Radio = ({
+	children,
+	value,
+	onChange,
+	name,
+	required = false,
+}) => {
+	const formContext = useFormProvider();
+
+	if (formContext) {
+		return (
+			<RadioBase
+				value={value}
+				onChange={(e) => {
+					formContext.setValue(name, e);
+					if (onChange) {
+						onChange(e);
+					}
+				}}
+				name={name}
+				required={required}
+				formContext={formContext}
+			>
+				{children}
+			</RadioBase>
+		);
+	} else {
+		return (
+			<RadioBase value={value} onChange={onChange} name={name}>
+				{children}
+			</RadioBase>
+		);
+	}
+};
+
+// export default Radio;
