@@ -8,10 +8,10 @@ import { Cross1Icon } from '@radix-ui/react-icons';
 import { overlayStyles } from './Overlay';
 import { IconButton } from './IconButton';
 
-const overlayShow = keyframes({
-	'0%': { opacity: 0 },
-	'100%': { opacity: 1 },
-});
+// const overlayShow = keyframes({
+// 	'0%': { opacity: 0 },
+// 	'100%': { opacity: 1 },
+// });
 
 const fadeIn = keyframes({
 	from: { opacity: '0' },
@@ -37,28 +37,28 @@ export const DrawerOverlay = () => (
 		background: "rgba(0, 0, 0, 0.48)",
 		zIndex: 2000,
 		backdropFilter: "blur(8px)",
-		animation: `${overlayShow} 150ms forwards`,
+		// animation: `${overlayShow} 150ms forwards`,
 		'@media (prefers-reduced-motion: reduce)': {
 			animation: 'none!important',
 		},
 		// '&[data-state="open"]': {
-		// 	animation: `${fadeIn} 150ms cubic-bezier(0.22, 1, 0.36, 1)`,
+		// 	animation: `${fadeIn} 1500ms cubic-bezier(0.22, 1, 0.36, 1)`,
 		// },
 
 		// '&[data-state="closed"]': {
-		// 	animation: `${fadeOut} 150ms cubic-bezier(0.22, 1, 0.36, 1)`,
+		// 	animation: `${fadeOut} 1500ms cubic-bezier(0.22, 1, 0.36, 1)`,
 		// },
 	}} />
 )
 
 const slideIn = keyframes({
-	from: { transform: '$$transformValue' },
+	from: { transform: 'translate3d(-100%,0,0)' },
 	to: { transform: 'translate3d(0,0,0)' },
 });
 
 const slideOut = keyframes({
 	from: { transform: 'translate3d(0,0,0)' },
-	to: { transform: '$$transformValue' },
+	to: { transform: 'translate3d(-100%,0,0)' },
 });
 
 export const DrawerContent = ({children, placement='left', ...props}) => {
@@ -90,7 +90,7 @@ export const DrawerContent = ({children, placement='left', ...props}) => {
 	return (
 		<DialogPrimitive.Content 
 		className="drawer-content-wrapper"
-		style={placementStyles}			
+		// style={placementStyles}			
 		css={{
 			backgroundColor: 'white',
 			boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
@@ -99,18 +99,21 @@ export const DrawerContent = ({children, placement='left', ...props}) => {
 			bottom: 0,
 			width: "320px",
 			zIndex: 2000,
-			transition: "transform 1s",
+			transform: 'translate3d(-100%,0,0)',
+			display: "flex!important",
+			transition: "transform 2s",
 			// Among other things, prevents text alignment inconsistencies when dialog can't be centered in the viewport evenly.
 			// Affects animated and non-animated dialogs alike.
 			// willChange: 'transform',
 
-			// '&[data-state="open"]': {
-			// 	animation: `${slideIn} 150ms cubic-bezier(0.22, 1, 0.36, 1)`,
-			// },
+			'&[data-state="open"]': {
+				transform: 'translate3d(0,0,0)'
+				// animation: `${slideIn} 1500ms cubic-bezier(0.22, 1, 0.36, 1)`,
+			},
 
-			// '&[data-state="closed"]': {
-			// 	animation: `${slideOut} 150ms cubic-bezier(0.22, 1, 0.36, 1)`,
-			// },
+			'&[data-state="closed"]': {
+				transform: 'translate3d(-100%,0,0)',
+			},
 
 			// ...props
 			}} 
@@ -128,21 +131,6 @@ export const DrawerContent = ({children, placement='left', ...props}) => {
 type DialogContentPrimitiveProps = React.ComponentProps<typeof DialogPrimitive.Content>;
 // type SheetContentProps = DialogContentPrimitiveProps & SheetContentVariants & { css?: CSS };
 
-export const DrawerComponent = ({ children, contentPlacement, ...props }) => (
-	<DialogPrimitive.Root>
-		<DialogPrimitive.Trigger>
-			<div>Edit Profile</div>
-		</DialogPrimitive.Trigger>
-		<DialogPrimitive.Portal>
-			<DrawerOverlay />
-			<DrawerContent placement={contentPlacement} {...props}>
-				<ModalCloseButton />
-				{children}
-			</DrawerContent>
-		</DialogPrimitive.Portal>
-	</DialogPrimitive.Root>
-	
-);
 
 export const SheetTrigger = DialogPrimitive.Trigger;
 // export DrawerOverlay = DrawerOverlay;
