@@ -1,6 +1,6 @@
 /** @jsxImportSource @compiled/react */
 import React from 'react';
-import {keyframes} from "@stitches/react";
+import {keyframes} from "@compiled/react";
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { CaretDownIcon } from '@radix-ui/react-icons';
 
@@ -92,9 +92,7 @@ export const CaretIcon = ({className}) => {
 			color: 'black',
 			top: 1,
 			'[data-state=open] &': { transform: 'rotate(-180deg)', transition: 'transform 250ms ease' },
-			'@media (prefers-reduced-motion: no-preference)': {
-				transition: 'none',
-			},
+			
 		}}
 		/>
 	)
@@ -122,9 +120,7 @@ const StyledIndicatorWithArrow = React.forwardRef((className, props, forwardedRe
 	transition: 'width, transform 250ms ease',
 	'&[data-state="visible"]': { animation: `${fadeIn} 200ms ease` },
 	'&[data-state="hidden"]': { animation: `${fadeOut} 200ms ease` },
-	'@media (prefers-reduced-motion: no-preference)': {
-		animation: 'none !important'
-	},
+	
 	}}
 	>
 		<div
@@ -153,15 +149,21 @@ const NavigationMenuIndicator = StyledIndicatorWithArrow;
 export const ContentListItem = React.forwardRef(({className, children, title, ...props }, forwardedRef) => (
 					<li
 					className={className}
+					aria-hidden
 					css={{
 						padding: 12,
 						borderRadius: 6,
+						opacity: 1,
+						'&[data-state="open"]': { animation: `${fadeIn} 200ms ease` },
+						'&[data-state="closed"]': { animation: `${fadeOut} 200ms ease` },
 						'&:hover': { backgroundColor: 'grey' },
+						
 					}}
 					>
 						<NavigationMenuPrimitive.Link
 							{...props}
 							ref={forwardedRef}
+							
 							
 						>
 							<div
@@ -285,9 +287,7 @@ export const MenuWrapper = ({className, children}) => {
 						'&[data-state="open"]': { animation: `${scaleIn} 200ms ease` },
 						'&[data-state="closed"]': { animation: `${scaleOut} 200ms ease` },
 					},
-					'@media (prefers-reduced-motion: no-preference)': {
-						animation: 'none !important'
-					},
+					
 				}}
 				/>
 			</div>
@@ -363,10 +363,7 @@ export const MenuContent = ({className, children}) => {
 							 justifyContent: 'center',
 						
 						},
-						'@media (prefers-reduced-motion: no-preference)': {
-							animation: 'none!important'
-							
-						},
+						
 					}}
 					>
 						{children}
