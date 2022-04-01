@@ -2,6 +2,8 @@
 import React from "react";
 import Logo from "../images/icon.png";
 import { AnimatedImageClipped } from "../components/animations/animated-image-clipped";
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { DrawerOverlay, DrawerContent } from "../components/primitives/drawer";
 import {
 	Accordion,
 	AccordionButton,
@@ -17,16 +19,20 @@ import {
 	ModalContent,
 	ModalTrigger,
 } from "../components/primitives/modal";
+import { DrawerComponent } from "../components/primitives/drawer";
 import Input from "../components/primitives/input";
 import FormProvider from "../components/primitives/form-provider";
 import Button from "../components/primitives/button";
 import NavigationMenuDemo from "../components/primitives/mega-menu";
+import { CheckBox, CheckBoxGroup } from "../components/primitives/checkbox";
+import { RadioContent, Radio } from "../components/primitives/radio";
 import Select, {
 	SelectGroup,
 	SelectLabel,
 	SelectOption,
 	SelectSeparator,
 } from "../components/primitives/select";
+
 
 const Index = (): React.ReactElement => (
 	<div css={{ width: "100%" }}>
@@ -55,29 +61,61 @@ const Index = (): React.ReactElement => (
 				</AccordionPanel>
 			</AccordionItem>
 		</Accordion>
-		<Select placeholder="Hello!" name="boo">
-			<SelectOption value="apple">Apple</SelectOption>
-			<SelectOption value="banana">Banana</SelectOption>
-		</Select>
-		<Input name="hi" />
+		{/* <Input name="hi" /> */}
 		<FormProvider
 			onSubmit={(e) => {
 				console.log(e);
 			}}
 		>
-			<Input name="email" type="email" required />
-			<Input name="phone" type="tel" />
-			<Input name="number" type="number" />
-			<Input name="hi" minLength={20} className="hello" />
+			<Input name="email" type="email" placeholder="email" required />
+			<Input name="phone" type="tel" placeholder="tel" />
+			<Input name="number" type="number" placeholder="number" />
+			<Input name="hi" minLength={20} className="hello" placeholder="hi" />
 			<Input placeholder="hi" name="password" type="password" />
-			<Select placeholder="Hello!" name="heheheh">
+			<CheckBoxGroup name="check" required>
+				Agree
+			</CheckBoxGroup>
+			<Radio required name="batman">
+				<RadioContent value="hello" disabled={false}>
+					hello
+				</RadioContent>
+				<RadioContent value="hello2" disabled={false}>
+					hello2
+				</RadioContent>
+			</Radio>
+			<Select
+				placeholder="Hello!"
+				name="heheheh"
+				required
+				css={{ height: "80px", background: "red", color: "white" }}
+			>
 				<SelectOption value="apple">Apple</SelectOption>
 				<SelectOption value="banana">Banana</SelectOption>
 			</Select>
-			<RadioGroup defaultValue="default" aria-label="View density">
+			<DialogPrimitive.Root css={{display: "block!important", '&[data-state="closed"]': {display: "block!important"}}}>
+				<DialogPrimitive.Trigger>
+					<div>Edit Profile</div>
+				</DialogPrimitive.Trigger>
+				<DialogPrimitive.Portal css={{display: "block!important", '&[data-state="closed"]': {display: "block!important"}}}>
+					<DrawerOverlay />
+					<DrawerContent>
+						<ModalCloseButton />
+						<div>
+							Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+							Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+							when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+							It has survived not only five centuries, but also the leap into electronic typesetting, 
+							remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset 
+							sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like 
+							Aldus PageMaker including versions of Lorem Ipsum.
+						</div>
+					</DrawerContent>
+				</DialogPrimitive.Portal>
+			</DialogPrimitive.Root>
+			{/*<RadioGroup defaultValue="default" aria-label="View density">
 				<RadioContent value="hello">Hello</RadioContent>
 				<RadioContent value="hello2">Hello2</RadioContent>
-			</RadioGroup>
+		</RadioGroup>*/}
 			<TestButton />
 		</FormProvider>
 	</div>
