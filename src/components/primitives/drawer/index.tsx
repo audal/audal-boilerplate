@@ -30,16 +30,14 @@ const DrawerOverlay = () => (
 		height: "100%",
 		background: "rgba(0, 0, 0, 0.48)",
 		zIndex: 2000,
-		backdropFilter: "blur(8px)",
+		'&[data-state="open"]': {
+			animation: `${fadeIn} 250ms forwards`,
+		},
+		'&[data-state="closed"]': {
+			animation: `${fadeOut} 350ms forwards`,
+		},
 		'@media (prefers-reduced-motion: reduce)': {
 			animation: 'none!important',
-		},
-		'&[data-state="open"]': {
-			animation: `${fadeIn} 150ms cubic-bezier(0.22, 1, 0.36, 1)`,
-		},
-
-		'&[data-state="closed"]': {
-			animation: `${fadeOut} 150ms cubic-bezier(0.22, 1, 0.36, 1)`,
 		},
 	}} />
 )
@@ -106,13 +104,12 @@ export const DrawerContent = ({children, className, placement='left', ...props})
 					// willChange: 'transform',
 
 					'&[data-state="open"]': {
-						animation: `${slideIn} 150ms cubic-bezier(0.22, 1, 0.36, 1)`,
+						animation: `${slideIn} 360ms forwards`,
 					},
 					'&[data-state="closed"]': {
-						animation: `${slideOut} 150ms cubic-bezier(0.22, 1, 0.36, 1)`,
+						animation: `${slideOut} 250ms forwards`,
 					},
-				}} 
-				// style={{ ...placementStyles }}
+				}}
 				className={className}
 			>
 				{children}
