@@ -89,7 +89,7 @@ const Index = (): React.ReactElement => (
 					peace
 				</Radio>
 			</RadioGroup>
-			{/* <Select
+			<Select
 				placeholder="Hello!"
 				name="heheheh"
 				// required
@@ -97,7 +97,7 @@ const Index = (): React.ReactElement => (
 			>
 				<SelectOption value="apple">Apple</SelectOption>
 				<SelectOption value="banana">Banana</SelectOption>
-			</Select> */}
+			</Select>
 			<Drawer >
 				<DrawerTrigger>
 					<div>Open Drawer</div>

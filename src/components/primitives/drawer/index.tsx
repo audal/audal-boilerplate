@@ -171,9 +171,9 @@ export const DrawerContent = ({children, className, placement='left', size='xs'}
 	);
 };
 
-type DialogRootPrimitiveProps = React.FC<React.ComponentProps<typeof DialogPrimitive.Root>>;
-type DialogTriggerPrimitiveProps = React.FC<React.ComponentProps<typeof DialogPrimitive.Trigger>>;
-type DrawerCloseButtonProps = React.FC<React.ComponentProps<typeof ModalCloseButton>>;
+type DialogRootPrimitiveProps = React.FunctionComponent<React.ComponentProps<typeof DialogPrimitive.Root>>;
+type DialogTriggerPrimitiveProps = React.FunctionComponent<React.ComponentProps<typeof DialogPrimitive.Trigger>>;
+type DrawerCloseButtonProps = React.FunctionComponent<React.ComponentProps<typeof ModalCloseButton>>;
 
 /** 
  * <Drawer /> component - This is the root component that houses 
