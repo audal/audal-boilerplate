@@ -1,11 +1,9 @@
 /** @jsxImportSource @compiled/react */
-import React from 'react';
+import React, { RefAttributes } from 'react';
 import { keyframes } from '@compiled/react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { ModalCloseButton } from '../modal';
 import { Cross1Icon } from '@radix-ui/react-icons';
-import { overlayStyles } from './Overlay';
-import { IconButton } from './IconButton';
 
 const fadeIn = keyframes({
 	from: { opacity: '0' },
@@ -17,9 +15,10 @@ const fadeOut = keyframes({
 	to: { opacity: '0' },
 });
 
-type SheetProps = React.ComponentProps<typeof DialogPrimitive.Root>;
-
-const DrawerOverlay = () => (
+/**
+ * Drawer Overlay component -does not accept any props
+*/
+const DrawerOverlay: () => React.ReactElement = () => (
 	<DialogPrimitive.Overlay css={{
 		position: 'fixed',
 		top: 0,
@@ -43,12 +42,38 @@ const DrawerOverlay = () => (
 )
 
 interface DrawerContentProps{
+	/**
+	 * The content of the drawer in JSX
+	*/
 	children: React.ReactNode | React.ReactNode[];
+	/**
+	 * This can either be an explicit className or 
+	 * classNames generated as a result of using css prop 
+	 * i.e. css={{width: "100%", height: "auto"}}
+	 * 
+	 * You can use css prop to style the drawer content. e.g. if you want to change 
+	 * the background color from white to any other color
+	 */
 	className?: string;
+	/**
+	 * Positioning of the drawer. The default value is left
+	 */
 	placement: 'left' | 'right' | 'top' | 'bottom';
+	/**
+	 * The size of the drawer. For horizontally positioned drawers (i.e. left, right), this will affect the width.
+	 * For vertically positioned drawers, this will affect the height(i.e. top, bottom). THe default value is xs
+	 */
 	size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 }
-export const DrawerContent : React.FC<DrawerContentProps> = ({children, className, placement='left', size='xs'}) => {
+
+/**
+ * <DrawerContent /> Component. It has a white background by default.
+ * It must be a direct child of the <Drawer /> component
+ * You can 
+ * @param {CompiledJSXCustomProps<DrawerContentProps>}
+ * @returns {React.ReactElement}
+ */
+export const DrawerContent = ({children, className, placement='left', size='xs'} : CompiledJSXCustomProps<DrawerContentProps>): React.ReactElement => {
 
 	const sizes = {
 		xs: "20rem",
@@ -146,8 +171,28 @@ export const DrawerContent : React.FC<DrawerContentProps> = ({children, classNam
 	);
 };
 
-type DialogContentPrimitiveProps = React.ComponentProps<typeof DialogPrimitive.Content>;
+type DialogRootPrimitiveProps = React.FC<React.ComponentProps<typeof DialogPrimitive.Root>>;
+type DialogTriggerPrimitiveProps = React.FC<React.ComponentProps<typeof DialogPrimitive.Trigger>>;
+type DrawerCloseButtonProps = React.FC<React.ComponentProps<typeof ModalCloseButton>>;
 
-export const Drawer = DialogPrimitive.Root;
-export const DrawerTrigger = DialogPrimitive.Trigger;
-export const DrawerCloseButton = ModalCloseButton;
+/** 
+ * <Drawer /> component - This is the root component that houses 
+ * both the DrawerTrigger and DrawerContent component when creating a Drawer
+ * 
+ */
+export const Drawer: DialogRootPrimitiveProps = DialogPrimitive.Root;
+/** 
+ * <DrawerTrigger /> component - This is the button that opens the Drawer when clicked
+ * It must have a child that determines the look of the button 
+ * (i.e. text and styling), preferably a div element which can be styled using css prop. 
+ * 
+ * This button must be a direct child of the <Drawer /> component
+ * 
+ */
+export const DrawerTrigger: DialogTriggerPrimitiveProps = DialogPrimitive.Trigger;
+/**
+ * <DrawerCloseButton /> component.
+ * This component must always be the first child of <DrawerContent /> component.
+ * You can modify the style with css prop e.g. css={{width: "100px", height: "100px"}}
+ */
+export const DrawerCloseButton: DrawerCloseButtonProps = ModalCloseButton;
