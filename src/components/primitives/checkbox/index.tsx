@@ -1,22 +1,47 @@
 /** @jsxImportSource @compiled/react */
 import React from "react";
-// import { violet, blackA } from "@radix-ui/colors";
 import { CheckIcon } from "@radix-ui/react-icons";
-import { useFormProvider } from "../form-provider";
+import { useFormProvider, IFormContext } from "../form-provider";
 import FormAlert from "../form-alert";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import usePersistedId from "../utils/use-persisted-id";
-import VisuallyHidden from "../visually-hidden";
 
 // export interface CheckBoxProps
-// 	extends CompiledJSXPropsOmitRef<HTMLInputElement> {
-// 	name: string;
-// 	children: string;
-// 	sizes?: "xs" | "sm" | "md" | "lg" | "xl";
-// 	required?: boolean;
-// 	checked?: boolean;
-// 	validationErrorMessage?: string | ((type: "required") => string);
-// }
+export interface CheckBoxProps
+	extends CompiledJSXPropsOmitRef<HTMLInputElement> {
+	/**
+	 * Name of the CheckBox - will be used for the form validation if using FormContext so make sure it's unique.
+	 */
+	name: string;
+	/**
+	 * Children refers to the label
+	 * */
+	children: any;
+	/**
+	 * The size of the radio button.
+	 * */
+	sizes?: "xs" | "sm" | "md" | "lg" | "xl";
+	/**
+	 * Make the field required or not. Defaults to false for all field types.
+	 */
+	required?: boolean;
+	/**
+	 * Make the field disabled or not. Defaults to false for all field types.
+	 */
+	disabled?: boolean;
+	/**
+	 * This refers to the value of the input
+	 */
+	value?: string | number | boolean;
+	/**
+	 * This refers to the input style
+	 */
+	inputBoxStyle?: any;
+	/*
+	 * Our form provider.
+	 */
+	formContext?: IFormContext;
+}
 
 export const CheckBox = ({
 	name,
@@ -24,14 +49,10 @@ export const CheckBox = ({
 	sizes = "md",
 	required,
 	checked,
-	validationErrorMessage,
-	value,
 	formContext,
 	onChange,
-	...props
-}): JSX.Element => {
-	// console.log(onCheckedChange);
-	// console.log(required);
+	inputBoxStyle,
+}: CheckBoxProps): JSX.Element => {
 	const foundSize = {
 		xs: "0.75rem",
 		sm: "1rem",
@@ -50,7 +71,6 @@ export const CheckBox = ({
 
 	const id = usePersistedId();
 
-
 	return (
 		<>
 			<div>
@@ -58,19 +78,24 @@ export const CheckBox = ({
 					<CheckboxPrimitive.Root
 						css={{
 							all: "unset",
-							backgroundColor: "white",
+							backgroundColor: `${checked ? "#007FFF" : "white"}`,
+							border: `${checked ? "3px solid #007FFF" : "3px solid #0002"}`,
 							width: `${foundSize} !important`,
 							height: `${foundSize} !important`,
 							borderRadius: 4,
 							display: "flex",
 							alignItems: "center",
 							justifyContent: "center",
-							boxShadow: `0 2px 10px gray`,
-							"&:hover": { backgroundColor: "red" },
-							"&:focus": { boxShadow: `0 0 0 2px black` },
+							boxShadow: `0 2px 10px "#007FFF"`,
+							"&:focus": { boxShadow: `0px 0px 5px 2px #47a2ff` },
 						}}
 						id={id}
-						{...props}
+						onCheckedChange={onChange}
+						checked={checked}
+						{...formContext?.register(name, {
+							required: required,
+						})}
+						className={inputBoxStyle}
 					>
 						<CheckboxPrimitive.Indicator
 							css={{
@@ -78,11 +103,8 @@ export const CheckBox = ({
 								justifyContent: "center",
 								display: "flex",
 							}}
-							{...formContext?.register(name, { required: required })}
-							onCheckedChange={onchange}
-							checked={checked}
 						>
-							<CheckIcon width={innerSize} height={innerSize} />
+							<CheckIcon color="white" width={innerSize} height={innerSize} />
 						</CheckboxPrimitive.Indicator>
 					</CheckboxPrimitive.Root>
 					<label
@@ -112,29 +134,25 @@ export const CheckBoxGroup = ({
 	onChange,
 	name,
 	required = false,
-	defaultChecked = false
-}) => {
+	defaultChecked = false,
+	inputBoxStyle,
+}: CheckBoxProps) => {
+	/*
+	 * Get our form provider. It may not exist
+	 * (if the input component is not inside a FormProvider and is using the component separately)
+	 * so make sure to not access it directly without first checking.
+	 * */
 	const formContext = useFormProvider();
 
-	const[checked, setChecked] = React.useState(defaultChecked)
-
-
-
-	 React.useEffect(() => {
-		setInterval(() => {
-		setChecked(!checked);
-		}, 1000);
-	}, []);
-
-	console.log(checked)
+	const [checked, setChecked] = React.useState(defaultChecked);
 
 	if (formContext !== undefined) {
 		return (
 			<CheckBox
-				value={value}
+				value={!checked}
 				onChange={(e) => {
-					
-					formContext.setValue(name, checked);
+					setChecked(!checked);
+					formContext.setValue(name, e);
 					if (onChange) {
 						onChange(e);
 					}
@@ -143,14 +161,19 @@ export const CheckBoxGroup = ({
 				name={name}
 				required={required}
 				formContext={formContext}
-				
+				inputBoxStyle={inputBoxStyle}
 			>
 				{children}
 			</CheckBox>
 		);
 	} else {
 		return (
-			<CheckBox value={value} onChange={onChange} name={name}>
+			<CheckBox
+				inputBoxStyle={inputBoxStyle}
+				value={value}
+				onChange={onChange}
+				name={name}
+			>
 				{children}
 			</CheckBox>
 		);
