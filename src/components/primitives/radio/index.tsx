@@ -9,7 +9,7 @@ import VisuallyHidden from "../visually-hidden";
 
 //export const RadioGroup = RadioGroupPrimitive.Root;
 
-export interface RadioProps extends CompiledJSXPropsOmitRef<HTMLInputElement> {
+export interface RadioProps extends Omit<CompiledJSXPropsOmitRef<HTMLInputElement>, "value"> {
 	/**
 	 * Name of the Radio - will be used for the form validation if using FormContext so make sure it's unique.
 	 */
@@ -83,7 +83,7 @@ export const Radio = ({
 					transition: 'all 0.3s',
 					"&:hover": { backgroundColor: "#0001" },
 					"&[data-state=checked], &:hover[data-state=checked]": {
-						
+
 						borderColor: "#007FFF",
 					},
 				}}
@@ -158,7 +158,7 @@ export const Radio = ({
 		{formContext?.errors[name]?.type === "required" && (
 			<FormAlert>
 				Required
-				{console.log("errors", formContext.errors)}{console.log("values", formContext.getValues())}				
+				{console.log("errors", formContext.errors)}{console.log("values", formContext.getValues())}
 			</FormAlert>)
 		}
 		</>
