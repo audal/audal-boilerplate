@@ -28,6 +28,9 @@ export interface TooltipProps {
 	side?: "top" | "right" | "bottom" | "left"
 }
 
+
+/* This component creates a tooltip */
+
 const Tooltip: React.FC<TooltipProps> = ({ title, side = "bottom", children }) => {
 	return (
 		<TooltipPrimitive.Root>
