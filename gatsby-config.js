@@ -5,6 +5,7 @@ module.exports = {
     author: `Audal Labs`,
   },
   plugins: [
+	 // `gatsby-plugin-ts`,
     "gatsby-plugin-sass",
     "gatsby-plugin-image",
     "gatsby-plugin-react-helmet",
