@@ -27,8 +27,8 @@ const exitToLeft = keyframes({
 });
 
 const scaleIn = keyframes({
-	from: { transform: 'rotateX(-30deg) scale(0.9)', opacity: 0 },
-	to: { transform: 'rotateX(0deg) scale(1)', opacity: 1 },
+	from: { height: 0, opacity: 0 },
+	to: { height: 'var(--radix-navigation-menu-viewport-height)', opacity: 1 },
 });
 
 const scaleOut = keyframes({
@@ -64,11 +64,11 @@ const itemStyles = {
 
 
 const StyledTriggerWithCaret = React.forwardRef(({className, children, ...props }, forwardedRef) => (
-	<NavigationMenuPrimitive.Trigger 
-	{...props} 
+	<NavigationMenuPrimitive.Trigger
+	{...props}
 	ref={forwardedRef}
 	className={className}
-	css={{ 
+	css={{
 	...itemStyles,
 	display: 'flex',
 	alignItems: 'center',
@@ -78,21 +78,21 @@ const StyledTriggerWithCaret = React.forwardRef(({className, children, ...props 
 	>
 		{children}
 		<CaretIcon/>
-	</NavigationMenuPrimitive.Trigger >
+	</NavigationMenuPrimitive.Trigger>
 ));
 
 
 export const CaretIcon = ({className}) => {
 	return (
-      <CaretDownIcon 
-		aria-hidden 
+      <CaretDownIcon
+		aria-hidden
 		className={className}
-		css={{ 
+		css={{
 			position: 'relative',
 			color: 'black',
 			top: 1,
 			'[data-state=open] &': { transform: 'rotate(-180deg)', transition: 'transform 250ms ease' },
-			
+
 		}}
 		/>
 	)
@@ -104,38 +104,36 @@ export const CaretIcon = ({className}) => {
 
 
 
-const StyledIndicatorWithArrow = React.forwardRef((className, props, forwardedRef) => (
-	<NavigationMenuPrimitive.Indicator 
-	{...props} 
-	ref={forwardedRef}
-	
-	css={{ 
-		display: 'flex',
-	alignItems: 'flex-end',
-	justifyContent: 'center',
-	height: 10,
-	top: '100%',
-	overflow: 'hidden',
-	zIndex: 1,
-	transition: 'width, transform 250ms ease',
-	'&[data-state="visible"]': { animation: `${fadeIn} 200ms ease` },
-	'&[data-state="hidden"]': { animation: `${fadeOut} 200ms ease` },
-	
-	}}
+const StyledIndicatorWithArrow = ({className, ...props}: CompiledJSXPropsOmitRef<HTMLDivElement>): JSX.Element => (
+	<NavigationMenuPrimitive.Indicator
+		className={className}
+		css={{
+			display: 'flex',
+			alignItems: 'flex-end',
+			justifyContent: 'center',
+			height: 10,
+			top: '100%',
+			overflow: 'hidden',
+			zIndex: 1,
+			transition: 'width, transform 250ms ease',
+			'&[data-state="visible"]': { animation: `${fadeIn} 200ms ease` },
+			'&[data-state="hidden"]': { animation: `${fadeOut} 200ms ease` },
+		}}
+		{...props}
 	>
 		<div
-		css={{
-			position: 'relative',
-			top: '70%',
-			backgroundColor: 'white',
-			width: 10,
-			height: 10,
-			transform: 'rotate(45deg)',
-			borderTopLeftRadius: 2,
-		}}
+			css={{
+				position: 'relative',
+				top: '70%',
+				backgroundColor: 'white',
+				width: 10,
+				height: 10,
+				transform: 'rotate(45deg)',
+				borderTopLeftRadius: 2,
+			}}
 		/>
 	</NavigationMenuPrimitive.Indicator>
-));
+)
 
 
 
@@ -157,14 +155,14 @@ export const ContentListItem = React.forwardRef(({className, children, title, ..
 						'&[data-state="open"]': { animation: `${fadeIn} 200ms ease` },
 						'&[data-state="closed"]': { animation: `${fadeOut} 200ms ease` },
 						'&:hover': { backgroundColor: 'grey' },
-						
+
 					}}
 					>
 						<NavigationMenuPrimitive.Link
 							{...props}
 							ref={forwardedRef}
-							
-							
+
+
 						>
 							<div
 							css={{
@@ -188,8 +186,8 @@ export const ContentListItem = React.forwardRef(({className, children, title, ..
 							</p>
 						</NavigationMenuPrimitive.Link>
 					</li>
-	
-	
+
+
 ));
 
 const ContentListItemCallout = React.forwardRef(({className, children, ...props }, forwardedRef) => (
@@ -245,56 +243,69 @@ export const MenuTrigger = ({children, className}) => {
 }
 
 
-export const MenuWrapper = ({className, children}) => {
+export const MegaMenu = React.forwardRef<HTMLDivElement, CompiledJSXCustomProps<NavigationMenuPrimitive.NavigationMenuProps>>(({className, ...props}, ref) => {
 	return (
 		<NavigationMenuPrimitive.Root
-		className={className}
-		css={{
-			position: 'relative',
-			display: 'flex',
-			justifyContent: 'center',
-			width: '100vw',
-			zIndex: 1,
-		}}
-		>
-           {children}
-          <div
+			ref={ref}
+			className={className}
 			css={{
-				position: 'absolute',
+				position: 'relative',
 				display: 'flex',
 				justifyContent: 'center',
-				width: '100%',
-				top: '100%',
-				left: 0,
-				perspective: '2000px',
+				width: '100vw',
+				zIndex: 1,
 			}}
+			{...props}
+		/>
+	)
+})
+
+MegaMenu.displayName = "MegaMenu"
+
+export const MegaMenuViewport = React.forwardRef<HTMLDivElement, CompiledJSXCustomProps<NavigationMenuPrimitive.NavigationMenuViewportProps>>(({className, children, ...props }, ref) => {
+	return (
+		<>
+			{children}
+			<div
+				css={{
+					position: 'absolute',
+					display: 'flex',
+					justifyContent: 'center',
+					width: '100%',
+					top: '100%',
+					left: 0,
+					perspective: '2000px',
+				}}
 			>
 				<NavigationMenuPrimitive.Viewport
-				css={{
-					position: 'relative',
-					transformOrigin: 'top center',
-					marginTop: 10,
-					width: '100%',
-					backgroundColor: 'white',
-					borderRadius: 6,
-					overflow: 'hidden',
-					boxShadow: 'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
-					height: 'var(--radix-navigation-menu-viewport-height)',
-				
-					'@media only screen and (min-width: 600px)': {
-						width: 'var(--radix-navigation-menu-viewport-width)',
+					ref={ref}
+					className={className}
+					css={{
+						position: 'relative',
+						transformOrigin: 'top center',
+						marginTop: 10,
+						width: '100%',
+						backgroundColor: 'white',
+						overflow: 'hidden',
+						height: 'var(--radix-navigation-menu-viewport-height)',
+						'@media only screen and (min-width: 600px)': {
+							width: 'var(--radix-navigation-menu-viewport-width)',
+						},
 						transition: 'width, height, 300ms ease',
-						'&[data-state="open"]': { animation: `${scaleIn} 200ms ease` },
-						'&[data-state="closed"]': { animation: `${scaleOut} 200ms ease` },
-					},
-					
-				}}
+						'&[data-state="open"]': { animation: `${scaleIn} 400ms ease` },
+						'&[data-state="closed"]': { animation: `${scaleOut} 300ms ease` },
+						'@media (prefers-reduced-motion: reduce)': {
+							animation: 'none!important',
+						},
+					}}
+					{...props}
 				/>
 			</div>
-		</NavigationMenuPrimitive.Root>
+		</>
 	)
-}
+})
 
+MegaMenuViewport.displayName = "MegaMenuViewport"
 
 export const MenuLink = ({link, title, className }) => {
 	return (
@@ -361,9 +372,9 @@ export const MenuContent = ({className, children}) => {
 							 display: 'flex',
 							 alignItems: 'center',
 							 justifyContent: 'center',
-						
+
 						},
-						
+
 					}}
 					>
 						{children}
@@ -394,7 +405,7 @@ export const SubMenu = ({className, children}) => {
 
 export const NavigationMenuDemo = () => {
 	return (
-	      <MenuWrapper>
+	      <MegaMenu>
 			<MenuList
 			>
 				<MenuItem>
@@ -428,7 +439,7 @@ export const NavigationMenuDemo = () => {
 					<MenuContent
 					>
 						<SubMenu
-						
+
 						>
 							<ContentListItem title="Introduction" href="/docs/primitives/overview/introduction">
 								Build high-quality, accessible design systems and web apps.
@@ -460,13 +471,13 @@ export const NavigationMenuDemo = () => {
 					link="https://github.com/radix-ui"
 					title='Github'
 					/>
-						
+
 				</MenuItem>
 
 				<NavigationMenuIndicator />
 			</MenuList>
 
-			</MenuWrapper>
+			</MegaMenu>
 	);
 };
 
