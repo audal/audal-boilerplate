@@ -16,7 +16,7 @@ const slideUp = keyframes({
 	to: { height: 0, opacity: 0 },
 });
 
-export type AccordionProps =  {
+export type AccordionProps = CompiledJSXCustomProps<{
 	/**
 	 * Allow multiple accordions open at one time. Default is false.
 	 * */
@@ -30,7 +30,7 @@ export type AccordionProps =  {
 	 * Default accordion to have opened.
 	 * */
 	defaultIndex?: number
-} & (Omit<AccordionSingleProps, "type"> | Omit<AccordionMultipleProps, "type">)
+} & (Omit<AccordionSingleProps, "type"> | Omit<AccordionMultipleProps, "type">)>
 
 /**
  * Primary accordion component. This wraps <AccordionItem /> instances.
@@ -58,7 +58,7 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(({ all
 });
 
 
-export type AccordionItemProps = Omit<AccordionPrimitive.AccordionItemProps, "value">
+export type AccordionItemProps = CompiledJSXCustomProps<Omit<AccordionPrimitive.AccordionItemProps, "value">>
 /**
  * A single instance of an Accordion (i.e. one collapsible section).
  * This must be used within an <Accordion /> component to function correctly.
@@ -72,7 +72,7 @@ export const AccordionItem = (props: AccordionItemProps): JSX.Element => {
 }
 
 
-export type AccordionButtonProps = AccordionPrimitive.AccordionTriggerProps
+export type AccordionButtonProps = CompiledJSXCustomProps<AccordionPrimitive.AccordionTriggerProps>
 /**
  * This will open the accordion. Use the asChild prop (set to true) to
  * use your own fully custom button if necessary.
@@ -88,7 +88,7 @@ export const AccordionButton = React.forwardRef<HTMLButtonElement, AccordionButt
 	)
 })
 
-export type AccordionPanelProps = AccordionPrimitive.AccordionContentProps
+export type AccordionPanelProps = CompiledJSXCustomProps<AccordionPrimitive.AccordionContentProps>
 /**
  * This is the content area that will expand when the accordion is opened.
  * This must be used within an <AccordionItem /> instance.
@@ -112,7 +112,7 @@ export const AccordionPanel = React.forwardRef<HTMLDivElement, AccordionPanelPro
 	)
 })
 
-export type AccordionIconProps = IconProps
+export type AccordionIconProps = CompiledJSXCustomProps<IconProps>
 /**
  * This is an open/close caret icon that will rotate when the accordion
  * is opened or closed.
