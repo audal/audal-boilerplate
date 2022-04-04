@@ -2,8 +2,13 @@
 import React from "react";
 import Logo from "../images/icon.png";
 import { AnimatedImageClipped } from "../components/animations/animated-image-clipped";
-import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { DrawerOverlay, DrawerContent, DrawerTrigger, DrawerCloseButton } from "../components/primitives/drawer";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import {
+	DrawerOverlay,
+	DrawerContent,
+	DrawerTrigger,
+	DrawerCloseButton,
+} from "../components/primitives/drawer";
 import {
 	Accordion,
 	AccordionButton,
@@ -33,11 +38,7 @@ import Select, {
 	SelectSeparator,
 } from "../components/primitives/select";
 
-
 const Index = (): React.ReactElement => (
-
-
-
 	<div css={{ width: "100%" }}>
 		<div>Blank Page</div>
 		<Spinner />
@@ -74,19 +75,11 @@ const Index = (): React.ReactElement => (
 			<Input name="number" type="number" placeholder="number" />
 			<Input name="hi" minLength={20} className="hello" placeholder="hi" />
 			<Input placeholder="hi" name="password" type="password" />
-			{/* <CheckBoxGroup name="check" required>
-				Agree
-			</CheckBoxGroup> */}
+			<CheckBoxGroup name="check">Agree</CheckBoxGroup>
 			<RadioGroup name="kfc">
-				<Radio value="hello">
-					hello
-				</Radio>
-				<Radio value="luvery">
-					luvery
-				</Radio>
-				<Radio value="peace">
-					peace
-				</Radio>
+				<Radio value="hello">hello</Radio>
+				<Radio value="luvery">luvery</Radio>
+				<Radio value="peace">peace</Radio>
 			</RadioGroup>
 			{/* <Select
 				placeholder="Hello!"
@@ -97,20 +90,22 @@ const Index = (): React.ReactElement => (
 				<SelectOption value="apple">Apple</SelectOption>
 				<SelectOption value="banana">Banana</SelectOption>
 			</Select> */}
-			<Drawer >
+			<Drawer>
 				<DrawerTrigger>
 					<div>Open Drawer</div>
 				</DrawerTrigger>
-				<DrawerContent placement='left' size='xl'>
+				<DrawerContent placement="left" size="xl">
 					<DrawerCloseButton />
 					<div>
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-						Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-						when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-						It has survived not only five centuries, but also the leap into electronic typesetting,
-						remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-						sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
-						Aldus PageMaker including versions of Lorem Ipsum.
+						Lorem Ipsum is simply dummy text of the printing and typesetting
+						industry. Lorem Ipsum has been the industry's standard dummy text
+						ever since the 1500s, when an unknown printer took a galley of type
+						and scrambled it to make a type specimen book. It has survived not
+						only five centuries, but also the leap into electronic typesetting,
+						remaining essentially unchanged. It was popularised in the 1960s
+						with the release of Letraset sheets containing Lorem Ipsum passages,
+						and more recently with desktop publishing software like Aldus
+						PageMaker including versions of Lorem Ipsum.
 					</div>
 				</DrawerContent>
 			</Drawer>
@@ -143,13 +138,20 @@ const TestButton = () => {
 };
 
 const TestCheckBox = () => {
-	const[checked, setChecked] = React.useState(false)
+	const [checked, setChecked] = React.useState(false);
 
 	return (
-		<CheckBoxGroup name="check" checked={checked} onChange={()=> {setChecked(!checked)}} required>
-				Agree
+		<CheckBoxGroup
+			name="check"
+			checked={checked}
+			onChange={() => {
+				setChecked(!checked);
+			}}
+			required
+		>
+			Agree
 		</CheckBoxGroup>
-	)
-}
+	);
+};
 
 export default Index;
