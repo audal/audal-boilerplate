@@ -23,7 +23,7 @@ import { Drawer } from "../components/primitives/drawer";
 import Input from "../components/primitives/input";
 import FormProvider from "../components/primitives/form-provider";
 import Button from "../components/primitives/button";
-import NavigationMenuDemo from "../components/primitives/mega-menu";
+
 import { CheckBox, CheckBoxGroup } from "../components/primitives/checkbox";
 import { Radio, RadioGroup } from "../components/primitives/radio";
 import Select, {
@@ -41,7 +41,6 @@ const Index = (): React.ReactElement => (
 	<div css={{ width: "100%" }}>
 		<div>Blank Page</div>
 		<Spinner />
-		<NavigationMenuDemo />
 		<Modal>
 			<ModalTrigger>Edit profile</ModalTrigger>
 			<ModalContent
