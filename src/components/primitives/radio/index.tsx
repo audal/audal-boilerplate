@@ -7,23 +7,45 @@ import { useFormProvider } from "../form-provider";
 import FormAlert from "../form-alert";
 import VisuallyHidden from "../visually-hidden";
 
-export const RadioGroup = RadioGroupPrimitive.Root;
-// interface RadioContentProps extends CompiledJSXPropsOmitRef<HTMLInputElement> {
-// 	name: string;
-// 	children: any;
-// 	sizes?: "xs" | "sm" | "md" | "lg" | "xl";
-// 	required?: boolean;
-// 	checked?: boolean;
-// 	value?: string | boolean | undefined;
-// 	validationErrorMessage?: string | ((type: "required") => string);
-// }
+//export const RadioGroup = RadioGroupPrimitive.Root;
 
-export const RadioContent = ({
+export interface RadioProps extends CompiledJSXPropsOmitRef<HTMLInputElement> {
+	/**
+	 * Name of the Radio - will be used for the form validation if using FormContext so make sure it's unique.
+	 */
+ 	name: string;
+	/**
+	 * Children refers to the label
+	 * */
+ 	children: any;
+	 /**
+	 * The size of the radio button.
+	 * */
+ 	sizes?: "xs" | "sm" | "md" | "lg" | "xl";
+	/**
+	 * Make the field required or not. Defaults to false for all field types.
+	 */
+ 	required?: boolean;
+	 /**
+	 * Make the field disabled or not. Defaults to false for all field types.
+	 */
+ 	disabled?: boolean;
+	 /**
+	 * This refers to the value of the input
+	 */
+ 	value?: string | boolean ;
+	 /**
+	 * This refers to the error message from react-hook-form
+	 */
+	validationErrorMessage?: string | ((type: "required") => string);
+}
+
+export const Radio = ({
 	sizes = "sm",
 	children,
 	value,
 	disabled = false,
-}): JSX.Element => {
+}: RadioProps): JSX.Element => {
 	const foundsize = {
 		xs: "0.75rem",
 		sm: "1rem",
@@ -106,7 +128,7 @@ export const RadioContent = ({
 	);
 };
 
-export const RadioBase = ({
+ const RadioGroupBase = ({
 	children,
 	onChange,
 	name,
@@ -128,7 +150,7 @@ export const RadioBase = ({
 			onValueChange={onChange}
 			value={value}
 			name={name}
-			defaultValue={children[0].props.value}
+			defaultValue={children[0]?.props?.value}
 			{...formContext?.register(name, { required: required })}
 		>
 			{children}
@@ -143,7 +165,7 @@ export const RadioBase = ({
 	);
 };
 
-export const Radio = ({
+export const RadioGroup = ({
 	children,
 	value,
 	onChange,
@@ -154,7 +176,7 @@ export const Radio = ({
 
 	if (formContext) {
 		return (
-			<RadioBase
+			<RadioGroupBase
 				value={value}
 				onChange={(e) => {
 					formContext.setValue(name, e);
@@ -168,13 +190,13 @@ export const Radio = ({
 				formContext={formContext}
 			>
 				{children}
-			</RadioBase>
+			</RadioGroupBase>
 		);
 	} else {
 		return (
-			<RadioBase value={value} onChange={onChange} name={name}>
+			<RadioGroupBase value={value} onChange={onChange} name={name}>
 				{children}
-			</RadioBase>
+			</RadioGroupBase>
 		);
 	}
 };

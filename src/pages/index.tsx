@@ -25,7 +25,7 @@ import FormProvider from "../components/primitives/form-provider";
 import Button from "../components/primitives/button";
 import NavigationMenuDemo from "../components/primitives/mega-menu";
 import { CheckBox, CheckBoxGroup } from "../components/primitives/checkbox";
-import { RadioContent, Radio } from "../components/primitives/radio";
+import { Radio, RadioGroup } from "../components/primitives/radio";
 import Select, {
 	SelectGroup,
 	SelectLabel,
@@ -78,17 +78,17 @@ const Index = (): React.ReactElement => (
 			{/* <CheckBoxGroup name="check" required>
 				Agree
 			</CheckBoxGroup> */}
-			<Radio name="kfc">
-				<RadioContent value="hello">
+			<RadioGroup name="kfc">
+				<Radio value="hello">
 					hello
-				</RadioContent>
-				<RadioContent value="luvery">
+				</Radio>
+				<Radio value="luvery">
 					luvery
-				</RadioContent>
-				<RadioContent value="peace">
+				</Radio>
+				<Radio value="peace">
 					peace
-				</RadioContent>
-			</Radio>
+				</Radio>
+			</RadioGroup>
 			{/* <Select
 				placeholder="Hello!"
 				name="heheheh"

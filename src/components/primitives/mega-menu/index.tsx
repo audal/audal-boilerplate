@@ -127,6 +127,7 @@ export const DropdownTrigger = ({ className, ...props }: CompiledJSXCustomProps<
 			alignItems: 'center',
 			justifyContent: 'space-between',
 			gap: 2,
+			cursor: 'pointer'
 		}}
 		{...props}
 	/>
@@ -224,6 +225,7 @@ export const MenuList = ({className, ...props}: CompiledJSXCustomProps<Navigatio
 				justifyContent: 'center',
 				backgroundColor: 'white',
 				listStyle: 'none',
+
 			}}
 			{...props}
 		/>
@@ -239,6 +241,7 @@ export const DropdownInsert = ({className, ...props}: CompiledJSXCustomProps<Nav
 				top: 0,
 				left: 0,
 				width: '100%',
+				backgroundColor: 'white',
 				'&[data-motion="from-start"]': { animationName: enterFromLeft },
 				'&[data-motion="from-end"]': { animationName: enterFromRight },
 				'&[data-motion="to-start"]': { animationName: exitToLeft },
@@ -251,6 +254,12 @@ export const DropdownInsert = ({className, ...props}: CompiledJSXCustomProps<Nav
 					alignItems: 'center',
 					justifyContent: 'center',
 
+				},
+				transition: 'width, height, 300ms ease',
+				'&[data-state="open"]': { animation: `${fadeIn} 400ms ease` },
+				'&[data-state="closed"]': { animation: `${fadeOut} 300ms ease` },
+				'@media (prefers-reduced-motion: reduce)': {
+					animation: 'none!important',
 				},
 
 			}}
@@ -265,6 +274,9 @@ export const SubMenu = ({ className, ...props }: CompiledJSXCustomProps<Navigati
 		css={{
 			margin: 0,
 			listStyle: 'none',
+			"& div:first-child": {
+				position: "unset!important"
+			}
 		}}
 		{...props}
 	/>
