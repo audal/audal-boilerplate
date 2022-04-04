@@ -42,48 +42,80 @@ const DrawerOverlay = () => (
 	}} />
 )
 
-const slideIn = keyframes({
-	from: { transform: 'translate3d(-100%,0,0)' },
-	to: { transform: 'translate3d(0,0,0)' },
-});
+interface DrawerContentProps{
+	children: React.ReactNode | React.ReactNode[];
+	className?: string;
+	placement: 'left' | 'right' | 'top' | 'bottom';
+	size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+}
+export const DrawerContent : React.FC<DrawerContentProps> = ({children, className, placement='left', size='xs'}) => {
 
-const slideOut = keyframes({
-	from: { transform: 'translate3d(0,0,0)' },
-	to: { transform: 'translate3d(-100%,0,0)' },
-});
-
-export const DrawerContent = ({children, className, placement='left', ...props}) => {
+	const sizes = {
+		xs: "20rem",
+		sm: "24rem",
+		md: "28rem",
+		lg: "32rem",
+		xl: "36rem",
+		full: "100%"
+	}[size];
 
 	const placementStyles = {
 		top: {
 			transform: 'translate3d(0,-100%,0)',
 			width: '100%',
-			height: 300,
+			height: sizes,
+			top: 0,
 			bottom: 'auto',
+			slideInFrom: 'translate3d(0,-100%,0)',
+			slideInTo: 'translate3d(0,0,0)',
+			slideOutFrom: 'translate3d(0,0,0)',
+			slideOutTo: 'translate3d(0,-100%,0)'
 		},
 		right: {
 			top: '0',
 			transform: 'translate3d(100%,0,0)',
 			right: 0,
-			width: "320px",
-			height: "100%"
+			width: sizes,
+			height: "100%",
+			slideInFrom: 'translate3d(100%,0,0)',
+			slideInTo: 'translate3d(0,0,0)',
+			slideOutFrom: 'translate3d(0,0,0)',
+			slideOutTo: 'translate3d(100%,0,0)'
 		},
 		bottom: {
 			transform: 'translate3d(0,100%,0)',
 			width: '100%',
-			height: 300,
+			height: sizes,
 			bottom: 0,
 			top: 'auto',
+			slideInFrom: 'translate3d(0,100%,0)',
+			slideInTo: 'translate3d(0,0,0)',
+			slideOutFrom: 'translate3d(0,0,0)',
+			slideOutTo: 'translate3d(0,100%,0)'
 		},
 		left: {
 			top: 0,
 			transform: 'translate3d(0%,0,0)',
 			left: 0,
-			width: "320px",
-			height: "100%"
+			width: sizes,
+			height: "100%", 
+			slideInFrom: 'translate3d(-100%,0,0)',
+			slideInTo: 'translate3d(0,0,0)',
+			slideOutFrom: 'translate3d(0,0,0)',
+			slideOutTo: 'translate3d(-100%,0,0)'
 		},
 	}[placement];
 	
+	const slideIn = keyframes({
+		from: { transform: placementStyles?.slideInFrom },
+		to: { transform: placementStyles?.slideInTo },
+	});
+
+	const slideOut = keyframes({
+		from: { transform: placementStyles?.slideOutFrom },
+		to: { transform: placementStyles?.slideOutTo },
+	});
+
 	return (
 		<DialogPrimitive.Portal forceMount>
 			<DrawerOverlay />
@@ -99,10 +131,6 @@ export const DrawerContent = ({children, className, placement='left', ...props})
 					width: placementStyles?.width,
 					height: placementStyles?.height,
 					zIndex: 2000,
-					// Among other things, prevents text alignment inconsistencies when dialog can't be centered in the viewport evenly.
-					// Affects animated and non-animated dialogs alike.
-					// willChange: 'transform',
-
 					'&[data-state="open"]': {
 						animation: `${slideIn} 360ms forwards`,
 					},
