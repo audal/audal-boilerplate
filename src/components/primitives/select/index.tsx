@@ -13,7 +13,28 @@ import { Controller } from "react-hook-form";
 import throwOnMissing from "../utils/throw-on-missing";
 import FormAlert from "../form-alert";
 
-export const SelectOption = ({ children, value, disabled }) => {
+interface SelectOptionProps{
+	/**
+	 * The option label
+	 */
+	children: React.ReactChild | React.ReactChildren | string;
+	/**
+	 * This diables the option from being selected.
+	 * The default value is false
+	 */
+	disabled?: boolean;
+	/**
+	 * The option value sent to the form handler when selected
+	 */
+	value: string;
+}
+
+/**
+ * <SelectOption /> component. Must always be a child of <Select /> component
+ * @param {CompiledJSXCustomProps<SelectOptionProps>}
+ * @returns {React.ReactElement}
+ */
+export const SelectOption = ({ children, value, disabled=false }: CompiledJSXCustomProps<SelectOptionProps>): React.ReactElement => {
 	return (
 		<SelectPrimitive.Item
 			css={{
@@ -56,18 +77,59 @@ export const SelectOption = ({ children, value, disabled }) => {
 	);
 };
 
+interface SelectBaseProps{
+	/** 
+	 * List of select options
+	 * Each uses the <SelectOption /> component
+	*/
+	children: React.ReactNode | React.ReactNode[];
+	/** 
+	 * PLaceholder text of the select input 
+	*/
+	placeholder: string;
+	/**
+	 * function that will be executed when the value of the select input changes
+	 */
+	onChange: (e: React.SyntheticEvent) => void;
+	/**
+	 * Name of the input. It must be unique in the form
+	 */
+	name: string;
+	/**
+	 * If the value is true, this prevents the form from submitting if a value has not been set.
+	 * The default value is false
+	 */
+	required: boolean;
+	/**
+	 * This is used to get the form provider value if the <Select /> compoonent 
+	 * is a child of a <FormProvider /> component
+	 */
+	formContext?: any;
+	/**
+	 * This prop is passed down from the <Select /> component.
+	 * This is used to style the input box or trigger box
+	 */
+	inputBoxStyle?: string;
+	// disabled: boolean;
+}
+
+/**
+ * <SelectBase /> component. It always accept children.
+ * Its children are the same children passed to <Select /> component i.e. the options
+ * @param {CompiledJSXCustomProps<SelectBaseProps}
+ * @returns {React.ReactElement}
+ */
 const SelectBase = ({
 	children,
 	onChange,
-	onBlur,
 	placeholder,
 	name,
 	required,
-	disabled,
-	value,
 	formContext,
 	inputBoxStyle,
-}) => {
+	// disabled=false
+}: CompiledJSXCustomProps<SelectBaseProps>): React.ReactElement => {
+
 	if (!children) {
 		children = [
 			<SelectOption disabled value="NA">
@@ -99,8 +161,6 @@ const SelectBase = ({
 		<div>
 			<SelectPrimitive.Root
 				onValueChange={onChange}
-				onOpenChange={onBlur}
-				value={value}
 				name={name}
 				defaultValue={children[0].props.value}
 				{...formContext?.register(name, { required: required })}
@@ -126,8 +186,8 @@ const SelectBase = ({
 					}}
 					className={inputBoxStyle}
 					aria-label={name}
-					disabled={disabled}
-					aria-disabled={disabled}
+					// disabled={disabled}
+					// aria-disabled={disabled}
 				>
 					<SelectPrimitive.Value />
 					<SelectPrimitive.Icon>
@@ -185,24 +245,64 @@ const SelectBase = ({
 	);
 };
 
+interface SelectProps{
+	/** 
+	 * PLaceholder text of the select input 
+	*/
+	placeholder: string;
+	/** 
+	 * List of select options
+	 * Each uses the <SelectOption /> component
+	*/
+	children: React.ReactNode | React.ReactNode[];
+	/**
+	 * function that will be executed when the value of the select input changes
+	 */
+	onChange: (e: React.SyntheticEvent) => void;
+	/**
+	 * Name of the input. It must be unique in the form group
+	 */
+	name: string;
+	/**
+	 * If the value is true, this prevents the form from submitting if a value has not been set.
+	 * The default value is false
+	 */
+	required: boolean;
+	/**
+	 * This is styles from the css prop that gets converted into classNames.
+	 * This is used to style the input box or trigger box
+	 */
+	className?: string;
+}
+
+
+/** 
+ * <Select /> component - This is the root component that houses 
+ * all the <SelectOption />
+ * 
+ */
 export const Select = ({
 	placeholder,
 	children,
-	value,
 	onChange,
 	name,
 	required = false,
-	className,
-}) => {
+	className
+}: CompiledJSXPropsOmitRef<SelectProps>): React.ReactElement => {
 	throwOnMissing(name, "name", "Select");
 
-	const formContext = useFormProvider();
+	/*
+	 * Get our form provider. It may not exist
+	 * (if the input component is not inside a FormProvider and is using the component separately)
+	 * so make sure to not access it directly without first checking.
+	 * */
 
+	const formContext = useFormProvider();
+	
 	if (formContext) {
 		return (
 			<SelectBase
-				value={value}
-				onChange={(e) => {
+				onChange={(e: React.SyntheticEvent) => {
 					formContext.setValue(name, e);
 					if (onChange) {
 						onChange(e);

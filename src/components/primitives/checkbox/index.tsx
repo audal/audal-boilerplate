@@ -5,10 +5,10 @@ import { useFormProvider, IFormContext } from "../form-provider";
 import FormAlert from "../form-alert";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import usePersistedId from "../utils/use-persisted-id";
+import {CheckedState} from "@radix-ui/react-checkbox";
 
-// export interface CheckBoxProps
-export interface CheckBoxProps
-	extends CompiledJSXPropsOmitRef<HTMLInputElement> {
+export interface CheckBoxProps extends Omit<CompiledJSXPropsOmitRef<HTMLButtonElement>,  "onChange" | "type" | "size" | "value"> {
+
 	/**
 	 * Name of the CheckBox - will be used for the form validation if using FormContext so make sure it's unique.
 	 */
@@ -20,11 +20,19 @@ export interface CheckBoxProps
 	/**
 	 * The size of the radio button.
 	 * */
-	sizes?: "xs" | "sm" | "md" | "lg" | "xl";
+	size?: "xs" | "sm" | "md" | "lg" | "xl";
 	/**
 	 * Make the field required or not. Defaults to false for all field types.
 	 */
 	required?: boolean;
+	/**
+	 * Explicitly control the state of the element
+	 */
+	checked?: boolean;
+	/**
+	 * Should the field be checked by default, if uncontrolled?
+	 */
+	defaultChecked?: boolean;
 	/**
 	 * Make the field disabled or not. Defaults to false for all field types.
 	 */
@@ -32,36 +40,42 @@ export interface CheckBoxProps
 	/**
 	 * This refers to the value of the input
 	 */
-	value?: string | number | boolean;
-	/**
-	 * This refers to the input style
-	 */
-	inputBoxStyle?: any;
+	value?: boolean
 	/*
-	 * Our form provider.
-	 */
-	formContext?: IFormContext;
+	* onChange event
+	* */
+	onChange?(checked: CheckedState): void;
 }
 
 export const CheckBox = ({
 	name,
 	children,
-	sizes = "md",
-	required,
-	checked,
-	formContext,
+	size = "md",
+	required = false,
+	defaultChecked = false,
+	onBlur,
+	disabled,
+	value,
 	onChange,
 	onBlur,
 	disabled,
 	inputBoxStyle,
 }: CheckBoxProps): JSX.Element => {
+
+	/*
+	 * Get our form provider. It may not exist
+	 * (if the input component is not inside a FormProvider and is using the component separately)
+	 * so make sure to not access it directly without first checking.
+	 * */
+	const formContext = useFormProvider();
+
 	const foundSize = {
 		xs: "0.75rem",
 		sm: "1rem",
 		md: "1.5rem",
 		lg: "2rem",
 		xl: "3rem",
-	}[sizes];
+	}[size];
 
 	const innerSize = {
 		xs: "0.5rem",
@@ -69,7 +83,7 @@ export const CheckBox = ({
 		md: "1rem",
 		lg: "1.5rem",
 		xl: "2rem",
-	}[sizes];
+	}[size];
 
 	const id = usePersistedId();
 
@@ -85,8 +99,8 @@ export const CheckBox = ({
 					<CheckboxPrimitive.Root
 						css={{
 							all: "unset",
-							backgroundColor: `${checked ? "#007FFF" : "white"}`,
-							border: `${checked ? "3px solid #007FFF" : "3px solid #0002"}`,
+							backgroundColor: `${value ? "#007FFF" : "white"}`,
+							border: `${value ? "3px solid #007FFF" : "3px solid #0002"}`,
 							width: `${foundSize} !important`,
 							height: `${foundSize} !important`,
 							borderRadius: 4,
@@ -96,6 +110,11 @@ export const CheckBox = ({
 							boxShadow: `0 2px 10px "#007FFF"`,
 							"&:focus": { boxShadow: `0px 0px 5px 2px #47a2ff` },
 						}}
+						aria-invalid={
+							formContext && formContext.errors && formContext.errors[name]
+								? "true"
+								: "false"
+						}
 						id={id}
 						onCheckedChange={onChange}
 						checked={checked}
@@ -134,57 +153,4 @@ export const CheckBox = ({
 			)}
 		</>
 	);
-};
-
-export const CheckBoxGroup = ({
-	children,
-	value,
-	onChange,
-	name,
-	required = false,
-	defaultChecked = false,
-	inputBoxStyle,
-}: CheckBoxProps) => {
-	/*
-	 * Get our form provider. It may not exist
-	 * (if the input component is not inside a FormProvider and is using the component separately)
-	 * so make sure to not access it directly without first checking.
-	 * */
-	const formContext = useFormProvider();
-
-	const [checked, setChecked] = React.useState(defaultChecked);
-
-
-	if (formContext !== undefined) {
-		return (
-			<CheckBox
-				value={!checked}
-				onChange={(e) => {
-					setChecked(!checked);
-					formContext.setValue(name, e);
-					if (onChange) {
-						onChange(e);
-					}
-				}}
-				checked={checked}
-				name={name}
-				required={required}
-				formContext={formContext}
-				inputBoxStyle={inputBoxStyle}
-			>
-				{children}
-			</CheckBox>
-		);
-	} else {
-		return (
-			<CheckBox
-				inputBoxStyle={inputBoxStyle}
-				value={value}
-				onChange={onChange}
-				name={name}
-			>
-				{children}
-			</CheckBox>
-		);
-	}
 };
