@@ -54,31 +54,37 @@ const slideOut = keyframes({
 	to: { transform: 'translate3d(-100%,0,0)' },
 });
 
-export const DrawerContent = ({children, className, ...props}) => {
+export const DrawerContent = ({children, className, placement='left', ...props}) => {
 
-	// const placementStyles = {
-	// 	top: {
-	// 		transform: 'translate3d(0,-100%,0)',
-	// 		width: '100%',
-	// 		height: 300,
-	// 		bottom: 'auto',
-	// 	},
-	// 	right: {
-	// 		transform: 'translate3d(100%,0,0)',
-	// 		right: 0,
-	// 	},
-	// 	bottom: {
-	// 		transform: 'translate3d(0,100%,0)',
-	// 		width: '100%',
-	// 		height: 300,
-	// 		bottom: 0,
-	// 		top: 'auto',
-	// 	},
-	// 	left: {
-	// 		transform: 'translate3d(0%,0,0)',
-	// 		left: 0,
-	// 	},
-	// }[placement];
+	const placementStyles = {
+		top: {
+			transform: 'translate3d(0,-100%,0)',
+			width: '100%',
+			height: 300,
+			bottom: 'auto',
+		},
+		right: {
+			top: '0',
+			transform: 'translate3d(100%,0,0)',
+			right: 0,
+			width: "320px",
+			height: "100%"
+		},
+		bottom: {
+			transform: 'translate3d(0,100%,0)',
+			width: '100%',
+			height: 300,
+			bottom: 0,
+			top: 'auto',
+		},
+		left: {
+			top: 0,
+			transform: 'translate3d(0%,0,0)',
+			left: 0,
+			width: "320px",
+			height: "100%"
+		},
+	}[placement];
 	
 	return (
 		<DialogPrimitive.Portal forceMount>
@@ -88,9 +94,12 @@ export const DrawerContent = ({children, className, ...props}) => {
 					backgroundColor: 'white',
 					boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
 					position: 'fixed',
-					top: 0,
-					bottom: 0,
-					width: "320px",
+					top: placementStyles?.top,
+					bottom: placementStyles?.bottom,
+					left: placementStyles?.left,
+					right: placementStyles?.right,
+					width: placementStyles?.width,
+					height: placementStyles?.height,
 					zIndex: 2000,
 					// Among other things, prevents text alignment inconsistencies when dialog can't be centered in the viewport evenly.
 					// Affects animated and non-animated dialogs alike.
@@ -103,6 +112,7 @@ export const DrawerContent = ({children, className, ...props}) => {
 						animation: `${slideOut} 150ms cubic-bezier(0.22, 1, 0.36, 1)`,
 					},
 				}} 
+				// style={{ ...placementStyles }}
 				className={className}
 			>
 				{children}
