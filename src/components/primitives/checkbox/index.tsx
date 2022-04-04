@@ -146,6 +146,7 @@ export const CheckBoxGroup = ({
 
 	const [checked, setChecked] = React.useState(defaultChecked);
 
+
 	if (formContext !== undefined) {
 		return (
 			<CheckBox

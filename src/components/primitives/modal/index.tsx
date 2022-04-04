@@ -30,6 +30,9 @@ const contentHide = keyframes({
 export const Modal = DialogPrimitive.Root;
 export const ModalTrigger = DialogPrimitive.Trigger;
 
+
+/*This component houses the modal content */
+
 export const ModalContent = (props: CompiledJSXCustomProps<DialogContentImplProps>) => {
 
 	return (
@@ -81,6 +84,9 @@ export const ModalContent = (props: CompiledJSXCustomProps<DialogContentImplProp
 		</DialogPrimitive.Portal>
 	);
 };
+
+
+/* this component closes the modal */
 
 export const ModalCloseButton = (props: CompiledJSXCustomProps<DialogCloseProps>) => {
 
