@@ -85,7 +85,7 @@ export const ModalContent = (props: CompiledJSXCustomProps<DialogContentImplProp
 export const ModalCloseButton = (props: CompiledJSXCustomProps<DialogCloseProps>) => {
 
 	return (
-		<DialogPrimitive.Close css={{
+		<DialogPrimitive.Close className={props.className} css={{
 			position: 'absolute',
 			fontFamily: 'inherit',
 			borderRadius: '100%',
