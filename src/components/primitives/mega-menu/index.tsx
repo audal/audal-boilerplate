@@ -3,6 +3,7 @@ import React from 'react';
 import {keyframes} from "@compiled/react";
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { CaretDownIcon } from '@radix-ui/react-icons';
+import {NavigationMenuLinkProps, NavigationMenuViewportProps} from "@radix-ui/react-navigation-menu";
 
 
 
@@ -262,7 +263,7 @@ export const MegaMenu = React.forwardRef<HTMLDivElement, CompiledJSXCustomProps<
 
 MegaMenu.displayName = "MegaMenu"
 
-export const MegaMenuViewport = React.forwardRef<HTMLDivElement, CompiledJSXCustomProps<NavigationMenuPrimitive.NavigationMenuViewportProps>>(({className, children, ...props }, ref) => {
+export const MegaMenuViewport = React.forwardRef<HTMLDivElement, CompiledJSXCustomProps<NavigationMenuViewportProps>>(({className, children, ...props }, ref) => {
 	return (
 		<>
 			{children}
@@ -307,23 +308,22 @@ export const MegaMenuViewport = React.forwardRef<HTMLDivElement, CompiledJSXCust
 
 MegaMenuViewport.displayName = "MegaMenuViewport"
 
-export const MenuLink = ({link, title, className }) => {
+export const MenuLink = React.forwardRef<HTMLAnchorElement, CompiledJSXCustomProps<NavigationMenuLinkProps>>(({className, ...props}, ref) => {
 	return (
 		<NavigationMenuPrimitive.Link
-					href={link}
-					className={className}
-					css={{
-						...itemStyles,
-						display: 'block',
-						textDecoration: 'none',
-						fontSize: 15,
-						lineHeight: 1,
-					}}
-					>
-						{title}
-					</NavigationMenuPrimitive.Link>
+			ref={ref}
+			className={className}
+			css={{
+				...itemStyles,
+				display: 'block',
+				textDecoration: 'none',
+				fontSize: 15,
+				lineHeight: 1,
+			}}
+			{...props}
+		/>
 	)
-}
+})
 
 export const MenuItem = ({children, className}) => {
 	return (
