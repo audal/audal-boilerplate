@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const fse = require("fs-extra");
+const { CompiledExtractPlugin } = require('@compiled/webpack-loader');
 
 // can now use process.env.WP_URL, etc...
 require("dotenv").config({
@@ -38,27 +39,27 @@ exports.createSchemaCustomization = ({ actions }) => {
   `);
 };
 
-/*exports.onCreateWebpackConfig = ({actions}) => {
-    actions.setWebpackConfig({
-        module: {
-            rules: [
-                {
-                    test: /\.(js|ts|tsx)$/,
-                    exclude: /node_modules/,
-                    use: [
-                        { loader: 'babel-loader' },
-                        {
-                            loader: '@compiled/webpack-loader',
-                            options: {
-                                extract: true,
-                            },
-                        },
-                    ],
-                },
-            ],
-        },
-        plugins: [
-            new CompiledExtractPlugin(),
-        ],
-    })
-}*/
+/*exports.onCreateWebpackConfig = ({actions, plugins, stage, getConfig}) => {
+
+	const config = getConfig();
+
+	console.log(config.module.rules)
+
+	config.module.rules.push({
+		test: /\.(js|ts|tsx)$/,
+		exclude: /node_modules/,
+		use:  [
+			{
+				loader: '@compiled/webpack-loader',
+				options: {
+					extract: false,
+				},
+			},
+		],
+	});
+
+	//config.plugins.push(new CompiledExtractPlugin({}))
+
+	actions.replaceWebpackConfig(config);
+}
+*/

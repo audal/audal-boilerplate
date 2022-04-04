@@ -25,7 +25,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ disabled, loa
 			className={className}
 			aria-pressed={typeof loading !== undefined ? loading : undefined}
 			css={{
-				background: "green",
 				cursor: "pointer",
 				appearance: "none",
 				display: "inline-flex",

@@ -21,6 +21,7 @@
 		"complete": "npm run pretty && npm run lint:fix && npm run type-check"
 	},
 	"devDependencies": {
+		"@compiled/webpack-loader": "^0.8.7",
 		"@types/node": "^16.11.1",
 		"@types/react": "^17.0.3",
 		"@types/react-dom": "^17.0.3",
@@ -41,6 +42,7 @@
 		"prop-types": "^15.7.2"
 	},
 	"dependencies": {
+		"@babel/plugin-transform-typescript": "^7.16.8",
 		"@compiled/babel-plugin": "^0.14.1",
 		"@compiled/react": "^0.10.4",
 		"@radix-ui/colors": "^0.1.8",

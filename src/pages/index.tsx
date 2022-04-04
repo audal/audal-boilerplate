@@ -3,7 +3,7 @@ import React from "react";
 import Logo from "../images/icon.png";
 import { AnimatedImageClipped } from "../components/animations/animated-image-clipped";
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { DrawerOverlay, DrawerContent, DrawerTrigger } from "../components/primitives/drawer";
+import { DrawerOverlay, DrawerContent, DrawerTrigger, DrawerCloseButton } from "../components/primitives/drawer";
 import {
 	Accordion,
 	AccordionButton,
@@ -35,7 +35,7 @@ import Select, {
 
 
 const Index = (): React.ReactElement => (
-	
+
 
 
 	<div css={{ width: "100%" }}>
@@ -83,7 +83,7 @@ const Index = (): React.ReactElement => (
 					hello
 				</RadioContent>
 				<RadioContent value="luvery">
-					luvery 
+					luvery
 				</RadioContent>
 				<RadioContent value="peace">
 					peace
@@ -98,19 +98,19 @@ const Index = (): React.ReactElement => (
 				<SelectOption value="apple">Apple</SelectOption>
 				<SelectOption value="banana">Banana</SelectOption>
 			</Select> */}
-			<Drawer>
+			<Drawer >
 				<DrawerTrigger>
 					<div>Open Drawer</div>
 				</DrawerTrigger>
-				<DrawerContent placement='top' size='xl'>
-					<ModalCloseButton css={{width: "60px", height: "60px", display: "block", marginLeft: "auto"}} />
+				<DrawerContent placement='left' size='xl'>
+					<DrawerCloseButton />
 					<div>
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-						Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-						when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-						It has survived not only five centuries, but also the leap into electronic typesetting, 
-						remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset 
-						sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like 
+						Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+						Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+						when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+						It has survived not only five centuries, but also the leap into electronic typesetting,
+						remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+						sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
 						Aldus PageMaker including versions of Lorem Ipsum.
 					</div>
 				</DrawerContent>
@@ -119,7 +119,7 @@ const Index = (): React.ReactElement => (
 				<RadioContent value="hello">Hello</RadioContent>
 				<RadioContent value="hello2">Hello2</RadioContent>
 		</RadioGroup>*/}
-		
+
 			<TestButton />
 		</FormProvider>
 	</div>
@@ -137,7 +137,7 @@ const TestButton = () => {
 		}, 6000);
 	}, []);
 	return (
-		<Button loading={load} type="submit" css={{ cursor: "not-allowed" }}>
+		<Button loading={load} type="submit">
 			Submit
 		</Button>
 	);
