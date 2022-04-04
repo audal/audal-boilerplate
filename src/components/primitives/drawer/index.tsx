@@ -42,13 +42,28 @@ const DrawerOverlay = () => (
 	}} />
 )
 
-export const DrawerContent = ({children, className, placement='left', ...props}) => {
+interface DrawerContentProps{
+	children: React.ReactNode | React.ReactNode[];
+	className?: string;
+	placement: 'left' | 'right' | 'top' | 'bottom';
+	size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+}
+export const DrawerContent : React.FC<DrawerContentProps> = ({children, className, placement='left', size='xs'}) => {
+
+	const sizes = {
+		xs: "20rem",
+		sm: "24rem",
+		md: "28rem",
+		lg: "32rem",
+		xl: "36rem",
+		full: "100%"
+	}[size];
 
 	const placementStyles = {
 		top: {
 			transform: 'translate3d(0,-100%,0)',
 			width: '100%',
-			height: 300,
+			height: sizes,
 			top: 0,
 			bottom: 'auto',
 			slideInFrom: 'translate3d(0,-100%,0)',
@@ -60,7 +75,7 @@ export const DrawerContent = ({children, className, placement='left', ...props})
 			top: '0',
 			transform: 'translate3d(100%,0,0)',
 			right: 0,
-			width: "320px",
+			width: sizes,
 			height: "100%",
 			slideInFrom: 'translate3d(100%,0,0)',
 			slideInTo: 'translate3d(0,0,0)',
@@ -70,7 +85,7 @@ export const DrawerContent = ({children, className, placement='left', ...props})
 		bottom: {
 			transform: 'translate3d(0,100%,0)',
 			width: '100%',
-			height: 300,
+			height: sizes,
 			bottom: 0,
 			top: 'auto',
 			slideInFrom: 'translate3d(0,100%,0)',
@@ -82,7 +97,7 @@ export const DrawerContent = ({children, className, placement='left', ...props})
 			top: 0,
 			transform: 'translate3d(0%,0,0)',
 			left: 0,
-			width: "320px",
+			width: sizes,
 			height: "100%", 
 			slideInFrom: 'translate3d(-100%,0,0)',
 			slideInTo: 'translate3d(0,0,0)',

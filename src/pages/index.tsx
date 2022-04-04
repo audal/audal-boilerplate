@@ -102,7 +102,7 @@ const Index = (): React.ReactElement => (
 				<DrawerTrigger>
 					<div>Open Drawer</div>
 				</DrawerTrigger>
-				<DrawerContent placement='bottom'>
+				<DrawerContent placement='top' size='xl'>
 					<ModalCloseButton css={{width: "60px", height: "60px", display: "block", marginLeft: "auto"}} />
 					<div>
 						Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
