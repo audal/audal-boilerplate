@@ -4,8 +4,19 @@ import {ClassNames} from "@compiled/react";
 import { ax } from '@compiled/react/runtime';
 import Spinner from "../spinner";
 
+/**
+ * Re-usable screen-reader friendly Button component.
+ * @alias ButtonProps
+ * */
 export interface ButtonProps extends CompiledJSXProps<HTMLButtonElement> {
+	/**
+	 * Shows a spinner and disables the button, for when there is a loading action happening.
+	 * Default is false.
+	 * */
 	loading?: boolean
+	/**
+	 * The type of the button.
+	 * */
 	type: "button" | "submit" | "reset" | undefined
 }
 
