@@ -35,6 +35,9 @@ import Select, {
 
 
 const Index = (): React.ReactElement => (
+	
+
+
 	<div css={{ width: "100%" }}>
 		<div>Blank Page</div>
 		<Spinner />
@@ -99,7 +102,7 @@ const Index = (): React.ReactElement => (
 				<DrawerTrigger>
 					<div>Open Drawer</div>
 				</DrawerTrigger>
-				<DrawerContent>
+				<DrawerContent placement='bottom'>
 					<ModalCloseButton css={{width: "60px", height: "60px", display: "block", marginLeft: "auto"}} />
 					<div>
 						Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
@@ -116,6 +119,7 @@ const Index = (): React.ReactElement => (
 				<RadioContent value="hello">Hello</RadioContent>
 				<RadioContent value="hello2">Hello2</RadioContent>
 		</RadioGroup>*/}
+		
 			<TestButton />
 		</FormProvider>
 	</div>
@@ -138,5 +142,15 @@ const TestButton = () => {
 		</Button>
 	);
 };
+
+const TestCheckBox = () => {
+	const[checked, setChecked] = React.useState(false)
+
+	return (
+		<CheckBoxGroup name="check" checked={checked} onChange={()=> {setChecked(!checked)}} required>
+				Agree
+		</CheckBoxGroup>
+	)
+}
 
 export default Index;

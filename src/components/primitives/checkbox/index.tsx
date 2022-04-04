@@ -22,7 +22,7 @@ export const CheckBox = ({
 	name,
 	children,
 	sizes = "md",
-	required = false,
+	required,
 	checked,
 	validationErrorMessage,
 	value,
@@ -49,6 +49,7 @@ export const CheckBox = ({
 	}[sizes];
 
 	const id = usePersistedId();
+
 
 	return (
 		<>
@@ -79,6 +80,7 @@ export const CheckBox = ({
 							}}
 							{...formContext?.register(name, { required: required })}
 							onCheckedChange={onchange}
+							checked={checked}
 						>
 							<CheckIcon width={innerSize} height={innerSize} />
 						</CheckboxPrimitive.Indicator>
@@ -109,17 +111,30 @@ export const CheckBoxGroup = ({
 	value,
 	onChange,
 	name,
-	checked = false,
 	required = false,
+	defaultChecked = false
 }) => {
 	const formContext = useFormProvider();
 
-	if (formContext) {
+	const[checked, setChecked] = React.useState(defaultChecked)
+
+
+
+	 React.useEffect(() => {
+		setInterval(() => {
+		setChecked(!checked);
+		}, 1000);
+	}, []);
+
+	console.log(checked)
+
+	if (formContext !== undefined) {
 		return (
 			<CheckBox
 				value={value}
 				onChange={(e) => {
-					formContext.setValue(name, !checked);
+					
+					formContext.setValue(name, checked);
 					if (onChange) {
 						onChange(e);
 					}
@@ -128,6 +143,7 @@ export const CheckBoxGroup = ({
 				name={name}
 				required={required}
 				formContext={formContext}
+				
 			>
 				{children}
 			</CheckBox>
