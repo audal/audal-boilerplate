@@ -68,10 +68,8 @@ export const CheckBox = ({
 							"&:hover": { backgroundColor: "red" },
 							"&:focus": { boxShadow: `0 0 0 2px black` },
 						}}
-						{...formContext?.register(name, { required: required })}
 						id={id}
 						{...props}
-						onCheckedChange={onchange}
 					>
 						<CheckboxPrimitive.Indicator
 							css={{
@@ -79,6 +77,8 @@ export const CheckBox = ({
 								justifyContent: "center",
 								display: "flex",
 							}}
+							{...formContext?.register(name, { required: required })}
+							onCheckedChange={onchange}
 						>
 							<CheckIcon width={innerSize} height={innerSize} />
 						</CheckboxPrimitive.Indicator>

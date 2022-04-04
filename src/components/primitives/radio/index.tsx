@@ -22,7 +22,7 @@ export const RadioContent = ({
 	sizes = "md",
 	children,
 	value,
-	disabled,
+	disabled = false,
 }): JSX.Element => {
 	const foundsize = {
 		xs: "0.75rem",
@@ -121,6 +121,7 @@ export const RadioBase = ({
 		}
 	}, []);
 	return (
+		<>
 		<RadioGroupPrimitive.Root
 			onValueChange={onChange}
 			value={value}
@@ -129,10 +130,14 @@ export const RadioBase = ({
 			{...formContext?.register(name, { required: required })}
 		>
 			{children}
-			{formContext?.errors[name]?.type === "required" && (
-				<FormAlert>Required</FormAlert>
-			)}
 		</RadioGroupPrimitive.Root>
+		{formContext?.errors[name]?.type === "required" && (
+			<FormAlert>
+				Required
+				{console.log("errors", formContext.errors)}{console.log("values", formContext.getValues())}				
+			</FormAlert>)
+		}
+		</>
 	);
 };
 
@@ -151,6 +156,7 @@ export const Radio = ({
 				value={value}
 				onChange={(e) => {
 					formContext.setValue(name, e);
+					console.log(formContext.getValues())
 					if (onChange) {
 						onChange(e);
 					}
