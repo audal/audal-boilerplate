@@ -30,7 +30,6 @@ const DrawerOverlay = () => (
 		height: "100%",
 		background: "rgba(0, 0, 0, 0.48)",
 		zIndex: 2000,
-		backdropFilter: "blur(8px)",
 		'&[data-state="open"]': {
 			animation: `${fadeIn} 250ms forwards`,
 		},
