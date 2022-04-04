@@ -42,7 +42,7 @@ const FormContext = React.createContext<IFormContext>(null as any)
  * */
 const FormProvider = React.forwardRef<HTMLFormElement, FormProviderProps>(({children, onSubmit}, ref) => {
 
-	const { register, handleSubmit, control, formState: { errors }, setValue, getValues } = useForm();
+	const { register, handleSubmit, control, formState: { errors }, setValue, getValues, reset } = useForm();
 
 	
 	return (

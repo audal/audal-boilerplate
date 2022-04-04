@@ -75,7 +75,7 @@ const Index = (): React.ReactElement => (
 			<Input name="number" type="number" placeholder="number" />
 			<Input name="hi" minLength={20} className="hello" placeholder="hi" />
 			<Input placeholder="hi" name="password" type="password" />
-			<CheckBoxGroup name="check">Agree</CheckBoxGroup>
+			<CheckBoxGroup name="check" required>Agree</CheckBoxGroup>
 			<RadioGroup name="kfc">
 				<Radio value="hello">hello</Radio>
 				<Radio value="luvery">luvery</Radio>

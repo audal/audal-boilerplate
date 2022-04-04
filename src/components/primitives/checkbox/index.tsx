@@ -51,6 +51,8 @@ export const CheckBox = ({
 	checked,
 	formContext,
 	onChange,
+	onBlur,
+	disabled,
 	inputBoxStyle,
 }: CheckBoxProps): JSX.Element => {
 	const foundSize = {
@@ -71,6 +73,11 @@ export const CheckBox = ({
 
 	const id = usePersistedId();
 
+
+	console.log(required)
+
+
+	
 	return (
 		<>
 			<div>
@@ -96,6 +103,7 @@ export const CheckBox = ({
 							required: required,
 						})}
 						className={inputBoxStyle}
+						
 					>
 						<CheckboxPrimitive.Indicator
 							css={{
