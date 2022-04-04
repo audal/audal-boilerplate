@@ -58,10 +58,11 @@ export const RadioContent = ({
 					borderRadius: "999px",
 					borderColor: "inherit",
 					color: "#fff",
+					transition: 'all 0.3s',
 					"&:hover": { backgroundColor: "#0001" },
 					"&[data-state=checked], &:hover[data-state=checked]": {
-						background: "blue",
-						borderColor: "blue",
+						
+						borderColor: "#007FFF",
 					},
 				}}
 				value={value}
@@ -77,13 +78,14 @@ export const RadioContent = ({
 						width: "100%",
 						height: "100%",
 						position: "relative",
+						transition: 'all 0.3s',
 						"&::after": {
 							content: '""',
 							display: "block",
 							width: `${innersizes} !important`,
 							height: `${innersizes} !important`,
 							borderRadius: "50%",
-							backgroundColor: "red",
+							backgroundColor: "#007FFF",
 						},
 					}}
 				/>
