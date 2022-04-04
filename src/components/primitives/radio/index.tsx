@@ -19,7 +19,7 @@ export const RadioGroup = RadioGroupPrimitive.Root;
 // }
 
 export const RadioContent = ({
-	sizes = "md",
+	sizes = "sm",
 	children,
 	value,
 	disabled = false,
@@ -55,8 +55,8 @@ export const RadioContent = ({
 					borderWidth: "2px",
 					borderStyle: "solid",
 					borderImage: "initial",
-					borderRadius: "999px",
-					borderColor: "inherit",
+					borderRadius: "50%",
+					borderColor: "#1A2027",
 					color: "#fff",
 					transition: 'all 0.3s',
 					"&:hover": { backgroundColor: "#0001" },
