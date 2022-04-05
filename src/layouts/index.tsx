@@ -1,41 +1,96 @@
+/** @jsxImportSource @compiled/react */
 import React from "react";
-import * as Chakra from "@chakra-ui/react";
 import { PageProps } from "gatsby";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import "keen-slider/keen-slider.min.css";
-import Transition from "../components/transitions/transition";
 import "focus-visible/dist/focus-visible";
-import { Global, css } from "@emotion/react";
+import "./reset.css"
+import { SkipNavContent, SkipNavLink } from "@reach/skip-nav";
+import "@reach/skip-nav/styles.css";
+import FadeTransition from "../components/transitions/fade-transition";
+import Provider from "../components/primitives/provider";
 
-const Layout = ({ children, location }: PageProps): React.ReactElement => {
+export interface LayoutContextType {
+	actions: {
+		onTransitionStart: (callback?: () => void) => (() => void)[];
+		onTransitionEnd: (callback?: () => void) => (() => void)[];
+		purgeTransitionStartCallbacks: () => void;
+		purgeTransitionEndCallbacks: () => void;
+	};
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const LayoutContext = React.createContext<LayoutContextType>(null as any);
+
+const LayoutContextProvider = ({ children, location }: PageProps): React.ReactElement => {
 	/*
-      This will hide the focus indicator if the element receives focus via the mouse,
-      but it will still show up on keyboard focus.
-    */
-	const GlobalStyles = css`
-		.js-focus-visible :focus:not([data-focus-visible-added]) {
-			outline: none;
-			box-shadow: none;
+	 * Children can add functions to execute when transition state changes
+	 * */
+	const beforeTransitionExecutors = React.useRef<(() => void)[]>([]);
+	const afterTransitionExecutors = React.useRef<(() => void)[]>([]);
+
+	/* These act as both getters and setters */
+	const onTransitionStart = (callback?: () => void) => {
+		if (callback) {
+			beforeTransitionExecutors.current.push(callback);
 		}
-	`;
+		return beforeTransitionExecutors.current;
+	};
+	const onTransitionEnd = (callback?: () => void) => {
+		if (callback) {
+			afterTransitionExecutors.current.push(callback);
+		}
+		return afterTransitionExecutors.current;
+	};
+
+	/*
+	 * Create purge functions for the transition itselfd
+	 * */
+
+	const purgeTransitionStartCallbacks = () => {
+		beforeTransitionExecutors.current = [];
+	};
+
+	const purgeTransitionEndCallbacks = () => {
+		afterTransitionExecutors.current = [];
+	};
 
 	return (
-		<>
-			<Global styles={GlobalStyles} />
-			<Chakra.Flex minH="100vh" flexDirection="column">
+		<Provider>
+			<LayoutContext.Provider
+			value={{
+				actions: {
+					onTransitionStart,
+					onTransitionEnd,
+					purgeTransitionStartCallbacks,
+					purgeTransitionEndCallbacks,
+				},
+			}}
+		>
+			<SkipNavLink contentId="skip-nav" />
+			<div css={{ display: "flex", minHeight: "100vh", flexDirection: "column" }}>
 				<Header />
-				<Transition
-					preset="fadeBetween"
-					shouldChange={location.pathname}
-					centerContent={false}
-				>
-					{children}
-				</Transition>
-				<Footer />
-			</Chakra.Flex>
-		</>
+				<FadeTransition shouldChange={location.pathname}>
+					<SkipNavContent id="skip-nav" as="main">{children}</SkipNavContent>
+				</FadeTransition>
+				<Footer  />
+			</div>
+
+		</LayoutContext.Provider>
+		</Provider>
 	);
 };
 
-export default Layout;
+export default LayoutContextProvider
+
+/*
+ * Layout Context as a hook.
+ * */
+export const useLayoutContext = (): LayoutContextType => {
+	const context = React.useContext<LayoutContextType>(LayoutContext);
+	if (!context) {
+		throw new Error(`useLayoutContext must be used within a LayoutContextProvider`);
+	}
+	return context;
+};

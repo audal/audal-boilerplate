@@ -1,24 +1,32 @@
+/** @jsxImportSource @compiled/react */
 import React from "react";
-import * as Chakra from "@chakra-ui/react";
 
 const Footer: React.FC = () => (
-	<Chakra.Box as="footer">
-		<Chakra.Flex bg="black" width="100%">
-			<Chakra.Flex
-				alignItems="center"
-				width="100%"
-				justifyContent="center"
-				textAlign="center"
-				color="white"
-				py="20px"
-			>
-				©{new Date().getFullYear()}
-				<Chakra.Text mx="1" as="strong">
-					Audal Labs
-				</Chakra.Text>
-			</Chakra.Flex>
-		</Chakra.Flex>
-	</Chakra.Box>
+  <footer>
+    <div css={{
+        display: "flex",
+        backgroundColor: "black",
+        width: "100%"
+    }}>
+      <div
+          css={{
+              alignItems: "center",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              textAlign: "center",
+              color: "white",
+              paddingTop: "20px",
+              paddingBottom: "20px"
+          }}
+      >
+        ©{new Date().getFullYear()}
+        <strong css={{ paddingLeft: "4px", paddingRight: "4px"}}>
+          Audal Labs
+        </strong>
+      </div>
+    </div>
+  </footer>
 );
 
 export default Footer;
