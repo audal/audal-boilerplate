@@ -53,8 +53,8 @@ export const CheckBox = ({
 	size = "md",
 	required = false,
 	defaultChecked = false,
-	onBlur,
-	disabled,
+	// onBlur,
+	// disabled,
 	value,
 	onChange,
 	onBlur,
@@ -90,6 +90,23 @@ export const CheckBox = ({
 
 	console.log(required)
 
+	/*
+	 * Set up our register function to be react-hook-form if the context exists,
+	 * if it doesn't, pass the props we destructed back to the element
+	 * */
+	const registerFn =
+		formContext && formContext.register
+			? formContext.register(name, {
+				required,
+				onBlur,
+				disabled,
+			})
+			: {
+				required,
+				onBlur,
+				disabled,
+			};
+
 
 	
 	return (
@@ -117,10 +134,12 @@ export const CheckBox = ({
 						}
 						id={id}
 						onCheckedChange={onChange}
-						checked={checked}
-						{...formContext?.register(name, {
-							required: required,
-						})}
+						defaultChecked={defaultChecked}
+						// checked={checked}
+						// {...formContext?.register(name, {
+						// 	required: required,
+						// })}
+						{...registerFn}
 						className={inputBoxStyle}
 						
 					>
@@ -131,7 +150,7 @@ export const CheckBox = ({
 								display: "flex",
 							}}
 						>
-							<CheckIcon color="white" width={innerSize} height={innerSize} />
+							<CheckIcon width={innerSize} height={innerSize} />
 						</CheckboxPrimitive.Indicator>
 					</CheckboxPrimitive.Root>
 					<label

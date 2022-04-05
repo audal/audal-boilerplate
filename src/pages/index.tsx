@@ -28,9 +28,8 @@ import { Drawer } from "../components/primitives/drawer";
 import Input from "../components/primitives/input";
 import FormProvider from "../components/primitives/form-provider";
 import Button from "../components/primitives/button";
-
-import { CheckBox, CheckBoxGroup } from "../components/primitives/checkbox";
 import { Radio, RadioGroup } from "../components/primitives/radio";
+import { CheckBox } from "../components/primitives/checkbox";
 import Select, {
 	SelectGroup,
 	SelectLabel,
@@ -75,7 +74,7 @@ const Index = (): React.ReactElement => (
 			<Input name="number" type="number" placeholder="number" />
 			<Input name="hi" minLength={20} className="hello" placeholder="hi" />
 			<Input placeholder="hi" name="password" type="password" />
-			<CheckBoxGroup name="check" required>Agree</CheckBoxGroup>
+			<CheckBox name="check" checked={false} required>Agree</CheckBox>
 			<RadioGroup name="kfc">
 				<Radio value="hello">hello</Radio>
 				<Radio value="luvery">luvery</Radio>
