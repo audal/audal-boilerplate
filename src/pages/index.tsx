@@ -4,7 +4,7 @@ import Logo from "../images/icon.png";
 import { AnimatedImageClipped } from "../components/animations/animated-image-clipped";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import {
-	DrawerOverlay,
+	// DrawerOverlay,
 	DrawerContent,
 	DrawerTrigger,
 	DrawerCloseButton,
@@ -30,17 +30,23 @@ import FormProvider from "../components/primitives/form-provider";
 import Button from "../components/primitives/button";
 import { Radio, RadioGroup } from "../components/primitives/radio";
 import { CheckBox } from "../components/primitives/checkbox";
+// import Select, {
+// 	SelectGroup,
+// 	SelectLabel,
+// 	SelectOption,
+// 	SelectSeparator,
+// } from "../components/primitives/select";
 import Select, {
-	SelectGroup,
-	SelectLabel,
+
 	SelectOption,
-	SelectSeparator,
+	
 } from "../components/primitives/select";
 
 const Index = (): React.ReactElement => (
 	<div css={{ width: "100%" }}>
 		<div>Blank Page</div>
 		<Spinner />
+		<p className="text-2xl font-medium">Tailwind works</p>
 		<Modal>
 			<ModalTrigger>Edit profile</ModalTrigger>
 			<ModalContent
@@ -75,11 +81,11 @@ const Index = (): React.ReactElement => (
 			<Input name="hi" minLength={20} className="hello" placeholder="hi" />
 			<Input placeholder="hi" name="password" type="password" />
 			<CheckBox name="check" checked={false} required>Agree</CheckBox>
-			<RadioGroup name="kfc">
+			{/* <RadioGroup name="kfc">
 				<Radio value="hello">hello</Radio>
 				<Radio value="luvery">luvery</Radio>
 				<Radio value="peace">peace</Radio>
-			</RadioGroup>
+			</RadioGroup> */}
 			<Select
 				placeholder="Hello!"
 				name="heheheh"
@@ -136,21 +142,21 @@ const TestButton = () => {
 	);
 };
 
-const TestCheckBox = () => {
-	const [checked, setChecked] = React.useState(false);
+// const TestCheckBox = () => {
+// 	const [checked, setChecked] = React.useState(false);
 
-	return (
-		<CheckBoxGroup
-			name="check"
-			checked={checked}
-			onChange={() => {
-				setChecked(!checked);
-			}}
-			required
-		>
-			Agree
-		</CheckBoxGroup>
-	);
-};
+// 	return (
+// 		<CheckBoxGroup
+// 			name="check"
+// 			checked={checked}
+// 			onChange={() => {
+// 				setChecked(!checked);
+// 			}}
+// 			required
+// 		>
+// 			Agree
+// 		</CheckBoxGroup>
+// 	);
+// };
 
 export default Index;
