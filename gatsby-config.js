@@ -6,6 +6,13 @@ module.exports = {
   },
   plugins: [
     // `gatsby-plugin-ts`,
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-canonical-urls`,
+      options: {
+        siteUrl: `https://www.example.com`,
+      },
+    },
     'gatsby-plugin-postcss',
     'gatsby-plugin-sass',
     'gatsby-plugin-image',

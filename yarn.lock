@@ -10983,6 +10983,13 @@
     "react-phone-number-input" "^3.1.25"
     "react-quill" "^1.3.5"
 
+"gatsby-plugin-canonical-urls@^4.22.0":
+  "integrity" "sha512-gvAs+WZKGCF4HFT6QsPxx+3JhN0foRCa1ABIx6WBZFHufCAZ10Vht2Ez9Zo/LUEOFfDQJbVV30CysQI6saZsLQ=="
+  "resolved" "https://registry.npmjs.org/gatsby-plugin-canonical-urls/-/gatsby-plugin-canonical-urls-4.22.0.tgz"
+  "version" "4.22.0"
+  dependencies:
+    "@babel/runtime" "^7.15.4"
+
 "gatsby-plugin-google-fonts@^1.0.1":
   "integrity" "sha512-p1NVkn27GUnDA5qHM+Z4cCcLCJIardzZXMon3640sT4xuL/AZJbsx3HEt2KY/5oZu0UXIkytkxzV2Da4rQeUIg=="
   "resolved" "https://registry.npmjs.org/gatsby-plugin-google-fonts/-/gatsby-plugin-google-fonts-1.0.1.tgz"
@@ -11176,14 +11183,14 @@
     "svgo" "1.3.2"
     "uuid" "3.4.0"
 
-"gatsby-plugin-sitemap@^5.3.0":
-  "integrity" "sha512-9Az8F0qfl+9gXNKX8KWVmYu1yxxM2P9Tuq5s+QdRXEfqyPZAnbclU1lg+PXErHNouF2uqAU3K0NQJT6LcxSfAA=="
-  "resolved" "https://registry.npmjs.org/gatsby-plugin-sitemap/-/gatsby-plugin-sitemap-5.11.0.tgz"
-  "version" "5.11.0"
+"gatsby-plugin-sitemap@^5.22.0":
+  "integrity" "sha512-51iJqCT+bCJ37akJnSvmCTjqVBIFLe/oE0sBLyjkCbMgmCFRW67eLRMsQeLRcm4KkIex3fbpGaAOxvXvP+FFUQ=="
+  "resolved" "https://registry.npmjs.org/gatsby-plugin-sitemap/-/gatsby-plugin-sitemap-5.22.0.tgz"
+  "version" "5.22.0"
   dependencies:
     "@babel/runtime" "^7.15.4"
     "common-tags" "^1.8.2"
-    "minimatch" "^3.0.4"
+    "minimatch" "^3.1.2"
     "sitemap" "^7.0.0"
 
 "gatsby-plugin-ts@^3.1.1":

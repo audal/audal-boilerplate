@@ -1,8 +1,8 @@
 /** @jsxImportSource @compiled/react */
 import React from "react";
-import Logo from "../images/icon.png";
-import { AnimatedImageClipped } from "../components/animations/animated-image-clipped";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
+// import Logo from "../images/icon.png";
+// import { AnimatedImageClipped } from "../components/animations/animated-image-clipped";
+// import * as DialogPrimitive from "@radix-ui/react-dialog";
 import {
 	// DrawerOverlay,
 	DrawerContent,
