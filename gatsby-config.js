@@ -5,17 +5,25 @@ module.exports = {
     author: `Audal Labs`,
   },
   plugins: [
-	 // `gatsby-plugin-ts`,
-    "gatsby-plugin-sass",
-    "gatsby-plugin-image",
-    "gatsby-plugin-react-helmet",
-    "gatsby-plugin-sharp",
-    "gatsby-transformer-sharp",
-    "gatsby-plugin-layout",
-    "gatsby-plugin-react-svg",
+    // `gatsby-plugin-ts`,
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-canonical-urls`,
+      options: {
+        siteUrl: `https://www.example.com`,
+      },
+    },
+    'gatsby-plugin-postcss',
+    'gatsby-plugin-sass',
+    'gatsby-plugin-image',
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-layout',
+    'gatsby-plugin-react-svg',
     `gatsby-plugin-audal`,
-	"gatsby-plugin-webpack-bundle-analyser-v2",
-	//`gatsby-plugin-preact`,
+    'gatsby-plugin-webpack-bundle-analyser-v2',
+    //`gatsby-plugin-preact`,
     /*     `gatsby-plugin-pressless`,
         {
           resolve: `gatsby-plugin-yoast-sitemap`,
@@ -70,12 +78,12 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-source-filesystem",
+      resolve: 'gatsby-source-filesystem',
       options: {
-        name: "images",
-        path: "./src/images/",
+        name: 'images',
+        path: './src/images/',
       },
-      __key: "images",
+      __key: 'images',
     },
   ],
-};
+}
