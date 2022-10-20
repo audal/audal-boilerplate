@@ -1,55 +1,55 @@
-import React from "react";
-import { keyframes } from "@emotion/react";
-import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
-import CaretDownIcon from "../../../images/caret-down-icon.svg";
+import React from 'react';
+import { keyframes } from '@emotion/react';
+import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import {
-	NavigationMenuContentProps,
-	NavigationMenuItemProps,
-	NavigationMenuLinkProps,
-	NavigationMenuListProps,
-	NavigationMenuSubProps,
-	NavigationMenuTriggerProps,
-	NavigationMenuViewportImplProps,
-} from "@radix-ui/react-navigation-menu";
+    NavigationMenuContentProps,
+    NavigationMenuItemProps,
+    NavigationMenuLinkProps,
+    NavigationMenuListProps,
+    NavigationMenuSubProps,
+    NavigationMenuTriggerProps,
+    NavigationMenuViewportImplProps,
+} from '@radix-ui/react-navigation-menu';
+import CaretDownIcon from '../../../images/caret-down-icon.svg';
 
 const enterFromRight = keyframes({
-	from: { transform: "translateX(200px)", opacity: 0 },
-	to: { transform: "translateX(0)", opacity: 1 },
+    from: { transform: 'translateX(200px)', opacity: 0 },
+    to: { transform: 'translateX(0)', opacity: 1 },
 });
 
 const enterFromLeft = keyframes({
-	from: { transform: "translateX(-200px)", opacity: 0 },
-	to: { transform: "translateX(0)", opacity: 1 },
+    from: { transform: 'translateX(-200px)', opacity: 0 },
+    to: { transform: 'translateX(0)', opacity: 1 },
 });
 
 const exitToRight = keyframes({
-	from: { transform: "translateX(0)", opacity: 1 },
-	to: { transform: "translateX(200px)", opacity: 0 },
+    from: { transform: 'translateX(0)', opacity: 1 },
+    to: { transform: 'translateX(200px)', opacity: 0 },
 });
 
 const exitToLeft = keyframes({
-	from: { transform: "translateX(0)", opacity: 1 },
-	to: { transform: "translateX(-200px)", opacity: 0 },
+    from: { transform: 'translateX(0)', opacity: 1 },
+    to: { transform: 'translateX(-200px)', opacity: 0 },
 });
 
 const scaleIn = keyframes({
-	from: { height: 0, opacity: 0 },
-	to: { height: "var(--radix-navigation-menu-viewport-height)", opacity: 1 },
+    from: { height: 0, opacity: 0 },
+    to: { height: 'var(--radix-navigation-menu-viewport-height)', opacity: 1 },
 });
 
 const scaleOut = keyframes({
-	from: { height: "var(--radix-navigation-menu-viewport-height)", opacity: 1 },
-	to: { height: 0, opacity: 0 },
+    from: { height: 'var(--radix-navigation-menu-viewport-height)', opacity: 1 },
+    to: { height: 0, opacity: 0 },
 });
 
 const fadeIn = keyframes({
-	from: { opacity: 0 },
-	to: { opacity: 1 },
+    from: { opacity: 0 },
+    to: { opacity: 1 },
 });
 
 const fadeOut = keyframes({
-	from: { opacity: 1 },
-	to: { opacity: 0 },
+    from: { opacity: 1 },
+    to: { opacity: 0 },
 });
 
 /*
@@ -105,14 +105,14 @@ const fadeOut = keyframes({
 */
 
 const itemStyles = {
-	padding: "8px 12px",
-	outline: "none",
-	userSelect: "none",
-	fontWeight: 500,
-	lineHeight: 1,
-	borderRadius: 4,
-	fontSize: 15,
-	color: "black",
+    padding: '8px 12px',
+    outline: 'none',
+    userSelect: 'none',
+    fontWeight: 500,
+    lineHeight: 1,
+    borderRadius: 4,
+    fontSize: 15,
+    color: 'black',
 };
 
 /*
@@ -121,21 +121,21 @@ This is the drop down icon
 */
 
 export const DropdownTriggerIndicator = ({
-	className,
-	style,
-}: CompiledJSXPropsOmitRef<{ className?: string }>): JSX.Element => (
-	<CaretDownIcon
-		aria-hidden
-		className={className}
-		css={{
-			position: "relative",
-			color: "black",
-			top: 1,
-			transition: "transform 250ms ease",
-			"[data-state=open] &": { transform: "rotate(-180deg)" },
-		}}
-		style={style}
-	/>
+    className,
+    style,
+}: HTMLPropsNoRef<{ className?: string }>): JSX.Element => (
+    <CaretDownIcon
+        aria-hidden
+        className={className}
+        css={{
+            position: 'relative',
+            color: 'black',
+            top: 1,
+            transition: 'transform 250ms ease',
+            '[data-state=open] &': { transform: 'rotate(-180deg)' },
+        }}
+        style={style}
+    />
 );
 
 /*
@@ -145,60 +145,60 @@ Megamenu indicator controls the styling of the mega menu content
 */
 
 export const MegaMenuIndicator = ({
-	className,
-	...props
-}: CompiledJSXPropsOmitRef<HTMLDivElement>): JSX.Element => (
-	<NavigationMenuPrimitive.Indicator
-		className={className}
-		css={{
-			display: "flex",
-			alignItems: "flex-end",
-			justifyContent: "center",
-			height: "6px",
-			top: "100%",
-			overflow: "hidden",
-			zIndex: 1,
-			marginTop: "-6px",
-			transition: "width, transform 250ms ease",
-			'&[data-state="visible"]': { animation: `${fadeIn} 200ms ease` },
-			'&[data-state="hidden"]': {
-				transition: "none",
-				animation: `${fadeOut} 200ms ease`,
-			},
-		}}
-		{...props}
-	>
-		<div
-			css={{
-				position: "relative",
-				top: "-20",
-				backgroundColor: "#9db8d1",
-				width: "100%",
-				height: "2.5px",
-			}}
-		/>
-	</NavigationMenuPrimitive.Indicator>
+    className,
+    ...props
+}: HTMLPropsNoRef<HTMLDivElement>): JSX.Element => (
+    <NavigationMenuPrimitive.Indicator
+        className={className}
+        css={{
+            display: 'flex',
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+            height: '6px',
+            top: '100%',
+            overflow: 'hidden',
+            zIndex: 1,
+            marginTop: '-6px',
+            transition: 'width, transform 250ms ease',
+            '&[data-state="visible"]': { animation: `${fadeIn} 200ms ease` },
+            '&[data-state="hidden"]': {
+                transition: 'none',
+                animation: `${fadeOut} 200ms ease`,
+            },
+        }}
+        {...props}
+    >
+        <div
+            css={{
+                position: 'relative',
+                top: '-20',
+                backgroundColor: '#9db8d1',
+                width: '100%',
+                height: '2.5px',
+            }}
+        />
+    </NavigationMenuPrimitive.Indicator>
 );
 
 /*
 These triggers open up the submenu
 */
 export const DropdownTrigger = ({
-	className,
-	...props
-}: CompiledJSXCustomProps<NavigationMenuTriggerProps>): JSX.Element => (
-	<NavigationMenuPrimitive.Trigger
-		className={className}
-		css={{
-			...itemStyles,
-			display: "flex",
-			alignItems: "center",
-			justifyContent: "space-between",
-			gap: 2,
-			cursor: "pointer",
-		}}
-		{...props}
-	/>
+    className,
+    ...props
+}: CustomProps<NavigationMenuTriggerProps>): JSX.Element => (
+    <NavigationMenuPrimitive.Trigger
+        className={className}
+        css={{
+            ...itemStyles,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 2,
+            cursor: 'pointer',
+        }}
+        {...props}
+    />
 );
 
 /*
@@ -206,157 +206,151 @@ This is the root of the mega menu
 */
 
 export const MegaMenu = React.forwardRef<
-	HTMLDivElement,
-	CompiledJSXCustomProps<NavigationMenuPrimitive.NavigationMenuProps>
+HTMLDivElement,
+CustomProps<NavigationMenuPrimitive.NavigationMenuProps>
 >(({ className, ...props }, ref) => (
-	<NavigationMenuPrimitive.Root
-		ref={ref}
-		className={className}
-		css={{
-			//position: 'relative',
-			display: "flex",
-			justifyContent: "center",
-			width: "100%",
-			zIndex: 1,
-			"> div": {
-				width: "100%",
-			},
-			"> div > div": {
-				width: "100%",
-				height: "100%",
-				//position: "unset!important",
-				"@media (max-width: 991px)": { width: "auto" },
-			},
-		}}
-		{...props}
-	/>
+    <NavigationMenuPrimitive.Root
+        ref={ref}
+        className={className}
+        css={{
+            // position: 'relative',
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%',
+            zIndex: 1,
+            '> div': {
+                width: '100%',
+            },
+            '> div > div': {
+                width: '100%',
+                height: '100%',
+                // position: "unset!important",
+                '@media (max-width: 991px)': { width: 'auto' },
+            },
+        }}
+        {...props}
+    />
 ));
 
-MegaMenu.displayName = "MegaMenu";
+MegaMenu.displayName = 'MegaMenu';
 
 /*
  Subroot of the mega menu that houses the menu components
 */
 
 export const MegaMenuDropdown = React.forwardRef<
-	HTMLDivElement,
-	CompiledJSXCustomProps<
-		Omit<NavigationMenuViewportImplProps, "activeContentValue">
-	>
+HTMLDivElement,
+CustomProps<
+Omit<NavigationMenuViewportImplProps, 'activeContentValue'>
+>
 >(({ className, children, ...props }, ref) => <>{children}</>);
 
-MegaMenuDropdown.displayName = "MegaMenuDropdown";
+MegaMenuDropdown.displayName = 'MegaMenuDropdown';
 
 /*
  This menu is used for menu items that have a link, external or internal
 */
 export const MenuLink = React.forwardRef<
-	HTMLAnchorElement,
-	CompiledJSXCustomProps<NavigationMenuLinkProps>
+HTMLAnchorElement,
+CustomProps<NavigationMenuLinkProps>
 >(({ className, link, ...props }, ref) => (
-	<NavigationMenuPrimitive.Link
-		ref={ref}
-		href={link}
-		className={className}
-		css={{
-			...itemStyles,
-			display: "block",
-			textDecoration: "none",
-			fontSize: 15,
-			lineHeight: 1,
-		}}
-		{...props}
-	/>
+    <NavigationMenuPrimitive.Link
+        ref={ref}
+        href={link}
+        className={className}
+        css={{
+            ...itemStyles,
+            display: 'block',
+            textDecoration: 'none',
+            fontSize: 15,
+            lineHeight: 1,
+        }}
+        {...props}
+    />
 ));
 
-MenuLink.displayName = "MenuLink";
+MenuLink.displayName = 'MenuLink';
 
 /* this component is used for menu items that have no links */
 
 export const MenuItem = ({
-	className,
-	...props
-}: CompiledJSXCustomProps<NavigationMenuItemProps>): JSX.Element => {
-	return <NavigationMenuPrimitive.Item className={className} {...props} />;
-};
+    className,
+    ...props
+}: CustomProps<NavigationMenuItemProps>): JSX.Element => <NavigationMenuPrimitive.Item className={className} {...props} />;
 
 /* This is also a subroot. Comes after mega menu dropdown. */
 
 export const MenuList = ({
-	className,
-	...props
-}: CompiledJSXCustomProps<NavigationMenuListProps>): JSX.Element => {
-	return (
-		<NavigationMenuPrimitive.List
-			className={className}
-			css={{
-				width: "auto",
-				display: "flex",
-				justifyContent: "center",
-				backgroundColor: "white",
-				listStyle: "none",
-				height: "100%",
-			}}
-			{...props}
-		/>
-	);
-};
+    className,
+    ...props
+}: CustomProps<NavigationMenuListProps>): JSX.Element => (
+    <NavigationMenuPrimitive.List
+        className={className}
+        css={{
+            width: 'auto',
+            display: 'flex',
+            justifyContent: 'center',
+            backgroundColor: 'white',
+            listStyle: 'none',
+            height: '100%',
+        }}
+        {...props}
+    />
+);
 
-/* This component acts as the root for the submenu*/
+/* This component acts as the root for the submenu */
 
 export const DropdownInsert = ({
-	className,
-	...props
-}: CompiledJSXCustomProps<NavigationMenuContentProps>): JSX.Element => {
-	return (
-		<NavigationMenuPrimitive.Content
-			className={className}
-			css={{
-				position: "absolute",
-				marginTop: "1px",
-				left: 0,
-				width: "100%",
-				height: "100%",
-				backgroundColor: "white",
-				'&[data-motion="from-start"]': { animationName: enterFromLeft },
-				'&[data-motion="from-end"]': { animationName: enterFromRight },
-				'&[data-motion="to-start"]': { animationName: exitToLeft },
-				'&[data-motion="to-end"]': { animationName: exitToRight },
-				animationDuration: "250ms",
-				animationTimingFunction: "ease",
-				"@media only screen and (min-width: 600px)": {
-					width: "100%",
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "center",
-				},
-				transition: "width, height, 300ms ease",
-				'&[data-state="open"]': { animation: `${fadeIn} 400ms ease` },
-				'&[data-state="closed"]': { animation: `${fadeOut} 300ms ease` },
-				"@media (prefers-reduced-motion: reduce)": {
-					animation: "none!important",
-				},
-			}}
-			{...props}
-		/>
-	);
-};
+    className,
+    ...props
+}: CustomProps<NavigationMenuContentProps>): JSX.Element => (
+    <NavigationMenuPrimitive.Content
+        className={className}
+        css={{
+            position: 'absolute',
+            marginTop: '1px',
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'white',
+            '&[data-motion="from-start"]': { animationName: enterFromLeft },
+            '&[data-motion="from-end"]': { animationName: enterFromRight },
+            '&[data-motion="to-start"]': { animationName: exitToLeft },
+            '&[data-motion="to-end"]': { animationName: exitToRight },
+            animationDuration: '250ms',
+            animationTimingFunction: 'ease',
+            '@media only screen and (min-width: 600px)': {
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            },
+            transition: 'width, height, 300ms ease',
+            '&[data-state="open"]': { animation: `${fadeIn} 400ms ease` },
+            '&[data-state="closed"]': { animation: `${fadeOut} 300ms ease` },
+            '@media (prefers-reduced-motion: reduce)': {
+                animation: 'none!important',
+            },
+        }}
+        {...props}
+    />
+);
 
-/*This component houses the submenu and all its components */
+/* This component houses the submenu and all its components */
 
 export const SubMenu = ({
-	className,
-	...props
-}: CompiledJSXCustomProps<NavigationMenuSubProps>): JSX.Element => (
-	<NavigationMenuPrimitive.Sub
-		className={className}
-		css={{
-			margin: 0,
-			listStyle: "none",
-			"& div:first-child": {
-				position: "unset!important",
-			},
-		}}
-		{...props}
-	/>
+    className,
+    ...props
+}: CustomProps<NavigationMenuSubProps>): JSX.Element => (
+    <NavigationMenuPrimitive.Sub
+        className={className}
+        css={{
+            margin: 0,
+            listStyle: 'none',
+            '& div:first-child': {
+                position: 'unset!important',
+            },
+        }}
+        {...props}
+    />
 );

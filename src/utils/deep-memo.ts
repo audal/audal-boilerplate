@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from "react";
-import deepEqual from "fast-deep-equal";
+import React, { FunctionComponent } from 'react';
+import deepEqual from 'fast-deep-equal';
 
 /*
  * React.memo with a pre-defined props diff-er.

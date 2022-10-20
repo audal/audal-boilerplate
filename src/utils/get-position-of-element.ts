@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export interface ElementPositionRect extends DOMRect {
     pageTop: number;
@@ -6,10 +6,12 @@ export interface ElementPositionRect extends DOMRect {
 }
 
 export const getPositionOfElement = (
-    ref: React.RefObject<HTMLElement>
+    ref: React.RefObject<HTMLElement>,
 ): ElementPositionRect | undefined => {
     if (ref.current) {
-        const { top, right, bottom, left, width, height, x, y } = ref.current.getBoundingClientRect();
+        const {
+            top, right, bottom, left, width, height, x, y,
+        } = ref.current.getBoundingClientRect();
 
         const pageTop = window.scrollY + top;
         const pageBottom = pageTop + height;

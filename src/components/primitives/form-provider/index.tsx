@@ -1,25 +1,25 @@
-import React from "react";
+import React from 'react';
 import {
-	Control,
-	FieldErrors,
-	FieldValues,
-	SubmitHandler,
-	useForm,
-	UseFormHandleSubmit,
-	UseFormRegister,
-	UseFormSetValue,
-} from "react-hook-form";
+    Control,
+    FieldErrors,
+    FieldValues,
+    SubmitHandler,
+    useForm,
+    UseFormHandleSubmit,
+    UseFormRegister,
+    UseFormSetValue,
+} from 'react-hook-form';
 
 export interface IFormContext {
-	register: UseFormRegister<FieldValues>;
-	control: Control;
-	handleSubmit: UseFormHandleSubmit<FieldValues>;
-	errors: FieldErrors;
-	setValue: UseFormSetValue<any>;
+    register: UseFormRegister<FieldValues>;
+    control: Control;
+    handleSubmit: UseFormHandleSubmit<FieldValues>;
+    errors: FieldErrors;
+    setValue: UseFormSetValue<any>;
 }
 
 export interface FormProviderProps {
-	/**
+    /**
 	 * On submit, values from the child form components will be
 	 * returned in the format:
 	 * [key: string]: value (any) - instead of the native
@@ -27,8 +27,8 @@ export interface FormProviderProps {
 	 * This makes it easy to further process the data or send it to an endpoint,
 	 * without worrying about handling.
 	 * */
-	onSubmit: SubmitHandler<FieldValues>;
-	children: React.ReactNode | React.ReactNode[] | string | null | undefined;
+    onSubmit: SubmitHandler<FieldValues>;
+    children: React.ReactNode | React.ReactNode[] | string | null | undefined;
 }
 
 const FormContext = React.createContext<IFormContext>(null as any);
@@ -40,41 +40,41 @@ const FormContext = React.createContext<IFormContext>(null as any);
  * @alias FormProviderProps
  * */
 const FormProvider = React.forwardRef<HTMLFormElement, FormProviderProps>(
-	({ children, onSubmit }, ref) => {
-		const {
-			register,
-			handleSubmit,
-			control,
-			formState: { errors },
-			setValue,
-			getValues,
-			reset,
-		} = useForm();
+    ({ children, onSubmit }, ref) => {
+        const {
+            register,
+            handleSubmit,
+            control,
+            formState: { errors },
+            setValue,
+            getValues,
+            reset,
+        } = useForm();
 
-		return (
-			<FormContext.Provider
-				value={{
-					register,
-					control,
-					handleSubmit,
-					errors,
-					setValue,
-					getValues,
-				}}
-			>
-				<form
-					ref={ref}
-					css={{ border: "1px solid transparent", width: "100%" }}
-					onSubmit={handleSubmit(onSubmit)}
-				>
-					{children}
-				</form>
-			</FormContext.Provider>
-		);
-	}
+        return (
+            <FormContext.Provider
+                value={{
+                    register,
+                    control,
+                    handleSubmit,
+                    errors,
+                    setValue,
+                    getValues,
+                }}
+            >
+                <form
+                    ref={ref}
+                    css={{ border: '1px solid transparent', width: '100%' }}
+                    onSubmit={handleSubmit(onSubmit)}
+                >
+                    {children}
+                </form>
+            </FormContext.Provider>
+        );
+    },
 );
 
-FormProvider.displayName = "FormProvider";
+FormProvider.displayName = 'FormProvider';
 
 export default FormProvider;
 
@@ -83,6 +83,4 @@ export default FormProvider;
  * if it exists. It is not guaranteed to exist,
  * so check if it returns values before using.
  * */
-export const useFormProvider = (): IFormContext | undefined => {
-	return React.useContext(FormContext);
-};
+export const useFormProvider = (): IFormContext | undefined => React.useContext(FormContext);

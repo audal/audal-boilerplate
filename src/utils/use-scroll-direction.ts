@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 /*
  * Wrap for useWindowScroll hook that only provides direction.
@@ -7,33 +7,35 @@ import React from "react";
  * Direction (scrolling-down) = +1
  * Direction (scrolling-up) = -1
  * */
-export const useScrollDirection = (): number => {
-	const lastProgress = React.useRef(0);
-	const scrollDirectionRef = React.useRef<number>(1);
-	const [scrollDirection, setDirection] = React.useState<number>(1);
+const useScrollDirection = (): number => {
+    const lastProgress = React.useRef(0);
+    const scrollDirectionRef = React.useRef<number>(1);
+    const [scrollDirection, setDirection] = React.useState<number>(1);
 
-	React.useEffect(() => {
-		let didUnsubscribe = 0;
-		const listener = () => {
-			if (didUnsubscribe) return;
-			const progress = window.scrollY;
-			const direction = lastProgress.current < progress ? 1 : -1;
-			if (lastProgress.current !== progress && scrollDirectionRef.current !== direction) {
-				scrollDirectionRef.current = direction;
-				setDirection(direction);
-			}
+    React.useEffect(() => {
+        let didUnsubscribe = 0;
+        const listener = () => {
+            if (didUnsubscribe) return;
+            const progress = window.scrollY;
+            const direction = lastProgress.current < progress ? 1 : -1;
+            if (lastProgress.current !== progress && scrollDirectionRef.current !== direction) {
+                scrollDirectionRef.current = direction;
+                setDirection(direction);
+            }
 
-			lastProgress.current = progress;
-		};
+            lastProgress.current = progress;
+        };
 
-		window.addEventListener("scroll", listener);
+        window.addEventListener('scroll', listener);
 
-		return () => {
-			didUnsubscribe = 1;
-			window.removeEventListener("scroll", listener);
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+        return () => {
+            didUnsubscribe = 1;
+            window.removeEventListener('scroll', listener);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-	return scrollDirection;
+    return scrollDirection;
 };
+
+export default useScrollDirection;
