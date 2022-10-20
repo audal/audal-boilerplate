@@ -5,21 +5,16 @@ import usePersistedId from "../utils/use-persisted-id";
 import VisuallyHidden from "../visually-hidden";
 import throwOnMissing from "../utils/throw-on-missing";
 
-export interface InputProps extends CompiledJSXPropsOmitRef<HTMLInputElement> {
+export interface TextAreaProps
+	extends CompiledJSXPropsOmitRef<HTMLTextAreaElement> {
 	/**
-	 * Name of the input - will be used for the form validation if using FormContext so make sure it's unique.
+	 * Name of the Textarea - will be used for the form validation if using FormContext so make sure it's unique.
 	 */
 	name: string;
 	/**
 	 * Placeholder is always required.
 	 * */
 	placeholder: string;
-	/**
-	 * The type of the field. Notice that "submit" is not included -
-	 * This is an intentional omission, you should be using <button type="submit" />
-	 * instead as there is no need to add a validation layer to a submit field itself.
-	 * */
-	type?: "email" | "text" | "tel" | "number" | "password";
 	/**
 	 * Optional validation regex. Requires the form to be in a <FormProvider /> to work.
 	 * This should only be used if you need custom validation - Generic regex validation for fields based on type
@@ -38,7 +33,7 @@ export interface InputProps extends CompiledJSXPropsOmitRef<HTMLInputElement> {
 	/**
 	 * Optionally add a custom validation error message. Error messages are already built in, and are done based
 	 * on the type of component and type of error. However, you may add your own custom one. You can use a basic string
-	 * value here, or pass in a function (which will receive an input argument that includes the type of error -
+	 * value here, or pass in a function (which will receive an Textarea argument that includes the type of error -
 	 * i.e. a Regex validation error and your function will receive 'pattern' as the argument.
 	 * */
 	validationErrorMessage?:
@@ -58,7 +53,7 @@ export interface InputProps extends CompiledJSXPropsOmitRef<HTMLInputElement> {
  *
  * @alias InputProps
  */
-const Input = ({
+const TextArea = ({
 	type = "text",
 	name,
 	validationRegex,
@@ -66,14 +61,14 @@ const Input = ({
 	maxLength,
 	validationErrorMessage,
 	required = false,
-	className,
 	value,
 	onChange,
 	onBlur,
+	className,
 	disabled,
 	...props
-}: InputProps) => {
-	throwOnMissing(name, "name", "Input");
+}: TextAreaProps) => {
+	throwOnMissing(name, "name", "Textarea");
 	// @ts-ignore Someone might still do this even though it's not defined in the type
 	if (type === "submit") {
 		throw new Error(
@@ -124,27 +119,30 @@ const Input = ({
 			  };
 
 	return (
-		<div css={{ width: "100%" }}>
+		<span css={{ display: "block", paddingBottom: "36px" }}>
 			<span
 				css={{
 					position: "relative",
 				}}
 			>
-				<input
+				<textarea
 					id={id}
 					aria-invalid={
 						formContext && formContext.errors && formContext.errors[name]
 							? "true"
 							: "false"
 					}
-					className={className}
-					type={type}
 					css={{
-						padding: "0.5em 1em",
 						width: "100%",
+						fontSize: "13px",
+						fontWeight: "500",
+						borderRadius: "0",
+						backgroundColor: "#fff",
 						border: "1px solid #04050322",
-						//borderRadius: "3px",
+						minHeight: "5rem",
+						padding: "0.5em 1em",
 					}}
+					className={className}
 					{...registerFn}
 					{...props}
 				/>
@@ -202,28 +200,6 @@ const Input = ({
 						{formContext.errors[name].type === "required" && (
 							<FormAlert>Required</FormAlert>
 						)}
-						{formContext.errors[name].type === "pattern" && (
-							<>
-								{type === "password" && (
-									<FormAlert>
-										This password is not strong enough. Please
-									</FormAlert>
-								)}
-								{type === "email" && (
-									<FormAlert>This is not a valid email.</FormAlert>
-								)}
-								{type === "tel" && (
-									<FormAlert>This is not a valid phone number.</FormAlert>
-								)}
-								{type === "number" && (
-									<FormAlert>This is not a valid phone number.</FormAlert>
-								)}
-								{type !== "password" &&
-									type !== "tel" &&
-									type !== "email" &&
-									type !== "number" && <FormAlert>This is invalid.</FormAlert>}
-							</>
-						)}
 						{formContext.errors[name].type === "maxLength" && (
 							<FormAlert>Maximum length exceeded</FormAlert>
 						)}
@@ -232,8 +208,8 @@ const Input = ({
 						)}
 					</>
 				)}
-		</div>
+		</span>
 	);
 };
 
-export default Input;
+export default TextArea;

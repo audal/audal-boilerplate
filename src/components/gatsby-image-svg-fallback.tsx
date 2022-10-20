@@ -1,4 +1,3 @@
-/** @jsxImportSource @compiled/react */
 import React, {ImgHTMLAttributes} from "react";
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 

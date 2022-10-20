@@ -5,7 +5,6 @@ module.exports = {
     author: `Audal Labs`,
   },
   plugins: [
-    // `gatsby-plugin-ts`,
     `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-plugin-canonical-urls`,
@@ -21,8 +20,9 @@ module.exports = {
     'gatsby-transformer-sharp',
     'gatsby-plugin-layout',
     'gatsby-plugin-react-svg',
-    `gatsby-plugin-audal`,
     'gatsby-plugin-webpack-bundle-analyser-v2',
+    `gatsby-plugin-emotion`,
+	`emotion-cache-plugin`,
     //`gatsby-plugin-preact`,
     /*     `gatsby-plugin-pressless`,
         {
