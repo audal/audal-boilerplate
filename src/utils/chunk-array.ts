@@ -1,4 +1,4 @@
-export default function chunkArray(arr: any[], value: number) {
+export default function chunkArray<T = never>(arr: T[], value: number): T[][] {
     const finalArray = [];
     if (arr?.length) {
         for (let i = 0; i < arr.length; i += value) {
