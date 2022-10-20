@@ -15,6 +15,10 @@ export interface ButtonProps extends CompiledJSXProps<HTMLButtonElement> {
 	 * The type of the button.
 	 * */
 	type?: "button" | "submit" | "reset" | undefined;
+	className?: string;
+	children?: any;
+	disabled?: boolean;
+	style?: any;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
