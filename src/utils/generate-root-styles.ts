@@ -1,5 +1,4 @@
-import { CSSProperties } from 'react';
-import { css } from '@emotion/react';
+import { css, SerializedStyles } from '@emotion/react';
 
 interface GenerateRootStyles {
     smallScreenSize: number
@@ -13,8 +12,7 @@ const generateRootStyles = ({
     largeScreenSize,
     backgroundColor,
     textColor,
-}: GenerateRootStyles) => {
-    const styles = css`:root {
+}: GenerateRootStyles): SerializedStyles => css`:root {
             background-color: ${backgroundColor};
             color: ${textColor};
             --min-body-width: ${smallScreenSize}px;
@@ -22,7 +20,5 @@ const generateRootStyles = ({
             font-size: 16px;
         }
 `;
-    return styles;
-};
 
 export default generateRootStyles;

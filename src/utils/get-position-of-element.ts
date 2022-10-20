@@ -30,8 +30,10 @@ export const getPositionOfElement = (
         };
 
         return {
-            toJSON: () => returnable,
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            toJSON: (): Omit<ElementPositionRect, 'toJSON'> => returnable,
             ...returnable,
         };
     }
+    return undefined;
 };

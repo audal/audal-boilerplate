@@ -14,7 +14,7 @@ const useScrollDirection = (): number => {
 
     React.useEffect(() => {
         let didUnsubscribe = 0;
-        const listener = () => {
+        const listener = (): void => {
             if (didUnsubscribe) return;
             const progress = window.scrollY;
             const direction = lastProgress.current < progress ? 1 : -1;

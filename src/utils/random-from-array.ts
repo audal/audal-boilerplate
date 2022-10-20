@@ -1,14 +1,10 @@
-/*
-	This function ingests an arrayay and returns random n elements. Useful for randomized article choices.
- */
-
-export default function randomFromArray({
+export default function randomFromArray<T>({
     array,
     amountOfItemsToReturn,
 }: {
-    array: any[];
+    array: T[];
     amountOfItemsToReturn: number;
-}) {
+}): T[] {
     const result = new Array(amountOfItemsToReturn);
     let len = array.length;
     const taken = new Array(len);
