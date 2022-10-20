@@ -74,7 +74,7 @@ export const ScrollFadeIn = ({ initialInView = false, ...props }) => {
                 css={{
                     width: '100%',
                     overflow: 'hidden',
-                    transition: 'opacity 0.7s, transform 0.4s'
+                    transition: 'opacity 0.7s, transform 0.4s',
                 }}
                 style={{
                     transform: inView
