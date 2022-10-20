@@ -1,14 +1,16 @@
-/** @jsxImportSource @compiled/react */
 import React from "react";
-import { CheckIcon } from "@radix-ui/react-icons";
-import { useFormProvider, IFormContext } from "../form-provider";
+import CheckIcon from "../../../images/check-icon.svg";
+import { useFormProvider } from "../form-provider";
 import FormAlert from "../form-alert";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import usePersistedId from "../utils/use-persisted-id";
-import {CheckedState} from "@radix-ui/react-checkbox";
+import { CheckedState } from "@radix-ui/react-checkbox";
 
-export interface CheckBoxProps extends Omit<CompiledJSXPropsOmitRef<HTMLButtonElement>,  "onChange" | "type" | "size" | "value"> {
-
+export interface CheckBoxProps
+	extends Omit<
+		CompiledJSXPropsOmitRef<HTMLButtonElement>,
+		"onChange" | "type" | "size" | "value"
+	> {
 	/**
 	 * Name of the CheckBox - will be used for the form validation if using FormContext so make sure it's unique.
 	 */
@@ -40,17 +42,21 @@ export interface CheckBoxProps extends Omit<CompiledJSXPropsOmitRef<HTMLButtonEl
 	/**
 	 * This refers to the value of the input
 	 */
-	value?: boolean
+	value?: boolean;
 	/*
-	* onChange event
-	* */
+	 * onChange event
+	 * */
 	onChange?(checked: CheckedState): void;
+	/*
+	 * Style Inputs
+	 * */
+	inputBoxStyle: string;
 }
 
 export const CheckBox = ({
 	name,
 	children,
-	size = "md",
+	size = "sm",
 	required = false,
 	defaultChecked = false,
 	// onBlur,
@@ -61,7 +67,6 @@ export const CheckBox = ({
 	disabled,
 	inputBoxStyle,
 }: CheckBoxProps): JSX.Element => {
-
 	/*
 	 * Get our form provider. It may not exist
 	 * (if the input component is not inside a FormProvider and is using the component separately)
@@ -87,9 +92,6 @@ export const CheckBox = ({
 
 	const id = usePersistedId();
 
-
-	console.log(required)
-
 	/*
 	 * Set up our register function to be react-hook-form if the context exists,
 	 * if it doesn't, pass the props we destructed back to the element
@@ -97,18 +99,16 @@ export const CheckBox = ({
 	const registerFn =
 		formContext && formContext.register
 			? formContext.register(name, {
-				required,
-				onBlur,
-				disabled,
-			})
+					required,
+					onBlur,
+					disabled,
+			  })
 			: {
-				required,
-				onBlur,
-				disabled,
-			};
+					required,
+					onBlur,
+					disabled,
+			  };
 
-
-	
 	return (
 		<>
 			<div>
@@ -116,11 +116,11 @@ export const CheckBox = ({
 					<CheckboxPrimitive.Root
 						css={{
 							all: "unset",
-							backgroundColor: `${value ? "#007FFF" : "white"}`,
-							border: `${value ? "3px solid #007FFF" : "3px solid #0002"}`,
+							backgroundColor: `${value ? "#007FFF" : "#E7E7E7"}`,
+							border: `${value ? "3px solid #007FFF" : "3px solid #04050322"}`,
 							width: `${foundSize} !important`,
 							height: `${foundSize} !important`,
-							borderRadius: 4,
+							borderRadius: 2,
 							display: "flex",
 							alignItems: "center",
 							justifyContent: "center",
@@ -141,7 +141,6 @@ export const CheckBox = ({
 						// })}
 						{...registerFn}
 						className={inputBoxStyle}
-						
 					>
 						<CheckboxPrimitive.Indicator
 							css={{
@@ -155,11 +154,12 @@ export const CheckBox = ({
 					</CheckboxPrimitive.Root>
 					<label
 						css={{
-							color: "black",
-							fontSize: 15,
-							lineHeight: 1,
+							color: "#444444",
+							fontSize: "12px",
+							lineHeight: "26px",
+							fontWeight: "600",
 							userSelect: "none",
-							paddingLeft: 15,
+							paddingLeft: 6,
 						}}
 						htmlFor={id}
 					>

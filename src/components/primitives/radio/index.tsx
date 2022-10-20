@@ -1,40 +1,36 @@
-/** @jsxImportSource @compiled/react */
 import React from "react";
-// import { violet, blackA } from "@radix-ui/colors";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import usePersistedId from "../utils/use-persisted-id";
 import { useFormProvider } from "../form-provider";
 import FormAlert from "../form-alert";
-import VisuallyHidden from "../visually-hidden";
 
-//export const RadioGroup = RadioGroupPrimitive.Root;
-
-export interface RadioProps extends Omit<CompiledJSXPropsOmitRef<HTMLInputElement>, "value"> {
+export interface RadioProps
+	extends Omit<CompiledJSXPropsOmitRef<HTMLInputElement>, "value"> {
 	/**
 	 * Name of the Radio - will be used for the form validation if using FormContext so make sure it's unique.
 	 */
- 	name: string;
+	name: string;
 	/**
 	 * Children refers to the label
 	 * */
- 	children: any;
-	 /**
+	children: any;
+	/**
 	 * The size of the radio button.
 	 * */
- 	sizes?: "xs" | "sm" | "md" | "lg" | "xl";
+	sizes?: "xs" | "sm" | "md" | "lg" | "xl";
 	/**
 	 * Make the field required or not. Defaults to false for all field types.
 	 */
- 	required?: boolean;
-	 /**
+	required?: boolean;
+	/**
 	 * Make the field disabled or not. Defaults to false for all field types.
 	 */
- 	disabled?: boolean;
-	 /**
+	disabled?: boolean;
+	/**
 	 * This refers to the value of the input
 	 */
- 	value?: string | boolean ;
-	 /**
+	value?: string | boolean;
+	/**
 	 * This refers to the error message from react-hook-form
 	 */
 	validationErrorMessage?: string | ((type: "required") => string);
@@ -67,7 +63,7 @@ export const Radio = ({
 			<RadioGroupPrimitive.Item
 				css={{
 					backgroundColor: "white",
-					border: "2px solid #0002",
+					border: "2px solid #04050322",
 					display: "inline-flex",
 					alignItems: "center",
 					justifyContent: "center",
@@ -80,10 +76,9 @@ export const Radio = ({
 					borderRadius: "50%",
 					borderColor: "#1A2027",
 					color: "#fff",
-					transition: 'all 0.3s',
-					"&:hover": { backgroundColor: "#0001" },
+					transition: "all 0.3s",
+					"&:hover": { backgroundColor: "#04050311" },
 					"&[data-state=checked], &:hover[data-state=checked]": {
-
 						borderColor: "#007FFF",
 					},
 				}}
@@ -100,7 +95,7 @@ export const Radio = ({
 						width: "100%",
 						height: "100%",
 						position: "relative",
-						transition: 'all 0.3s',
+						transition: "all 0.3s",
 						"&::after": {
 							content: '""',
 							display: "block",
@@ -128,14 +123,47 @@ export const Radio = ({
 	);
 };
 
- const RadioGroupBase = ({
+export interface RadioGroupBaseProps
+	extends Omit<CompiledJSXPropsOmitRef<HTMLInputElement>, "value"> {
+	/**
+	 * Name of the Radio - will be used for the form validation if using FormContext so make sure it's unique.
+	 */
+	name: string;
+	/**
+	 * Children refers to the label
+	 * */
+	children: any;
+	/**
+	 * The size of the radio button.
+	 * */
+	sizes?: "xs" | "sm" | "md" | "lg" | "xl";
+	/**
+	 * Make the field required or not. Defaults to false for all field types.
+	 */
+	required?: boolean;
+	/**
+	 * Make the field disabled or not. Defaults to false for all field types.
+	 */
+	disabled?: boolean;
+	/**
+	 * This refers to the value of the input
+	 */
+	value?: string | boolean;
+	/**
+	 * This refers to the error message from react-hook-form
+	 */
+	validationErrorMessage?: string | ((type: "required") => string);
+	formContext?: any;
+}
+
+const RadioGroupBase = ({
 	children,
 	onChange,
 	name,
 	required,
 	value,
 	formContext,
-}) => {
+}: RadioGroupBaseProps) => {
 	if (!Array.isArray(children)) {
 		children = [children];
 	}
@@ -146,21 +174,18 @@ export const Radio = ({
 	}, []);
 	return (
 		<>
-		<RadioGroupPrimitive.Root
-			onValueChange={onChange}
-			value={value}
-			name={name}
-			defaultValue={children[0]?.props?.value}
-			{...formContext?.register(name, { required: required })}
-		>
-			{children}
-		</RadioGroupPrimitive.Root>
-		{formContext?.errors[name]?.type === "required" && (
-			<FormAlert>
-				Required
-				{console.log("errors", formContext.errors)}{console.log("values", formContext.getValues())}
-			</FormAlert>)
-		}
+			<RadioGroupPrimitive.Root
+				onValueChange={onChange}
+				value={value}
+				name={name}
+				defaultValue={children[0]?.props?.value}
+				{...formContext?.register(name, { required: required })}
+			>
+				{children}
+			</RadioGroupPrimitive.Root>
+			{formContext?.errors[name]?.type === "required" && (
+				<FormAlert>Required</FormAlert>
+			)}
 		</>
 	);
 };
@@ -171,7 +196,7 @@ export const RadioGroup = ({
 	onChange,
 	name,
 	required = false,
-}) => {
+}: RadioGroupBaseProps) => {
 	const formContext = useFormProvider();
 
 	if (formContext) {
@@ -180,7 +205,6 @@ export const RadioGroup = ({
 				value={value}
 				onChange={(e) => {
 					formContext.setValue(name, e);
-					console.log(formContext.getValues())
 					if (onChange) {
 						onChange(e);
 					}
