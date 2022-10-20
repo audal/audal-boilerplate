@@ -1,4 +1,3 @@
-/** @jsxImportSource @compiled/react */
 import React from "react";
 
 const NotFoundPage = (): React.ReactElement => (

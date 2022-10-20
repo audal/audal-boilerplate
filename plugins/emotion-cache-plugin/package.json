@@ -1,0 +1,15 @@
+{
+  "name": "emotion-cache-plugin",
+  "version": "1.0.0",
+  "dependencies": {
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-dom": "*",
+    "@emotion/cache": "^11.10.3",
+    "@emotion/react": "^11.9.3",
+    "@emotion/server": "^11.10.0",
+    "@emotion/styled": "^11.9.3",
+    "stylis": "^4.1.2"
+  }
+}

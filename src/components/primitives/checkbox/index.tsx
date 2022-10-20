@@ -65,7 +65,6 @@ export const CheckBox = ({
 	onChange,
 	onBlur,
 	disabled,
-	inputBoxStyle,
 }: CheckBoxProps): JSX.Element => {
 	/*
 	 * Get our form provider. It may not exist
@@ -140,7 +139,6 @@ export const CheckBox = ({
 						// 	required: required,
 						// })}
 						{...registerFn}
-						className={inputBoxStyle}
 					>
 						<CheckboxPrimitive.Indicator
 							css={{

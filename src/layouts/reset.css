@@ -6,6 +6,20 @@ html {
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
     touch-action: manipulation;
+    --min-body-width: 320px;
+    --max-body-width: 1440px;
+    font-size: 16px;
+}
+@media screen and (max-width: 320px) {
+    :root {
+        font-size: clamp(0px, calc(0px + (16 - 0) * ((100vw - 0px) / var(--min-body-width))), 16px)
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    :root {
+        font-size: clamp(16px, calc(16px + (32 - 16) * ((100vw - var(--max-body-width)) / 4096)), 32px)
+    }
 }
 body {
     position: relative;

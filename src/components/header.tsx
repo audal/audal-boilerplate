@@ -1,4 +1,3 @@
-/** @jsxImportSource @compiled/react */
 import React from "react";
 import Logo from "../images/icon.png";
 import { GatsbyImageSVGFallback } from "./gatsby-image-svg-fallback";

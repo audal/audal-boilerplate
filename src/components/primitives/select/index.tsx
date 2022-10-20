@@ -2,7 +2,6 @@ import React from "react";
 import CheckIcon from "../../../images/check-icon.svg";
 import ChevronDownIcon from "../../../images/cheveron-down-icon.svg";
 import ChevronUpIcon from "../../../images/cheveron-up-icon.svg";
-
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { useFormProvider } from "../form-provider";
 import throwOnMissing from "../utils/throw-on-missing";

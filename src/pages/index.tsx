@@ -1,4 +1,3 @@
-/** @jsxImportSource @compiled/react */
 import React from "react";
 // import Logo from "../images/icon.png";
 // import { AnimatedImageClipped } from "../components/animations/animated-image-clipped";
@@ -39,7 +38,7 @@ import { CheckBox } from "../components/primitives/checkbox";
 import Select, {
 
 	SelectOption,
-	
+
 } from "../components/primitives/select";
 
 const Index = (): React.ReactElement => (
@@ -90,7 +89,6 @@ const Index = (): React.ReactElement => (
 				placeholder="Hello!"
 				name="heheheh"
 				// required
-				css={{ height: "80px", background: "red", color: "white" }}
 			>
 				<SelectOption value="apple">Apple</SelectOption>
 				<SelectOption value="banana">Banana</SelectOption>

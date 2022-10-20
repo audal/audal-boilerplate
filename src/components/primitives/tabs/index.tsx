@@ -152,7 +152,6 @@ export const Tab = ({ className, ...props }: TabProps) => {
 					color: "#040503",
 					fontSize: "13px",
 					fontStyle: "normal",
-					fontFamily: "Montserrat",
 					fontWeight: "700",
 					lineHeight: "15px",
 					textTransform: "uppercase",
