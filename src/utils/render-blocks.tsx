@@ -1,7 +1,6 @@
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import useScrollPosition from '@react-hook/window-scroll';
-import * as Chakra from '@chakra-ui/react';
 
 interface RenderBlocksProps {
     blocks: any[];
@@ -11,9 +10,9 @@ interface RenderBlocksProps {
 const RenderBlocks = ({
     blocks,
     postType,
-}: RenderBlocksProps): React.ReactElement[] => {
+}: RenderBlocksProps): JSX.Element | JSX.Element[] | null => {
     if (!blocks || !Array.isArray(blocks) || !postType) {
-        return;
+        return null;
     }
 
     blocks = blocks.map(
@@ -69,11 +68,14 @@ export const ScrollFadeIn = ({ initialInView = false, ...props }) => {
     previousScrollPosition.current = scrollY;
 
     return (
-        <Chakra.Box width="100%" overflow="hidden">
-            <Chakra.Box
+        <div css={{ width: '100%', overflow: 'hidden' }}>
+            <div
                 ref={ref}
-                width="100%"
-                transition="opacity 0.7s, transform 0.4s"
+                css={{
+                    width: '100%',
+                    overflow: 'hidden',
+                    transition: 'opacity 0.7s, transform 0.4s'
+                }}
                 style={{
                     transform: inView
                         ? 'translateY(0px)'
@@ -84,6 +86,6 @@ export const ScrollFadeIn = ({ initialInView = false, ...props }) => {
                 }}
                 {...props}
             />
-        </Chakra.Box>
+        </div>
     );
 };
