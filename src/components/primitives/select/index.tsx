@@ -80,7 +80,7 @@ const Select = ({
     paddingTop = '20px',
     width = '100%',
     variant = 'full',
-}: SelectProps) => {
+}: SelectProps) : JSX.Element => {
     throwOnMissing(name, 'name', 'Select');
 
     const formContext = useFormProvider();
@@ -165,8 +165,7 @@ const Select = ({
                         overflow: 'hidden',
                         backgroundColor: '#9db8d1',
                         borderRadius: 6,
-                        boxShadow:
-							'0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
+                        boxShadow: '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
                     }}
                 >
                     <SelectPrimitive.SelectScrollUpButton
