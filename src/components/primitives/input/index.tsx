@@ -189,48 +189,48 @@ const Input = ({
         && formContext.errors[name]
         && validationErrorMessage && (
                 <FormAlert>
-                    {typeof validationErrorMessage === 'function'
+            {typeof validationErrorMessage === 'function'
                         ? validationErrorMessage(formContext.errors[name].type)
                         : validationErrorMessage}
-                </FormAlert>
+        </FormAlert>
             )}
             {formContext
         && formContext.errors
         && formContext.errors[name]
         && !validationErrorMessage && (
                 <>
-                    {formContext.errors[name].type === 'required' && (
+            {formContext.errors[name].type === 'required' && (
                         <FormAlert>Required</FormAlert>
                     )}
-                    {formContext.errors[name].type === 'pattern' && (
+            {formContext.errors[name].type === 'pattern' && (
                         <>
-                            {type === 'password' && (
+                {type === 'password' && (
                                 <FormAlert>
-                                    This password is not strong enough. Please
+                    This password is not strong enough. Please
                                 </FormAlert>
                             )}
-                            {type === 'email' && (
+                {type === 'email' && (
                                 <FormAlert>This is not a valid email.</FormAlert>
                             )}
-                            {type === 'tel' && (
+                {type === 'tel' && (
                                 <FormAlert>This is not a valid phone number.</FormAlert>
                             )}
-                            {type === 'number' && (
+                {type === 'number' && (
                                 <FormAlert>This is not a valid phone number.</FormAlert>
                             )}
-                            {type !== 'password'
+                {type !== 'password'
                                     && type !== 'tel'
                                     && type !== 'email'
                                     && type !== 'number' && <FormAlert>This is invalid.</FormAlert>}
-                        </>
+            </>
                     )}
-                    {formContext.errors[name].type === 'maxLength' && (
+            {formContext.errors[name].type === 'maxLength' && (
                         <FormAlert>Maximum length exceeded</FormAlert>
                     )}
-                    {formContext.errors[name].type === 'minLength' && (
+            {formContext.errors[name].type === 'minLength' && (
                         <FormAlert>Not long enough</FormAlert>
                     )}
-                </>
+        </>
             )}
         </div>
     );

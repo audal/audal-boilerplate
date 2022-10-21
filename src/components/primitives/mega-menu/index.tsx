@@ -55,53 +55,52 @@ const fadeOut = keyframes({
 /*
 **** This short demo shows how the navigation should be used
 <MegaMenu>
-			  <MegaMenuDropdown>
-				  <MenuList>
-					  <MenuItem >
-						  <DropdownTrigger>
-							  Learn
-							  <DropdownTriggerIndicator/>
-						  </DropdownTrigger>
-						  <DropdownInsert>
-							  <SubMenu>
-								  <MenuList>
-									  <MenuItem>
-										  <DropdownTrigger>
-											  Hello
-										  </DropdownTrigger>
-										  <DropdownInsert>
-											  <MenuLink>
-												  Github
-											  </MenuLink>
-										  </DropdownInsert>
-									  </MenuItem>
-								  </MenuList>
-							  </SubMenu>
-						  </DropdownInsert>
-					  </MenuItem>
+            <MegaMenuDropdown>
+                 <MenuList>
+                   <MenuItem >
+                      <DropdownTrigger>
+                         Learn
+                         <DropdownTriggerIndicator/>
+                      </DropdownTrigger>
+                      <DropdownInsert>
+                           <SubMenu>
+                             <MenuList>
+                               <MenuItem>
+                                 <DropdownTrigger>
+                                     Hello
+                      </DropdownTrigger>
+                      <DropdownInsert>
+                         <MenuLink>
+                            Github
+                         </MenuLink>
+                     </DropdownInsert>
+                   </MenuItem>
+                </MenuList>
+               </SubMenu>
+             </DropdownInsert>
+           </MenuItem>
+          <MenuItem>
+            <DropdownTrigger>
+                 Overview
+             </DropdownTrigger>
+            <DropdownInsert>
+                       <MenuLink>
+                           Github
+                       </MenuLink>
+            </DropdownInsert>
+          </MenuItem>
 
-					  <MenuItem>
-						  <DropdownTrigger>
-							  Overview
-						  </DropdownTrigger>
-						  <DropdownInsert>
-							  <MenuLink>
-								  Github
-							  </MenuLink>
-						  </DropdownInsert>
-					  </MenuItem>
+         <MenuItem>
+             <MenuLink>
+                 Github
+             </MenuLink>
+       </MenuItem>
 
-					  <MenuItem>
-						  <MenuLink>
-							  Github
-						  </MenuLink>
-					  </MenuItem>
+       <MegaMenuIndicator />
 
-					  <MegaMenuIndicator />
-
-				  </MenuList>
-			  </MegaMenuDropdown>
-	      </MegaMenu>
+        </MenuList>
+     </MegaMenuDropdown>
+   </MegaMenu>
 */
 
 const itemStyles = {
