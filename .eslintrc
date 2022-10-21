@@ -1,69 +1,70 @@
 {
-    "root": true,
-    "parserOptions": {
-        "ecmaVersion": 2020
-    },
-    "extends": ["brainbits-react", "brainbits-jest"],
-    "env": {
-        "browser": true
-    },
-    "overrides": [
-        {
-            "extends": ["brainbits-typescript-react", "brainbits-jest"],
-            "files": ["**/*.ts", "**/*.tsx"],
-            "parser": "@typescript-eslint/parser",
-            "parserOptions": {
-                "project": ["./tsconfig.json"]
-            },
-            "rules": {
-                "react/jsx-props-no-spreading": "off",
-                "react/no-unknown-property": ["error", { "ignore": ["css"] }]
-            },
-            "plugins": ["@emotion"]
-        }
-    ],
-    "plugins": ["import"],
-    "settings": {
-        "import/parsers": {
-            "@typescript-eslint/parser": [".ts", ".tsx"]
-        },
-        "import/resolver": {
-            "typescript": {
-                "alwaysTryTypes": true,
-                "project": "./tsconfig.json"
-            }
-        }
-    },
-    "rules": {
-        "import/order": [
-                "error",
-            {
-                "groups": ["builtin", "external", "parent", "sibling", "index"],
-                "pathGroups": [
-                    {
-                        "pattern": "*.{scss,css}",
-                        "patternOptions": { "matchBase": true },
-                        "group": "sibling",
-                        "position": "after"
-                    }
-                ],
-                "alphabetize": {
-                    "order": "asc",
-                    "caseInsensitive": true
-                }
-            }
-        ],
-        "jsx-a11y/label-has-associated-control": [
-                "error",
-            {
-                "assert": "either"
-            }
-        ],
-        "react/no-unstable-nested-components": [
-                "error",
-            {
-                "allowAsProps": true
-            }
-        ]
+  "root": true,
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "extends": ["brainbits-react", "brainbits-jest"],
+  "env": {
+    "browser": true
+  },
+  "overrides": [
+    {
+      "extends": ["brainbits-typescript-react", "brainbits-jest"],
+      "files": ["**/*.ts", "**/*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": ["./tsconfig.json"]
+      },
+      "rules": {
+        "react/jsx-props-no-spreading": "off",
+        "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+        "linebreak-style": ["error", "windows"]
+      },
+      "plugins": ["@emotion"]
     }
+  ],
+  "plugins": ["import"],
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      }
+    }
+  },
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "parent", "sibling", "index"],
+        "pathGroups": [
+          {
+            "pattern": "*.{scss,css}",
+            "patternOptions": { "matchBase": true },
+            "group": "sibling",
+            "position": "after"
+          }
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "assert": "either"
+      }
+    ],
+    "react/no-unstable-nested-components": [
+      "error",
+      {
+        "allowAsProps": true
+      }
+    ]
+  }
 }
