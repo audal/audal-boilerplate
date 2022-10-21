@@ -45,7 +45,7 @@ import Row from '../components/primitives/grid/row';
 import Col from '../components/primitives/grid/col';
 import Container from '../components/primitives/grid/container';
 import ScrollEffect from '../components/animations/components/scroll-effect';
-import ScrollArea from "../components/animations/context/scroll-area";
+import ScrollArea from '../components/animations/context/scroll-area';
 
 const Index = (): React.ReactElement => (
     <RowSet breakpoints={{ dt: { between: 20 } }}>
