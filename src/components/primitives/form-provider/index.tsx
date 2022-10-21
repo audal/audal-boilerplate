@@ -53,14 +53,7 @@ const FormProvider = React.forwardRef<HTMLFormElement, FormProviderProps>(
 
         return (
             <FormContext.Provider
-                value={{
-                    register,
-                    control,
-                    handleSubmit,
-                    errors,
-                    setValue,
-                    getValues,
-                }}
+                value={{register, control, handleSubmit, errors, setValue, getValues, }}
             >
                 <form
                     ref={ref}

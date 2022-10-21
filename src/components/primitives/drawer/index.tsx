@@ -43,33 +43,33 @@ const DrawerOverlay: () => React.ReactElement = () => (
 
 interface DrawerContentProps {
     /**
-	 * The content of the drawer in JSX
-	 */
+     *  * The content of the drawer in JSX
+     *  */
     children: React.ReactNode | React.ReactNode[];
     /**
-	 * This can either be an explicit className or
-	 * classNames generated as a result of using css prop
-	 * i.e. css={{width: "100%", height: "auto"}}
-	 *
-	 * You can use css prop to style the drawer content. e.g. if you want to change
-	 * the background color from white to any other color
-	 */
+     *  * This can either be an explicit className or
+     *  * classNames generated as a result of using css prop
+     *  * i.e. css={{width: "100%", height: "auto"}}
+     *  *
+     *  * You can use css prop to style the drawer content. e.g. if you want to change
+     *  * the background color from white to any other color
+     *  */
     className?: string;
     /**
-	 * Positioning of the drawer. The default value is left
-	 */
+     *  * Positioning of the drawer. The default value is left
+     *  */
     placement: 'top' | 'bottom' | 'left' | 'right';
     /**
-	 * The size of the drawer. For horizontally positioned drawers (i.e. left, right), this will affect the width.
-	 * For vertically positioned drawers, this will affect the height(i.e. top, bottom). THe default value is xs
-	 */
+     *  * The size of the drawer. For horizontally positioned drawers (i.e. left, right), this will affect the width.
+     *  * For vertically positioned drawers, this will affect the height(i.e. top, bottom). THe default value is xs
+     *  */
     size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 }
 
 interface DrawerCloseProps {
     /**
-	 * The content of the drawer in JSX
-	 */
+     *  * The content of the drawer in JSX
+     *  */
     children: React.ReactNode | React.ReactNode[];
 }
 
@@ -85,7 +85,8 @@ interface DrawerCloseProps {
  *
  */
 
-export const DrawerCloseOnClick = ({ children }: DrawerCloseProps) => <DialogPrimitive.Close asChild>{children}</DialogPrimitive.Close>;
+export const DrawerCloseOnClick: React.FunctionComponent<DrawerCloseProps> = ({ children }: DrawerCloseProps) => (
+    <DialogPrimitive.Close asChild>{children}</DialogPrimitive.Close>);
 
 export const DrawerContent = ({
     children,
@@ -166,7 +167,7 @@ export const DrawerContent = ({
                 css={{
                     backgroundColor: 'white',
                     boxShadow:
-						'0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
                     position: 'fixed',
                     top: placementStyles?.top,
                     bottom: placementStyles?.bottom,
@@ -216,7 +217,7 @@ export const Drawer: DialogRootPrimitiveProps = DialogPrimitive.Root;
  * This button must be a direct child of the <Drawer /> component
  *
  */
-export const DrawerTrigger: DialogTriggerPrimitiveProps =	DialogPrimitive.Trigger;
+export const DrawerTrigger: DialogTriggerPrimitiveProps = DialogPrimitive.Trigger;
 /**
  * <DrawerCloseButton /> component.
  * This component must always be the first child of <DrawerContent /> component.

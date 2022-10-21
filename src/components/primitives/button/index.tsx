@@ -7,14 +7,14 @@ import Spinner from '../spinner';
  * */
 export interface ButtonProps extends HTMLProps<HTMLButtonElement> {
     /**
-	 * Shows a spinner and disables the button, for when there is a loading action happening.
-	 * Default is false.
-	 * */
+   * Shows a spinner and disables the button, for when there is a loading action happening.
+   *  * Default is false.
+   *  * */
     loading?: boolean;
     /**
-	 * The type of the button.
-	 * */
-    type?: 'button' | 'submit' | 'reset' | undefined;
+   * * The type of the button.
+   *  * */
+    type?: 'submit' | 'button' | 'reset';
     className?: string;
     children?: any;
     disabled?: boolean;
@@ -22,28 +22,24 @@ export interface ButtonProps extends HTMLProps<HTMLButtonElement> {
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    (
-        {
-            disabled,
-            style,
-            loading,
-            className,
-            children,
-            type = 'button',
-            ...props
-        },
-        ref,
-    ) => (
+    ({
+        disabled,
+        style,
+        loading,
+        className,
+        children,
+        type = 'button',
+        ...props
+    }) => (
         <button
             type={type}
-            role="button"
             aria-disabled={disabled}
             disabled={disabled || loading}
             style={style}
             /**
-				 * Can buttons that have a loading state be considered a toggle button?
-				 * Not sure...
-				 */
+       * * Can buttons that have a loading state be considered a toggle button?
+       *  * Not sure...
+       *  */
             className={className}
             aria-pressed={typeof loading !== undefined ? loading : undefined}
             css={{
