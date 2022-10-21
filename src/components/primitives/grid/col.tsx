@@ -15,7 +15,10 @@ const flexMap = {
     end: 'flex-end',
 };
 
-const getGap = (gap: number, property?: 'half' | 'full' | 'none'): number => {
+const getGap = (columns: number, gap: number, span?: number, start?: number, property?: 'half' | 'full' | 'none'): number => {
+    if (typeof span === 'number' && span > columns) {
+        return 0;
+    }
     if (property === 'half') return gap / 2;
     if (property === 'none') return gap;
     return 0;
@@ -34,27 +37,36 @@ const getColumnSize = (columns: number, span?: number, start?: number): string =
 };
 
 const Col = ({ breakpoints, ...props }: Col): JSX.Element => {
-    const { breakpoints: outerBreakpoints } = useGridContext();
+    const { sortedBreakpoints: outerBreakpoints } = useGridContext();
+
+    const css = React.useMemo(() => {
+        let lastBreakpoint = {};
+        return Object.fromEntries(outerBreakpoints.map(([selected, { query, gap, columns }]) => {
+            const {
+                start, span, justify, align, dir, leftGap, rightGap,
+            } = breakpoints[selected] || lastBreakpoint;
+
+            if (breakpoints[selected]) {
+                lastBreakpoint = breakpoints[selected];
+            }
+
+            const lG = getGap(columns, gap, span, start, leftGap);
+            const rG = getGap(columns, gap, span, start, rightGap);
+            return [query, {
+                gridColumn: getColumnSize(columns, span, start),
+                justifyContent: justify && flexMap[justify],
+                alignItems: align && flexMap[align],
+                display: 'flex',
+                flexDirection: dir || 'column',
+                marginInlineStart: lG && `-${lG}px`,
+                marginInlineEnd: rG && `-${rG}px`,
+            }];
+        }));
+    }, [breakpoints, outerBreakpoints]);
 
     return (
         <div
-            css={Object.fromEntries(Object.entries(breakpoints).map(([selected,
-                {
-                    start, span, justify, align, dir, leftGap, rightGap,
-                }]) => {
-                const { query, gap, columns } = outerBreakpoints[selected];
-                const lG = getGap(gap, leftGap);
-                const rG = getGap(gap, rightGap);
-                return [query, {
-                    gridColumn: getColumnSize(columns, span, start),
-                    justifyContent: justify && flexMap[justify],
-                    alignItems: align && flexMap[align],
-                    display: 'flex',
-                    flexDirection: dir || 'column',
-                    marginLeft: lG && `-${lG}px`,
-                    marginRight: rG && `-${rG}px`,
-                }];
-            }))}
+            css={css}
             {...props}
         />
     );

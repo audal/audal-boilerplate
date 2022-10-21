@@ -22,6 +22,7 @@ const Layout = ({ children, location }: PageProps): React.ReactElement => (
                 mb: { query: '@media (max-width: 767px)', columns: 4, gap: 30 },
             }}
             maxWidth={1440}
+            desktopFirst
         >
             <Global
                 styles={generateRootStyles({
