@@ -36,7 +36,7 @@ export const ModalTrigger = DialogPrimitive.Trigger;
 
 export const ModalContent = (
     props: CustomProps<DialogContentImplProps>,
-) => (
+): JSX.Element => (
     <DialogPrimitive.Portal forceMount>
         <DialogPrimitive.Overlay
             css={{
@@ -68,8 +68,7 @@ export const ModalContent = (
                     backgroundColor: 'white',
                     borderRadius: 6,
                     zIndex: 20,
-                    boxShadow:
-							'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
+                    boxShadow: 'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
                     width: '90vw',
                     maxWidth: '450px',
                     maxHeight: '85vh',
@@ -95,7 +94,7 @@ export const ModalContent = (
 
 export const ModalCloseButton = (
     props: CustomProps<DialogCloseProps>,
-) => (
+): JSX.Element => (
     <DialogPrimitive.Close
         className={props.className}
         css={{
