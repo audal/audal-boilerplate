@@ -4,7 +4,7 @@ const useIsTouchDevice = (): boolean => {
     const [isTouch, setIsTouch] = React.useState(false);
 
     React.useEffect(() => {
-        const setupTouch = () => {
+        const setupTouch = (): any => {
             setIsTouch(true);
         };
         window.addEventListener('touchstart', setupTouch);

@@ -29,7 +29,7 @@ const ScrollArea = ({
     smooth = false,
     smoothMass = 0.05,
     pin,
-}: ScrollAreaProps) => {
+}: ScrollAreaProps): JSX.Element => {
     const ref = React.useRef(null);
     const { scrollYProgress, scrollY } = useScroll({
         target: ref,
