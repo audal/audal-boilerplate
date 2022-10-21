@@ -5,14 +5,6 @@ export default function randomFromArray<T>({
     array: T[];
     amountOfItemsToReturn: number;
 }): T[] {
-    const result = new Array(amountOfItemsToReturn);
-    let len = array.length;
-    const taken = new Array(len);
-    if (amountOfItemsToReturn > len) return array;
-    while (amountOfItemsToReturn--) {
-        const x = Math.floor(Math.random() * len);
-        result[amountOfItemsToReturn] = array[x in taken ? taken[x] : x];
-        taken[x] = --len in taken ? taken[len] : len;
-    }
-    return result;
+    const shuffled = [...array].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, amountOfItemsToReturn);
 }
