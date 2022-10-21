@@ -12,8 +12,8 @@ export interface CheckBoxProps
     'onChange' | 'type' | 'size' | 'value'
     > {
     /**
-     * Name of the CheckBox - will be used for the form validation if using FormContext so make sure it's unique.
-     */
+    * Name of the CheckBox - will be used for the form validation if using FormContext so make sure it's unique.
+    */
     name: string;
     /**
      * Children refers to the label
@@ -44,12 +44,12 @@ export interface CheckBoxProps
      */
     value?: boolean;
     /*
-        * onChange event
-        * */
+     * onChange event
+     * */
     onChange?(checked: CheckedState): void;
     /*
-        * Style Inputs
-        * */
+     * Style Inputs
+     * */
     inputBoxStyle: string;
 }
 
@@ -66,11 +66,11 @@ export const CheckBox = ({
     onBlur,
     disabled,
 }: CheckBoxProps): JSX.Element => {
-/*
-    * Get our form provider. It may not exist
-    * (if the input component is not inside a FormProvider and is using the component separately)
-    * so make sure to not access it directly without first checking.
-    * */
+    /*
+     * Get our form provider. It may not exist
+     * (if the input component is not inside a FormProvider and is using the component separately)
+     * so make sure to not access it directly without first checking.
+     * */
     const formContext = useFormProvider();
 
     const foundSize = {
@@ -92,9 +92,9 @@ export const CheckBox = ({
     const id = usePersistedId();
 
     /*
-    * Set up our register function to be react-hook-form if the context exists,
-    * if it doesn't, pass the props we destructed back to the element
-    * */
+     * Set up our register function to be react-hook-form if the context exists,
+     * if it doesn't, pass the props we destructed back to the element
+     * */
     const registerFn = formContext && formContext.register
         ? formContext.register(name, {
             required,
