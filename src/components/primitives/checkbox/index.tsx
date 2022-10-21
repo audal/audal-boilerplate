@@ -12,44 +12,44 @@ export interface CheckBoxProps
     'onChange' | 'type' | 'size' | 'value'
     > {
     /**
-	 * Name of the CheckBox - will be used for the form validation if using FormContext so make sure it's unique.
-	 */
+     * Name of the CheckBox - will be used for the form validation if using FormContext so make sure it's unique.
+     */
     name: string;
     /**
-	 * Children refers to the label
-	 * */
+     * Children refers to the label
+     * */
     children: any;
     /**
-	 * The size of the radio button.
-	 * */
+     * The size of the radio button.
+     * */
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     /**
-	 * Make the field required or not. Defaults to false for all field types.
-	 */
+     * Make the field required or not. Defaults to false for all field types.
+     */
     required?: boolean;
     /**
-	 * Explicitly control the state of the element
-	 */
+     * Explicitly control the state of the element
+     */
     checked?: boolean;
     /**
-	 * Should the field be checked by default, if uncontrolled?
-	 */
+     * Should the field be checked by default, if uncontrolled?
+     */
     defaultChecked?: boolean;
     /**
-	 * Make the field disabled or not. Defaults to false for all field types.
-	 */
+     * Make the field disabled or not. Defaults to false for all field types.
+     */
     disabled?: boolean;
     /**
-	 * This refers to the value of the input
-	 */
+     * This refers to the value of the input
+     */
     value?: boolean;
     /*
-	 * onChange event
-	 * */
+        * onChange event
+        * */
     onChange?(checked: CheckedState): void;
     /*
-	 * Style Inputs
-	 * */
+        * Style Inputs
+        * */
     inputBoxStyle: string;
 }
 
@@ -66,11 +66,11 @@ export const CheckBox = ({
     onBlur,
     disabled,
 }: CheckBoxProps): JSX.Element => {
-    /*
-	 * Get our form provider. It may not exist
-	 * (if the input component is not inside a FormProvider and is using the component separately)
-	 * so make sure to not access it directly without first checking.
-	 * */
+/*
+    * Get our form provider. It may not exist
+    * (if the input component is not inside a FormProvider and is using the component separately)
+    * so make sure to not access it directly without first checking.
+    * */
     const formContext = useFormProvider();
 
     const foundSize = {
@@ -92,20 +92,20 @@ export const CheckBox = ({
     const id = usePersistedId();
 
     /*
-	 * Set up our register function to be react-hook-form if the context exists,
-	 * if it doesn't, pass the props we destructed back to the element
-	 * */
-    const registerFn =		formContext && formContext.register
-		    ? formContext.register(name, {
-		        required,
-		        onBlur,
-		        disabled,
-			  })
-		    : {
-		        required,
-		        onBlur,
-		        disabled,
-			  };
+    * Set up our register function to be react-hook-form if the context exists,
+    * if it doesn't, pass the props we destructed back to the element
+    * */
+    const registerFn = formContext && formContext.register
+        ? formContext.register(name, {
+            required,
+            onBlur,
+            disabled,
+        })
+        : {
+            required,
+            onBlur,
+            disabled,
+        };
 
     return (
         <>
@@ -135,7 +135,7 @@ export const CheckBox = ({
                         defaultChecked={defaultChecked}
                         // checked={checked}
                         // {...formContext?.register(name, {
-                        // 	required: required,
+                        // required: required,
                         // })}
                         {...registerFn}
                     >
