@@ -17,7 +17,7 @@ export const Tabs = ({
     index,
     defaultIndex = 0,
     ...props
-}: TabsProps) => (
+}: TabsProps): JSX.Element => (
     <TabsPrimitive.Root
         css={{
             display: 'flex',
@@ -109,7 +109,7 @@ export interface TabProps
     value?: string
 }
 
-export const Tab = ({ className, ...props }: TabProps) => (
+export const Tab = ({ className, ...props }: TabProps): JSX.Element => (
     <TabsPrimitive.Trigger
         value={props?.value}
         className="keen-slider__slide"
@@ -194,7 +194,7 @@ const fadeIn = keyframes({
     to: { opacity: 1 },
 });
 
-export const TabPanel = ({ className, ...props }: TabPanelProps) => (
+export const TabPanel = ({ className, ...props }: TabPanelProps): JSX.Element => (
     <TabsPrimitive.Content
         value={props?.value}
         css={{
