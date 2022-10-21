@@ -187,27 +187,27 @@ const TextArea = ({
 				&& formContext.errors
 				&& formContext.errors[name]
 				&& validationErrorMessage && (
-<FormAlert>
-                    {typeof validationErrorMessage === 'function'
+                <FormAlert>
+    {typeof validationErrorMessage === 'function'
                         ? validationErrorMessage(formContext.errors[name].type)
                         : validationErrorMessage}
-                </FormAlert>
+</FormAlert>
             )}
             {formContext
 				&& formContext.errors
 				&& formContext.errors[name]
 				&& !validationErrorMessage && (
-<>
-                    {formContext.errors[name].type === 'required' && (
-    <FormAlert>Required</FormAlert>
+                <>
+    {formContext.errors[name].type === 'required' && (
+                        <FormAlert>Required</FormAlert>
                     )}
-                    {formContext.errors[name].type === 'maxLength' && (
-    <FormAlert>Maximum length exceeded</FormAlert>
+    {formContext.errors[name].type === 'maxLength' && (
+                        <FormAlert>Maximum length exceeded</FormAlert>
                     )}
-                    {formContext.errors[name].type === 'minLength' && (
-    <FormAlert>Not long enough</FormAlert>
+    {formContext.errors[name].type === 'minLength' && (
+                        <FormAlert>Not long enough</FormAlert>
                     )}
-                </>
+</>
             )}
         </span>
     );
