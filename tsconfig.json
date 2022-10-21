@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "types": ["node", "react-emotion"],
+    "types": ["node"],
     "jsxImportSource": "@emotion/react"
   },
   "baseUrl": ".",

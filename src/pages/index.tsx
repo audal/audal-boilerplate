@@ -7,6 +7,7 @@ import {
     DrawerContent,
     DrawerTrigger,
     DrawerCloseButton,
+    Drawer,
 } from '../components/primitives/drawer';
 import {
     Accordion,
@@ -23,18 +24,10 @@ import {
     ModalContent,
     ModalTrigger,
 } from '../components/primitives/modal';
-import { Drawer } from '../components/primitives/drawer';
 import Input from '../components/primitives/input';
 import FormProvider from '../components/primitives/form-provider';
 import Button from '../components/primitives/button';
-import { Radio, RadioGroup } from '../components/primitives/radio';
-import { CheckBox } from '../components/primitives/checkbox';
-// import Select, {
-// 	SelectGroup,
-// 	SelectLabel,
-// 	SelectOption,
-// 	SelectSeparator,
-// } from "../components/primitives/select";
+
 import Select, {
 
     SelectOption,
@@ -45,7 +38,7 @@ import Row from '../components/primitives/grid/row';
 import Col from '../components/primitives/grid/col';
 import Container from '../components/primitives/grid/container';
 import ScrollEffect from '../components/animations/components/scroll-effect';
-import ScrollArea from "../components/animations/context/scroll-area";
+import ScrollArea from '../components/animations/context/scroll-area';
 
 const Index = (): React.ReactElement => (
     <RowSet breakpoints={{ dt: { between: 20 } }}>
@@ -113,12 +106,6 @@ const Index = (): React.ReactElement => (
                             <Input name="number" type="number" placeholder="number" />
                             <Input name="hi" minLength={20} className="hello" placeholder="hi" />
                             <Input placeholder="hi" name="password" type="password" />
-                            <CheckBox name="check" checked={false} required>Agree</CheckBox>
-                            {/* <RadioGroup name="kfc">
-				<Radio value="hello">hello</Radio>
-				<Radio value="luvery">luvery</Radio>
-				<Radio value="peace">peace</Radio>
-			</RadioGroup> */}
                             <Select
                                 placeholder="Hello!"
                                 name="heheheh"
@@ -145,12 +132,6 @@ const Index = (): React.ReactElement => (
                                     </div>
                                 </DrawerContent>
                             </Drawer>
-                            {/* <RadioGroup defaultValue="default" aria-label="View density">
-				<RadioContent value="hello">Hello</RadioContent>
-				<RadioContent value="hello2">Hello2</RadioContent>
-		</RadioGroup> */}
-
-                            <TestButton />
                         </FormProvider>
                     </Col>
                 </Row>
@@ -176,22 +157,5 @@ const TestButton = () => {
         </Button>
     );
 };
-
-// const TestCheckBox = () => {
-// 	const [checked, setChecked] = React.useState(false);
-
-// 	return (
-// 		<CheckBoxGroup
-// 			name="check"
-// 			checked={checked}
-// 			onChange={() => {
-// 				setChecked(!checked);
-// 			}}
-// 			required
-// 		>
-// 			Agree
-// 		</CheckBoxGroup>
-// 	);
-// };
 
 export default Index;

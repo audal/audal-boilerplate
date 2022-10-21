@@ -14,8 +14,8 @@
 *  */
 
 interface WordpressMenuItem {
-    id: number;
-    parentId?: number;
+    id: string;
+    parentId?: string;
     label: string;
     url: string;
 }
@@ -24,23 +24,31 @@ interface ParsedMenuItem {
     label: string;
     url: string;
     childMenu: ParsedMenuItem[];
-    id: number;
-    parentId: number;
+    id: string;
+    parentId?: string;
 }
 
 const wordpressFlatMenuToHierarchical = (
     data: WordpressMenuItem[] = [],
 ): ParsedMenuItem[] => {
-    const tree = [];
-    const children = {};
+    const tree: ParsedMenuItem[] = [];
+    const children: { [key: string]: ParsedMenuItem[] } = {};
     data.forEach((item) => {
-        const newItem = { ...item } as ParsedMenuItem;
-        const { id, parentId = 0 } = newItem;
+        const { id, parentId } = item;
+        const realParent = parentId;
         children[id] = children[id] || [];
-        newItem.childMenu = children[id];
-        parentId
-            ? (children[parentId] = children[parentId] || []).push(newItem)
-            : tree.push(newItem);
+        const newItem: ParsedMenuItem = {
+            ...item,
+            childMenu: children[id] ? children[id] : [],
+        };
+        if (realParent) {
+            if (!children[realParent]) {
+                children[realParent] = [];
+            }
+            children[realParent].push(newItem);
+        } else {
+            tree.push(newItem);
+        }
     });
     return tree;
 };

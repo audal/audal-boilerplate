@@ -1,8 +1,6 @@
 import React from 'react';
 
 const GridDebug = (): JSX.Element => {
-
-
     const [open, setOpen] = React.useState(false);
 
     if (open) {

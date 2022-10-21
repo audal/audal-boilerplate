@@ -3,7 +3,7 @@ import Logo from '../images/icon.png';
 import { GatsbyImageSVGFallback } from './primitives/image/gatsby-image-svg-fallback';
 import Row from './primitives/grid/row';
 import Col from './primitives/grid/col';
-import Container from "./primitives/grid/container";
+import Container from './primitives/grid/container';
 
 const Header: React.FC = () => (
     <Container>
