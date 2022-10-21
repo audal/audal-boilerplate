@@ -19,18 +19,11 @@ const slideUp = keyframes({
 
 export type AccordionProps = CustomProps<
 {
-    /**
-		 * Allow multiple accordions open at one time. Default is false.
-		 * */
+    /** Allow multiple accordions open at one time. Default is false.* */
     allowMultiple?: boolean;
-    /**
-		 * Allow toggling any accordion open and close, versus forcing the last-interacted
-		 * one to stay open. Default is true.
-		 * */
+    /** Allow toggling any accordion open and close, versus forcing the last-interacted Default is true.* */
     allowToggle?: boolean;
-    /**
-		 * Default accordion to have opened.
-		 * */
+    /** Default accordion to have opened.* */
     defaultIndex?: number;
 } & (
     | Omit<AccordionSingleProps, 'type'>
@@ -97,8 +90,7 @@ export const AccordionItem = (props: AccordionItemProps): JSX.Element => (
     />
 );
 
-export type AccordionButtonProps =
-	CustomProps<AccordionPrimitive.AccordionTriggerProps>;
+export type AccordionButtonProps = CustomProps<AccordionPrimitive.AccordionTriggerProps>;
 /**
  * This will open the accordion. Use the asChild prop (set to true) to
  * use your own fully custom button if necessary.
@@ -121,8 +113,7 @@ AccordionButtonProps
 ));
 
 AccordionButton.displayName = 'AccordionButton';
-export type AccordionPanelProps =
-	CustomProps<AccordionPrimitive.AccordionContentProps>;
+export type AccordionPanelProps = CustomProps<AccordionPrimitive.AccordionContentProps>;
 /**
  * This is the content area that will expand when the accordion is opened.
  * This must be used within an <AccordionItem /> instance.
