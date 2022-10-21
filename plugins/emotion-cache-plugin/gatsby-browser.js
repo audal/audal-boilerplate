@@ -11,5 +11,5 @@ export const wrapRootElement = ({ element }) => (
 );
 
 export const onClientEntry = () => {
-	console.log("%cdeveloped by audal labs. 💅💻", "background-color: #251ad4; color: white; padding: 5px; font-weight: 600; border-radius: 4px; font-family: sans-serif;", "https://audallabs.com")
-}
+    console.log('%cdeveloped by audal labs. 💅💻', 'background-color: #251ad4; color: white; padding: 5px; font-weight: 600; border-radius: 4px; font-family: sans-serif;', 'https://audallabs.com');
+};

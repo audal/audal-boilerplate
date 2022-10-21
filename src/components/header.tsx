@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'gatsby';
 import Logo from '../images/icon.png';
 import { GatsbyImageSVGFallback } from './primitives/image/gatsby-image-svg-fallback';
+import Row from './primitives/grid/row';
+import Col from './primitives/grid/col';
 
 const Header: React.FC = () => (
     <header
@@ -18,8 +19,14 @@ const Header: React.FC = () => (
             backdropFilter: 'blur(12px)',
         }}
     >
-        <GatsbyImageSVGFallback width="60px" height="60px" css={{ marginRight: '40px' }} src={Logo} />
-        Audal Boilerplate
+        <Row>
+            <Col breakpoints={{ dt: { start: 0, span: 6, justify: 'end', align: 'center' } }}>
+                <GatsbyImageSVGFallback width="60px" height="60px" css={{ marginRight: '40px' }} src={Logo} />
+            </Col>
+            <Col breakpoints={{ dt: { start: 6, span: 6 } }}>
+                Audal Boilerplate
+            </Col>
+        </Row>
     </header>
 );
 
