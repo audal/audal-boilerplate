@@ -7,32 +7,32 @@ import FormAlert from '../form-alert';
 export interface RadioProps
     extends Omit<HTMLPropsNoRef<HTMLInputElement>, 'value'> {
     /**
-	 * Name of the Radio - will be used for the form validation if using FormContext so make sure it's unique.
-	 */
+* Name of the Radio - will be used for the form validation if using FormContext so make sure it's unique.
+*/
     name: string;
     /**
-	 * Children refers to the label
-	 * */
+* Children refers to the label
+* */
     children: any;
     /**
-	 * The size of the radio button.
-	 * */
+* The size of the radio button.
+* */
     sizes?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     /**
-	 * Make the field required or not. Defaults to false for all field types.
-	 */
+* Make the field required or not. Defaults to false for all field types.
+*/
     required?: boolean;
     /**
-	 * Make the field disabled or not. Defaults to false for all field types.
-	 */
+* Make the field disabled or not. Defaults to false for all field types.
+ */
     disabled?: boolean;
     /**
-	 * This refers to the value of the input
-	 */
+* This refers to the value of the input
+*/
     value?: string | boolean;
     /**
-	 * This refers to the error message from react-hook-form
-	 */
+* This refers to the error message from react-hook-form
+*/
     validationErrorMessage?: string | ((type: 'required') => string);
 }
 
@@ -126,32 +126,32 @@ export const Radio = ({
 export interface RadioGroupBaseProps
     extends Omit<HTMLPropsNoRef<HTMLInputElement>, 'value'> {
     /**
-	 * Name of the Radio - will be used for the form validation if using FormContext so make sure it's unique.
-	 */
+* Name of the Radio - will be used for the form validation if using FormContext so make sure it's unique.
+*/
     name: string;
     /**
-	 * Children refers to the label
-	 * */
+* Children refers to the label
+* */
     children: any;
     /**
-	 * The size of the radio button.
-	 * */
+* The size of the radio button.
+* */
     sizes?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     /**
-	 * Make the field required or not. Defaults to false for all field types.
-	 */
+* Make the field required or not. Defaults to false for all field types.
+*/
     required?: boolean;
     /**
-	 * Make the field disabled or not. Defaults to false for all field types.
-	 */
+* Make the field disabled or not. Defaults to false for all field types.
+*/
     disabled?: boolean;
     /**
-	 * This refers to the value of the input
-	 */
+* This refers to the value of the input
+*/
     value?: string | boolean;
     /**
-	 * This refers to the error message from react-hook-form
-	 */
+* This refers to the error message from react-hook-form
+*/
     validationErrorMessage?: string | ((type: 'required') => string);
     formContext?: any;
 }
@@ -163,7 +163,7 @@ const RadioGroupBase = ({
     required,
     value,
     formContext,
-}: RadioGroupBaseProps) => {
+}: RadioGroupBaseProps) : JSX.Element => {
     if (!Array.isArray(children)) {
         children = [children];
     }
@@ -196,7 +196,7 @@ export const RadioGroup = ({
     onChange,
     name,
     required = false,
-}: RadioGroupBaseProps) => {
+}: RadioGroupBaseProps) : JSX.Element => {
     const formContext = useFormProvider();
 
     if (formContext) {
