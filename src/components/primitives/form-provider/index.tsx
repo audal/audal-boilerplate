@@ -19,14 +19,14 @@ export interface IFormContext {
 }
 
 export interface FormProviderProps {
-    /**
-	 * On submit, values from the child form components will be
-	 * returned in the format:
-	 * [key: string]: value (any) - instead of the native
-	 * event.
-	 * This makes it easy to further process the data or send it to an endpoint,
-	 * without worrying about handling.
-	 * */
+/**
+* On submit, values from the child form components will be
+* returned in the format:
+* [key: string]: value (any) - instead of the native
+* event.
+* This makes it easy to further process the data or send it to an endpoint,
+* without worrying about handling.
+* */
     onSubmit: SubmitHandler<FieldValues>;
     children: React.ReactNode | React.ReactNode[] | string | null | undefined;
 }
@@ -53,7 +53,9 @@ const FormProvider = React.forwardRef<HTMLFormElement, FormProviderProps>(
 
         return (
             <FormContext.Provider
-                value={{register, control, handleSubmit, errors, setValue, getValues, }}
+                value={{
+                    register, control, handleSubmit, errors, setValue, getValues,
+                }}
             >
                 <form
                     ref={ref}

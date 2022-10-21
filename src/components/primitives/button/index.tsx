@@ -14,7 +14,7 @@ export interface ButtonProps extends HTMLProps<HTMLButtonElement> {
     /**
    * * The type of the button.
    *  * */
-    type?: 'submit' | 'button' | 'reset';
+    type?: 'submit' | 'button' | 'reset' ;
     className?: string;
     children?: any;
     disabled?: boolean;
