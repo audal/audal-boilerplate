@@ -1,3 +1,4 @@
+import './reset.css';
 import React from 'react';
 import { PageProps } from 'gatsby';
 import { Global } from '@emotion/react';
@@ -10,7 +11,6 @@ import Provider from '../components/primitives/provider';
 import generateRootStyles from '../utils/generate-root-styles';
 import GridContextProvider from '../components/primitives/grid/context';
 import 'focus-visible/dist/focus-visible';
-import './reset.css';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Layout = ({ children, location }: PageProps): React.ReactElement => (

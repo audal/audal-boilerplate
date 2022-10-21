@@ -15,7 +15,7 @@ const generateRootStyles = ({
 }: GenerateRootStyles): SerializedStyles => css`:root {
             background-color: ${backgroundColor};
             color: ${textColor};
-            --min-body-width: ${smallScreenSize}px;
+            --min-body-width: ${smallScreenSize};
             --max-body-width: ${largeScreenSize}px;
             font-size: 16px;
         }
