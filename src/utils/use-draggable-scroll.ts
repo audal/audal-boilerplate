@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { MutableRefObject, useEffect, useRef } from 'react';
 
 type OptionsType = {
@@ -49,8 +50,8 @@ export function useDraggable(
         if (typeof window === 'undefined' || !ref?.current) {
             return;
         }
-        isScrollableAlongX =			window.getComputedStyle(ref.current).overflowX === 'scroll';
-        isScrollableAlongY =			window.getComputedStyle(ref.current).overflowY === 'scroll';
+        isScrollableAlongX = window.getComputedStyle(ref.current).overflowX === 'scroll';
+        isScrollableAlongY = window.getComputedStyle(ref.current).overflowY === 'scroll';
 
         maxHorizontalScroll = ref.current.scrollWidth - ref.current.clientWidth;
         maxVerticalScroll = ref.current.scrollHeight - ref.current.clientHeight;
@@ -107,23 +108,23 @@ export function useDraggable(
 
         if (isScrollableAlongX && isScrollableAlongY) {
             displacementX =				0.3
-				* clientWidth
-				* Math.sign(dx)
-				* Math.log10(1.0 + (0.5 * Math.abs(dx)) / clientWidth);
+                * clientWidth
+                * Math.sign(dx)
+                * Math.log10(1.0 + (0.5 * Math.abs(dx)) / clientWidth);
             displacementY =				0.3
-				* clientHeight
-				* Math.sign(dy)
-				* Math.log10(1.0 + (0.5 * Math.abs(dy)) / clientHeight);
+                * clientHeight
+                * Math.sign(dy)
+                * Math.log10(1.0 + (0.5 * Math.abs(dy)) / clientHeight);
         } else if (isScrollableAlongX) {
             displacementX =				0.3
-				* clientWidth
-				* Math.sign(dx)
-				* Math.log10(1.0 + (0.5 * Math.abs(dx)) / clientWidth);
+                * clientWidth
+                * Math.sign(dx)
+                * Math.log10(1.0 + (0.5 * Math.abs(dx)) / clientWidth);
         } else if (isScrollableAlongY) {
             displacementY =				0.3
-				* clientHeight
-				* Math.sign(dy)
-				* Math.log10(1.0 + (0.5 * Math.abs(dy)) / clientHeight);
+                * clientHeight
+                * Math.sign(dy)
+                * Math.log10(1.0 + (0.5 * Math.abs(dy)) / clientHeight);
         }
 
         (ref.current.childNodes as NodeListOf<HTMLOptionElement>).forEach(
@@ -163,8 +164,8 @@ export function useDraggable(
 
             if (
                 Math.abs(newScrollSpeedX) < minimumSpeedToTriggerMomentum
-				|| internalState.current.isMouseDown
-				|| hasReachedHorizontalEdges
+                || internalState.current.isMouseDown
+                || hasReachedHorizontalEdges
             ) {
                 internalState.current.scrollSpeedX = 0;
                 clearInterval(keepMovingX);
@@ -184,8 +185,8 @@ export function useDraggable(
 
             if (
                 Math.abs(newScrollSpeedY) < minimumSpeedToTriggerMomentum
-				|| internalState.current.isMouseDown
-				|| hasReachedVerticalEdges
+                || internalState.current.isMouseDown
+                || hasReachedVerticalEdges
             ) {
                 internalState.current.scrollSpeedY = 0;
                 clearInterval(keepMovingY);

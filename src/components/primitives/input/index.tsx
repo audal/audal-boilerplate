@@ -5,7 +5,7 @@ import usePersistedId from '../utils/use-persisted-id';
 import VisuallyHidden from '../visually-hidden';
 import throwOnMissing from '../utils/throw-on-missing';
 
-export interface InputProps extends HTMLPropsNoRef<HTMLInputElement> {
+export interface InputProps extends HtmlPropsNoRef<HTMLInputElement> {
     /**
 * Name of the input - will be used for the form validation if using FormContext so make sure it's unique.
 */
@@ -74,6 +74,7 @@ const Input = ({
     ...props
 }: InputProps): JSX.Element => {
     throwOnMissing(name, 'name', 'Input');
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore Someone might still do this even though it's not defined in the type
     if (type === 'submit') {
         throw new Error(
@@ -83,8 +84,8 @@ const Input = ({
 
     const typeRules = {
         password: /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
-        email: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        tel: /^[+]?(1\-|1\s|1|\d{3}\-|\d{3}\s|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/g,
+        email: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        tel: /^[+]?(1-|1\s|1|\d{3}-|\d{3}\s|)?((\(\d{3}\))|\d{3})(-|\s)?(\d{3})(-|\s)?(\d{4})$/g,
         number: /^-?\d+\.?\d*$/,
         text: undefined,
     }[type];
@@ -170,9 +171,9 @@ const Input = ({
                                 height: '16px',
                                 width: '16px',
                                 color:
-        formContext && formContext.errors && formContext.errors[name]
-            ? 'red'
-            : 'black',
+                                    formContext && formContext.errors && formContext.errors[name]
+                                        ? 'red'
+                                        : 'black',
                                 transition: 'color 0.2s',
                                 marginTop: '1px',
                             }}
@@ -185,52 +186,52 @@ const Input = ({
                 )}
             </span>
             {formContext
-        && formContext.errors
-        && formContext.errors[name]
-        && validationErrorMessage && (
+            && formContext.errors
+            && formContext.errors[name]
+            && validationErrorMessage && (
                 <FormAlert>
-            {typeof validationErrorMessage === 'function'
+                    {typeof validationErrorMessage === 'function'
                         ? validationErrorMessage(formContext.errors[name].type)
                         : validationErrorMessage}
-        </FormAlert>
+                </FormAlert>
             )}
             {formContext
-        && formContext.errors
-        && formContext.errors[name]
-        && !validationErrorMessage && (
+            && formContext.errors
+            && formContext.errors[name]
+            && !validationErrorMessage && (
                 <>
-            {formContext.errors[name].type === 'required' && (
+                    {formContext.errors[name].type === 'required' && (
                         <FormAlert>Required</FormAlert>
                     )}
-            {formContext.errors[name].type === 'pattern' && (
+                    {formContext.errors[name].type === 'pattern' && (
                         <>
-                {type === 'password' && (
+                            {type === 'password' && (
                                 <FormAlert>
-                    This password is not strong enough. Please
+                                    This password is not strong enough. Please
                                 </FormAlert>
                             )}
-                {type === 'email' && (
+                            {type === 'email' && (
                                 <FormAlert>This is not a valid email.</FormAlert>
                             )}
-                {type === 'tel' && (
+                            {type === 'tel' && (
                                 <FormAlert>This is not a valid phone number.</FormAlert>
                             )}
-                {type === 'number' && (
+                            {type === 'number' && (
                                 <FormAlert>This is not a valid phone number.</FormAlert>
                             )}
-                {type !== 'password'
-                                    && type !== 'tel'
-                                    && type !== 'email'
-                                    && type !== 'number' && <FormAlert>This is invalid.</FormAlert>}
-            </>
+                            {type !== 'password'
+                            && type !== 'tel'
+                            && type !== 'email'
+                            && type !== 'number' && <FormAlert>This is invalid.</FormAlert>}
+                        </>
                     )}
-            {formContext.errors[name].type === 'maxLength' && (
+                    {formContext.errors[name].type === 'maxLength' && (
                         <FormAlert>Maximum length exceeded</FormAlert>
                     )}
-            {formContext.errors[name].type === 'minLength' && (
+                    {formContext.errors[name].type === 'minLength' && (
                         <FormAlert>Not long enough</FormAlert>
                     )}
-        </>
+                </>
             )}
         </div>
     );

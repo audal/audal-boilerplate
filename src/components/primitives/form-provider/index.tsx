@@ -4,18 +4,20 @@ import {
     FieldErrors,
     FieldValues,
     SubmitHandler,
-    useForm,
+    useForm, UseFormGetValues,
     UseFormHandleSubmit,
-    UseFormRegister,
+    UseFormRegister, UseFormReset,
     UseFormSetValue,
 } from 'react-hook-form';
 
-export interface IFormContext {
+export interface FormContext {
     register: UseFormRegister<FieldValues>;
     control: Control;
     handleSubmit: UseFormHandleSubmit<FieldValues>;
     errors: FieldErrors;
     setValue: UseFormSetValue<any>;
+    getValues: UseFormGetValues<any>
+    reset: UseFormReset<any>
 }
 
 export interface FormProviderProps {
@@ -31,7 +33,7 @@ export interface FormProviderProps {
     children: React.ReactNode | React.ReactNode[] | string | null | undefined;
 }
 
-const FormContext = React.createContext<IFormContext>(null as any);
+const FormContext = React.createContext<FormContext>(null as any);
 
 /**
  * This creates an instance of <form /> that you can use Primitive Input, Select, Checkbox, Radio, etc elements in.
@@ -51,11 +53,13 @@ const FormProvider = React.forwardRef<HTMLFormElement, FormProviderProps>(
             reset,
         } = useForm();
 
+        const value = React.useMemo(() => ({
+            register, control, handleSubmit, errors, setValue, getValues, reset,
+        }), [control, errors, getValues, handleSubmit, register, reset, setValue]);
+
         return (
             <FormContext.Provider
-                value={{
-                    register, control, handleSubmit, errors, setValue, getValues,
-                }}
+                value={value}
             >
                 <form
                     ref={ref}
@@ -78,4 +82,4 @@ export default FormProvider;
  * if it exists. It is not guaranteed to exist,
  * so check if it returns values before using.
  * */
-export const useFormProvider = (): IFormContext | undefined => React.useContext(FormContext);
+export const useFormProvider = (): FormContext | undefined => React.useContext(FormContext);

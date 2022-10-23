@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGridContext } from './context';
 
-type RowSet = HTMLPropsNoRef<HTMLDivElement>;
+type RowSet = HtmlPropsNoRef<HTMLDivElement>;
 
 const Container = (props: RowSet): JSX.Element => {
     const { breakpoints: outerBreakpoints, maxWidth } = useGridContext();

@@ -1,30 +1,30 @@
 module.exports = {
-  siteMetadata: {
-    title: `Audal Boilerplate - make sure this is updated`,
-    description: `Default Audal Labs starting project`,
-    author: `Audal Labs`,
-  },
-  plugins: [
-    `gatsby-plugin-sitemap`,
-    {
-      resolve: `gatsby-plugin-canonical-urls`,
-      options: {
-        siteUrl: `https://www.example.com`,
-      },
+    siteMetadata: {
+        title: 'Audal Boilerplate - make sure this is updated',
+        description: 'Default Audal Labs starting project',
+        author: 'Audal Labs',
     },
-    'gatsby-plugin-postcss',
-    'gatsby-plugin-sass',
-    'gatsby-plugin-image',
-    'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
-    'gatsby-plugin-layout',
-    'gatsby-plugin-react-svg',
-    'gatsby-plugin-webpack-bundle-analyser-v2',
-    `gatsby-plugin-emotion`,
-	`emotion-cache-plugin`,
-    //`gatsby-plugin-preact`,
-    /*     `gatsby-plugin-pressless`,
+    plugins: [
+        'gatsby-plugin-sitemap',
+        {
+            resolve: 'gatsby-plugin-canonical-urls',
+            options: {
+                siteUrl: 'https://www.example.com',
+            },
+        },
+        'gatsby-plugin-postcss',
+        'gatsby-plugin-sass',
+        'gatsby-plugin-image',
+        'gatsby-plugin-react-helmet',
+        'gatsby-plugin-sharp',
+        'gatsby-transformer-sharp',
+        'gatsby-plugin-layout',
+        'gatsby-plugin-react-svg',
+        'gatsby-plugin-webpack-bundle-analyser-v2',
+        'gatsby-plugin-emotion',
+        'emotion-cache-plugin',
+        // `gatsby-plugin-preact`,
+        /*     `gatsby-plugin-pressless`,
         {
           resolve: `gatsby-plugin-yoast-sitemap`,
           options: {
@@ -64,26 +64,26 @@ module.exports = {
           }
         ]
       }
-    },*/
-    {
-      resolve: `gatsby-plugin-netlify`,
-      options: {
-        mergeLinkHeaders: false,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-google-fonts`,
-      options: {
-        fonts: [`Inter\:400,400i,500,600,700`],
-      },
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'images',
-        path: './src/images/',
-      },
-      __key: 'images',
-    },
-  ],
-}
+    }, */
+        {
+            resolve: 'gatsby-plugin-netlify',
+            options: {
+                mergeLinkHeaders: false,
+            },
+        },
+        {
+            resolve: 'gatsby-plugin-google-fonts',
+            options: {
+                fonts: ['Inter:400,400i,500,600,700'],
+            },
+        },
+        {
+            resolve: 'gatsby-source-filesystem',
+            options: {
+                name: 'images',
+                path: './src/images/',
+            },
+            __key: 'images',
+        },
+    ],
+};

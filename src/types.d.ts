@@ -1,7 +1,9 @@
 declare module '*.jpg';
 declare module '*.png';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 type IWPImage = import('./components/gatsby-image-svg-fallback').IWPImageProps;
+// eslint-disable-next-line @typescript-eslint/naming-convention
 type ISharpImage = import('./components/gatsby-image-svg-fallback').ISharpImage;
 
 declare module '*.svg' {
@@ -13,17 +15,17 @@ declare module '*.svg' {
 * Use this when creating a Ref-able component, like a default
 * React Intrinsic <button/>, <div/>, etc.
 * */
-type HTMLProps<T> = React.HTMLProps<T>;
+type HtmlProps<T> = React.HTMLProps<T>;
 
 /*
 * Use this when creating a non-Ref-able component - maybe an Intrinsic
-* element that has its own internal Ref.
+* element that has it`s own internal Ref.
 * */
-type HTMLPropsNoRef<T> = Omit<React.HTMLProps<T>, 'ref'>;
+type HtmlPropsNoRef<T> = Omit<React.HTMLProps<T>, 'ref'>;
 
 /*
 * Use this when needing to type custom elements, but also add a CSS prop to them.
 * I.e. a pre-made UI component from a package. Remember the CSS will actually output
 * a className, so make sure the component accepts className as a parameter
 * */
-type CustomProps<T> = T & {};
+type CustomProps<T> = T;

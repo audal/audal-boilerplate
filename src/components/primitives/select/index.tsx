@@ -55,14 +55,13 @@ export const SelectOption: React.FC<{ value: string; disabled?: boolean }> = ({
 
 export interface SelectProps
     extends Omit<
-    HTMLPropsNoRef<SelectPrimitive.SelectProps>,
+    HtmlPropsNoRef<SelectPrimitive.SelectProps>,
     'onChange' | 'onBlur'
     > {
     paddingTop?: string;
     onChange?(value: string): void;
     onBlur?(value: boolean): void;
     value?: string;
-    variant?: 'full' | 'inline';
     children: any;
     name: string;
 }
@@ -79,13 +78,13 @@ const Select = ({
     className,
     paddingTop = '20px',
     width = '100%',
-    variant = 'full',
 }: SelectProps) : JSX.Element => {
     throwOnMissing(name, 'name', 'Select');
 
     const formContext = useFormProvider();
 
     if (!children) {
+        // eslint-disable-next-line no-param-reassign
         children = [
             <SelectOption disabled value="NA">
                 No options available.
@@ -94,10 +93,12 @@ const Select = ({
     }
 
     if (!Array.isArray(children)) {
+        // eslint-disable-next-line no-param-reassign
         children = [children];
     }
 
     if (placeholder) {
+        // eslint-disable-next-line no-param-reassign
         children = [
             <SelectOption disabled value={placeholder}>
                 {placeholder}
@@ -110,7 +111,7 @@ const Select = ({
         if (!placeholder && formContext) {
             formContext.setValue(name, children[0].props.value);
         }
-    }, []);
+    }, [children, formContext, name, placeholder]);
 
     return (
         <div css={{ paddingBottom: paddingTop, width }}>

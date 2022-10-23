@@ -5,7 +5,7 @@ import { useDraggable } from '../../../utils/use-draggable-scroll';
 
 export interface TabsProps
     extends Omit<
-    HTMLPropsNoRef<HTMLDivElement>,
+    HtmlPropsNoRef<HTMLDivElement>,
     'value' | 'defaultValue' | 'dir' | 'as'
     > {
     index?: number
@@ -32,12 +32,13 @@ export const Tabs = ({
 );
 
 export type TabListProps = Omit<
-HTMLPropsNoRef<HTMLDivElement>,
+HtmlPropsNoRef<HTMLDivElement>,
 'value' | 'defaultValue' | 'dir' | 'as'
 >;
 
-export const TabList = ({ className, children, ...props }: TabListProps) => {
+export const TabList = ({ className, children, ...props }: TabListProps): JSX.Element => {
     const containerRef = React.useRef(null);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { events } = useDraggable(containerRef, {
         applyRubberBandEffect: true,
@@ -63,15 +64,10 @@ export const TabList = ({ className, children, ...props }: TabListProps) => {
             {...props}
         >
             {React.Children.map(children, (child, index) => {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 if (React.isValidElement(child)) {
-                    return React.cloneElement(child, { value: `tabs-${index}` });
-                }
-                // @ts-ignore
-                if (process.env.NODE_ENV === 'development' && child?.type?.name !== 'Tab') {
-                    throw new Error(
-                        'Audal Primitives: Only <Tab /> components may be used within an TabList.',
-                    );
+                    return React.cloneElement(child as any, { value: `tabs-${index}` });
                 }
                 return null;
             })}
@@ -83,18 +79,11 @@ export interface TabPanelsProps {
     children: React.ReactNode[] | React.ReactNode
 }
 
-export const TabPanels = ({ children }: TabPanelsProps) => (
+export const TabPanels = ({ children }: TabPanelsProps): JSX.Element => (
     <>
         {React.Children.map(children, (child, index) => {
-            // @ts-ignore
             if (React.isValidElement(child)) {
-                return React.cloneElement(child, { value: `tabs-${index}` });
-            }
-            // @ts-ignore
-            if (process.env.NODE_ENV === 'development' && child?.type?.name !== 'TabPanel') {
-                throw new Error(
-                    'Audal Primitives: Only <TabPanel /> components may be used within an TabPanels.',
-                );
+                return React.cloneElement(child as any, { value: `tabs-${index}` });
             }
             return null;
         })}
@@ -103,15 +92,15 @@ export const TabPanels = ({ children }: TabPanelsProps) => (
 
 export interface TabProps
     extends Omit<
-    HTMLPropsNoRef<HTMLButtonElement>,
+    HtmlPropsNoRef<HTMLButtonElement>,
     'value' | 'defaultValue' | 'dir' | 'as' | 'type'
     > {
-    value?: string
+    value: string
 }
 
-export const Tab = ({ className, ...props }: TabProps): JSX.Element => (
+export const Tab = ({ className, value, ...props }: TabProps): JSX.Element => (
     <TabsPrimitive.Trigger
-        value={props?.value}
+        value={value as string}
         className="keen-slider__slide"
         css={{
             display: 'flex',
@@ -183,10 +172,10 @@ export const Tab = ({ className, ...props }: TabProps): JSX.Element => (
 );
 export interface TabPanelProps
     extends Omit<
-    HTMLPropsNoRef<HTMLDivElement>,
+    HtmlPropsNoRef<HTMLDivElement>,
     'value' | 'defaultValue' | 'dir' | 'as'
     > {
-    value?: string
+    value: string
 }
 
 const fadeIn = keyframes({
@@ -194,9 +183,9 @@ const fadeIn = keyframes({
     to: { opacity: 1 },
 });
 
-export const TabPanel = ({ className, ...props }: TabPanelProps): JSX.Element => (
+export const TabPanel = ({ value, className, ...props }: TabPanelProps): JSX.Element => (
     <TabsPrimitive.Content
-        value={props?.value}
+        value={value}
         css={{
             flexGrow: 1,
             padding: 0,

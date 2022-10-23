@@ -19,7 +19,7 @@ interface ScrollAreaProps {
     children: React.ReactNode | React.ReactNode[];
     smooth?: boolean;
     smoothMass?: number;
-    pin?: boolean;
+    // pin?: boolean;
 }
 // Scroll area is an optional Context layer.
 // You can use it to make all children use the same Scrolling Trigger Area (i.e. like ScrollTrigger)
@@ -28,10 +28,9 @@ const ScrollArea = ({
     children,
     smooth = false,
     smoothMass = 0.05,
-    pin,
 }: ScrollAreaProps): JSX.Element => {
     const ref = React.useRef(null);
-    const { scrollYProgress, scrollY } = useScroll({
+    const { scrollYProgress: scrollProgress, scrollY } = useScroll({
         target: ref,
         offset: ['start start', 'end end'],
     });
@@ -53,11 +52,13 @@ const ScrollArea = ({
         return v;
     });
 
+    const value = React.useMemo(() => ({
+        progress: scrollProgress,
+    }), [scrollProgress]);
+
     return (
         <ScrollCtx.Provider
-            value={{
-                progress: scrollYProgress,
-            }}
+            value={value}
         >
             <motion.div
                 style={

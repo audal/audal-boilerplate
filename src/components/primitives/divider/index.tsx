@@ -3,7 +3,7 @@ import React from 'react';
 const Divider = ({
     className,
     ...props
-}: HTMLPropsNoRef<HTMLHRElement>): JSX.Element => (
+}: HtmlPropsNoRef<HTMLHRElement>): JSX.Element => (
     <hr
         aria-orientation="horizontal"
         css={{

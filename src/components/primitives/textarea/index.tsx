@@ -6,42 +6,42 @@ import VisuallyHidden from '../visually-hidden';
 import throwOnMissing from '../utils/throw-on-missing';
 
 export interface TextAreaProps
-    extends HTMLPropsNoRef<HTMLTextAreaElement> {
+    extends HtmlPropsNoRef<HTMLTextAreaElement> {
     /**
-	 * Name of the Textarea - will be used for the form validation if using FormContext so make sure it's unique.
-	 */
+     * Name of the Textarea - will be used for the form validation if using FormContext so make sure it's unique.
+     */
     name: string;
     /**
-	 * Placeholder is always required.
-	 * */
+     * Placeholder is always required.
+     * */
     placeholder: string;
     /**
-	 * Optional validation regex. Requires the form to be in a <FormProvider /> to work.
-	 * This should only be used if you need custom validation - Generic regex validation for fields based on type
-	 * (i.e. email validation for email fields, password strength validation for password fields)
-	 * is already built in.
-	 * */
+     * Optional validation regex. Requires the form to be in a <FormProvider /> to work.
+     * This should only be used if you need custom validation - Generic regex validation for fields based on type
+     * (i.e. email validation for email fields, password strength validation for password fields)
+     * is already built in.
+     * */
     validationRegex?: RegExp;
     /**
-	 * Define a minimum length for the field.
-	 * */
+     * Define a minimum length for the field.
+     * */
     minLength?: number;
     /**
-	 * Define a maximum length for the field.
-	 * */
+     * Define a maximum length for the field.
+     * */
     maxLength?: number;
     /**
-	 * Optionally add a custom validation error message. Error messages are already built in, and are done based
-	 * on the type of component and type of error. However, you may add your own custom one. You can use a basic string
-	 * value here, or pass in a function (which will receive an Textarea argument that includes the type of error -
-	 * i.e. a Regex validation error and your function will receive 'pattern' as the argument.
-	 * */
+     * Optionally add a custom validation error message. Error messages are already built in, and are done based
+     * on the type of component and type of error. However, you may add your own custom one. You can use a basic string
+     * value here, or pass in a function (which will receive an Textarea argument that includes the type of error -
+     * i.e. a Regex validation error and your function will receive 'pattern' as the argument.
+     * */
     validationErrorMessage?:
     | string
     | ((type: 'pattern' | 'minLength' | 'maxLength' | 'required') => string);
     /**
-	 * Make the field required or not. Defaults to false for all field types.
-	 */
+     * Make the field required or not. Defaults to false for all field types.
+     */
     required?: boolean;
 }
 
@@ -67,8 +67,9 @@ const TextArea = ({
     className,
     disabled,
     ...props
-}: TextAreaProps) => {
+}: TextAreaProps): JSX.Element => {
     throwOnMissing(name, 'name', 'Textarea');
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore Someone might still do this even though it's not defined in the type
     if (type === 'submit') {
         throw new Error(
@@ -79,43 +80,34 @@ const TextArea = ({
     const typeRules = {
         password: /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
         email:
-			/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        tel: /^[+]?(1\-|1\s|1|\d{3}\-|\d{3}\s|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/g,
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        tel: /^[+]?(1-|1\s|1|\d{3}-|\d{3}\s|)?((\(\d{3}\))|\d{3})(-|\s)?(\d{3})(-|\s)?(\d{4})$/g,
         number: /^-?\d+\.?\d*$/,
         text: undefined,
     }[type];
 
-    /*
-	 * Get our form provider. It may not exist
-	 * (if the input component is not inside a FormProvider and is using the component separately)
-	 * so make sure to not access it directly without first checking.
-	 * */
     const formContext = useFormProvider();
 
     const id = usePersistedId();
 
-    /*
-	 * Set up our register function to be react-hook-form if the context exists,
-	 * if it doesn't, pass the props we destructed back to the element
-	 * */
-    const registerFn =		formContext && formContext.register
-		    ? formContext.register(name, {
-		        pattern: validationRegex || typeRules,
-		        minLength,
-		        maxLength,
-		        required,
-		        onChange,
-		        onBlur,
-		        disabled,
-		        value,
-			  })
-		    : {
-		        required,
-		        onChange,
-		        onBlur,
-		        disabled,
-		        value,
-			  };
+    const registerFn = formContext && formContext.register
+        ? formContext.register(name, {
+            pattern: validationRegex || typeRules,
+            minLength,
+            maxLength,
+            required,
+            onChange,
+            onBlur,
+            disabled,
+            value,
+        })
+        : {
+            required,
+            onChange,
+            onBlur,
+            disabled,
+            value,
+        };
 
     return (
         <span css={{ display: 'block', paddingBottom: '36px' }}>
@@ -169,9 +161,9 @@ const TextArea = ({
                                 height: '16px',
                                 width: '16px',
                                 color:
-									formContext && formContext.errors && formContext.errors[name]
-									    ? 'red'
-									    : 'black',
+                                    formContext && formContext.errors && formContext.errors[name]
+                                        ? 'red'
+                                        : 'black',
                                 transition: 'color 0.2s',
                                 marginTop: '1px',
                             }}
@@ -184,30 +176,30 @@ const TextArea = ({
                 )}
             </span>
             {formContext
-				&& formContext.errors
-				&& formContext.errors[name]
-				&& validationErrorMessage && (
+            && formContext.errors
+            && formContext.errors[name]
+            && validationErrorMessage && (
                 <FormAlert>
-    {typeof validationErrorMessage === 'function'
+                    {typeof validationErrorMessage === 'function'
                         ? validationErrorMessage(formContext.errors[name].type)
                         : validationErrorMessage}
-</FormAlert>
+                </FormAlert>
             )}
             {formContext
-				&& formContext.errors
-				&& formContext.errors[name]
-				&& !validationErrorMessage && (
+            && formContext.errors
+            && formContext.errors[name]
+            && !validationErrorMessage && (
                 <>
-    {formContext.errors[name].type === 'required' && (
+                    {formContext.errors[name].type === 'required' && (
                         <FormAlert>Required</FormAlert>
                     )}
-    {formContext.errors[name].type === 'maxLength' && (
+                    {formContext.errors[name].type === 'maxLength' && (
                         <FormAlert>Maximum length exceeded</FormAlert>
                     )}
-    {formContext.errors[name].type === 'minLength' && (
+                    {formContext.errors[name].type === 'minLength' && (
                         <FormAlert>Not long enough</FormAlert>
                     )}
-</>
+                </>
             )}
         </span>
     );

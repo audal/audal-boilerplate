@@ -58,6 +58,7 @@ const usePositionOfElement = (
     useResizeObserver(ref, () => computeSize());
 
     return {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         toJSON: () => pos,
         ...pos,
     };

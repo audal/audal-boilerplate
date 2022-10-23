@@ -5,7 +5,7 @@ import Spinner from '../spinner';
  * Re-usable screen-reader friendly Button component.
  * @alias ButtonProps
  * */
-export interface ButtonProps extends HTMLProps<HTMLButtonElement> {
+export interface ButtonProps extends HtmlProps<HTMLButtonElement> {
     /**
    * Shows a spinner and disables the button, for when there is a loading action happening.
    *  * Default is false.
@@ -16,9 +16,9 @@ export interface ButtonProps extends HTMLProps<HTMLButtonElement> {
    *  * */
     type?: 'submit' | 'button' | 'reset' ;
     className?: string;
-    children?: any;
+    children?: React.ReactNode | string;
     disabled?: boolean;
-    style?: any;
+    style?: React.CSSProperties;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -32,6 +32,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ...props
     }) => (
         <button
+            /* eslint-disable-next-line react/button-has-type */
             type={type}
             aria-disabled={disabled}
             disabled={disabled || loading}
@@ -41,7 +42,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
        *  * Not sure...
        *  */
             className={className}
-            aria-pressed={typeof loading !== undefined ? loading : undefined}
+            aria-pressed={loading !== undefined ? loading : undefined}
             css={{
                 cursor: 'pointer',
                 appearance: 'none',

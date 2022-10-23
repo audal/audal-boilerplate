@@ -43,31 +43,23 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
             defaultIndex,
             children,
             className,
-            ...props
         },
         ref,
     ) => (
-        // @ts-ignore The regular typing for this is dreadful and restrictive.
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         <AccordionPrimitive.Root
             className={className}
             ref={ref}
+            /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
             type={allowMultiple ? 'multiple' : 'single'}
             collapsible={allowToggle}
             defaultValue={defaultIndex ? `accordion-${defaultIndex}` : undefined}
         >
             {React.Children.map(children, (child, index) => {
-                // @ts-ignore
                 if (React.isValidElement(child)) {
-                    return React.cloneElement(child, { value: `accordion-${index}` });
-                }
-                // @ts-ignore
-                if (
-                    process.env.NODE_ENV === 'development'
-						&& child?.type?.name !== 'AccordionItem'
-                ) {
-                    throw new Error(
-                        'Audal Primitives: Only <AccordionItem /> components may be used within an Accordion.',
-                    );
+                    return React.cloneElement(child as any, { value: `accordion-${index}` });
                 }
                 return null;
             })}
@@ -157,25 +149,24 @@ AccordionPanel.displayName = 'AccordionPanel';
  * This must be used within an <AccordionItem /> instance.
  * @alias AccordionIconProps
  * */
-export const AccordionIcon = React.forwardRef<
-SVGSVGElement,
-{ className?: string; disableRotate?: boolean }
->((props, ref) => (
+export const AccordionIcon = ({ className, disableRotate, ...props }:
+{ disableRotate?: boolean } & React.HTMLProps<SVGSVGElement>): JSX.Element => (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <ChevronDownIcon
-        ref={ref}
-        className={props?.className}
+        className={className}
         css={{
             transition: 'transform 300ms cubic-bezier(0.87, 0, 0.13, 1)',
             '@media (prefers-reduced-motion: reduce)': {
                 transition: 'none!important',
             },
             '[data-state=closed] &': {
-                transform: props?.disableRotate ? '' : 'rotate(-90deg)',
+                transform: disableRotate ? '' : 'rotate(-90deg)',
             },
         }}
         {...props}
     />
-));
+);
 
 AccordionIcon.displayName = 'AccordionIcon';
 

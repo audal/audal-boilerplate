@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGridContext } from './context';
 
-interface RowSet extends HTMLPropsNoRef<HTMLDivElement> {
+interface RowSet extends HtmlPropsNoRef<HTMLDivElement> {
     breakpoints: {
         [key: string]: { between: number }
     }

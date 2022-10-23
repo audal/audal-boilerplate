@@ -1,9 +1,5 @@
 import React from 'react';
 
-/*
-	This component creates opacity transition based on the shouldChange prop changing.
- */
-
 interface Props {
     shouldChange: string;
 }

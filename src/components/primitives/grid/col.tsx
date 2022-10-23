@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGridContext } from './context';
 
-interface Col extends HTMLPropsNoRef<HTMLDivElement> {
+interface Col extends HtmlPropsNoRef<HTMLDivElement> {
     breakpoints: {
         [key: string]: { start?: number, span: number, justify?: 'between' | 'around' | 'center' | 'start' | 'end', align?: 'between' | 'around' | 'center' | 'start' | 'end', dir?: 'column' | 'row', leftGap?: 'half' | 'none' | 'full', rightGap?: 'half' | 'none' | 'full' }
     },

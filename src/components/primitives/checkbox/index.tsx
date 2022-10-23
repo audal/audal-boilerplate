@@ -8,7 +8,7 @@ import usePersistedId from '../utils/use-persisted-id';
 
 export interface CheckBoxProps
     extends Omit<
-    HTMLPropsNoRef<HTMLButtonElement>,
+    HtmlPropsNoRef<HTMLButtonElement>,
     'onChange' | 'type' | 'size' | 'value'
     > {
     /**

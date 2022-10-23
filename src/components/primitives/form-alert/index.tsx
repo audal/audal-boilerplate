@@ -2,11 +2,11 @@ import React from 'react';
 
 /**
  * Simple Accessible Alert component that can be re-used.
- * @alias HTMLProps<HTMLSpanElement>
+ * @alias HtmlPropsHTMLSpanElement>
  * */
 const FormAlert: React.FC = React.forwardRef<
 HTMLSpanElement,
-HTMLProps<HTMLSpanElement>
+HtmlProps<HTMLSpanElement>
 >((props, ref) => (
     <span
         ref={ref}

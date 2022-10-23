@@ -45,14 +45,13 @@ const StaticRender = ({
 };
 
 type ScrollEffectProps = Omit<StaticRenderProps, 'scrollY'> & {
-    pin?: boolean;
+    // pin?: boolean;
     internalScroller?: boolean;
 };
 
 const ScrollEffect = ({
     properties = {},
     inViewProperties = {},
-    pin = false, // need to make a better way to do this
     children,
     internalScroller = false,
 }: ScrollEffectProps): JSX.Element => {

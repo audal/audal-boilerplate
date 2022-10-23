@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGridContext } from './context';
 
-const Row = (props: HTMLPropsNoRef<HTMLDivElement>): JSX.Element => {
+const Row = (props: HtmlPropsNoRef<HTMLDivElement>): JSX.Element => {
     const { breakpoints } = useGridContext();
 
     return (

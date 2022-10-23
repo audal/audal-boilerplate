@@ -32,16 +32,6 @@ const exitToLeft = keyframes({
     to: { transform: 'translateX(-200px)', opacity: 0 },
 });
 
-const scaleIn = keyframes({
-    from: { height: 0, opacity: 0 },
-    to: { height: 'var(--radix-navigation-menu-viewport-height)', opacity: 1 },
-});
-
-const scaleOut = keyframes({
-    from: { height: 'var(--radix-navigation-menu-viewport-height)', opacity: 1 },
-    to: { height: 0, opacity: 0 },
-});
-
 const fadeIn = keyframes({
     from: { opacity: 0 },
     to: { opacity: 1 },
@@ -122,7 +112,7 @@ This is the drop down icon
 export const DropdownTriggerIndicator = ({
     className,
     style,
-}: HTMLPropsNoRef<{ className?: string }>): JSX.Element => (
+}: HtmlPropsNoRef<{ className?: string }>): JSX.Element => (
     <CaretDownIcon
         aria-hidden
         className={className}
@@ -146,7 +136,7 @@ Megamenu indicator controls the styling of the mega menu content
 export const MegaMenuIndicator = ({
     className,
     ...props
-}: HTMLPropsNoRef<HTMLDivElement>): JSX.Element => (
+}: HtmlPropsNoRef<HTMLDivElement>): JSX.Element => (
     <NavigationMenuPrimitive.Indicator
         className={className}
         css={{
@@ -237,12 +227,7 @@ MegaMenu.displayName = 'MegaMenu';
  Subroot of the mega menu that houses the menu components
 */
 
-export const MegaMenuDropdown = React.forwardRef<
-HTMLDivElement,
-CustomProps<
-Omit<NavigationMenuViewportImplProps, 'activeContentValue'>
->
->(({ className, children, ...props }, ref) => <>{children}</>);
+export const MegaMenuDropdown = ({ children }: CustomProps<Omit<NavigationMenuViewportImplProps, 'activeContentValue'>>): React.ReactNode => children;
 
 MegaMenuDropdown.displayName = 'MegaMenuDropdown';
 
@@ -275,7 +260,8 @@ MenuLink.displayName = 'MenuLink';
 export const MenuItem = ({
     className,
     ...props
-}: CustomProps<NavigationMenuItemProps>): JSX.Element => <NavigationMenuPrimitive.Item className={className} {...props} />;
+}: CustomProps<NavigationMenuItemProps>):
+JSX.Element => <NavigationMenuPrimitive.Item className={className} {...props} />;
 
 /* This is also a subroot. Comes after mega menu dropdown. */
 

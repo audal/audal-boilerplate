@@ -5,6 +5,7 @@ const { CacheProvider } = require('@emotion/react');
 const createEmotionServer = require('@emotion/server/create-instance');
 const createEmotionCache = require('./utils/create-emotion-cache');
 
+// eslint-disable-next-line import/prefer-default-export
 export const replaceRenderer = ({
     replaceBodyHTMLString,
     bodyComponent,
@@ -12,6 +13,7 @@ export const replaceRenderer = ({
 }) => {
     const cache = createEmotionCache('__audal_labs');
     const { extractCriticalToChunks, constructStyleTagsFromChunks } = createEmotionServer.default(cache);
+    // eslint-disable-next-line react/no-children-prop
     const html = renderToString(React.createElement(
         CacheProvider,
         {
@@ -24,6 +26,7 @@ export const replaceRenderer = ({
     const styles = constructStyleTagsFromChunks(chunks);
 
     setHeadComponents([
+        // eslint-disable-next-line react/jsx-filename-extension
         <style
             key="emotion"
             dangerouslySetInnerHTML={{
