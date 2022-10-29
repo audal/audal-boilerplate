@@ -1,9 +1,11 @@
 import React from 'react';
+import { useInView } from 'framer-motion';
 import { useGridContext } from './context';
+import { useCarouselContext } from './row';
 
 interface Col extends HtmlPropsNoRef<HTMLDivElement> {
     breakpoints: {
-        [key: string]: { start?: number, span: number, justify?: 'between' | 'around' | 'center' | 'start' | 'end', align?: 'between' | 'around' | 'center' | 'start' | 'end', dir?: 'column' | 'row', leftGap?: 'half' | 'none' | 'full', rightGap?: 'half' | 'none' | 'full' }
+        [key: string]: { start?: number, span: number, hidden?: boolean, justify?: 'between' | 'around' | 'center' | 'start' | 'end', align?: 'between' | 'around' | 'center' | 'start' | 'end', dir?: 'column' | 'row', leftGap?: 'half' | 'none' | 'full', rightGap?: 'half' | 'none' | 'full' }
     },
 }
 
@@ -38,12 +40,37 @@ const getColumnSize = (columns: number, span?: number, start?: number): string =
 
 const Col = ({ breakpoints, ...props }: Col): JSX.Element => {
     const { sortedBreakpoints: outerBreakpoints } = useGridContext();
+    const carousel = useCarouselContext();
+
+    const ref = React.useRef<HTMLDivElement>(null);
+    const inView = useInView(ref, { amount: 0.8 });
+
+    React.useEffect(() => {
+        if (carousel?.setSlideVisible && inView && ref?.current) {
+            const parent = ref.current.parentNode;
+            if (parent) {
+                const filtered = Array.from(parent.children).filter(x => window.getComputedStyle(x).display !== 'none');
+                const childIndex = filtered.indexOf(ref.current);
+                carousel.setSlideVisible(childIndex);
+            }
+        }
+    }, [carousel, inView]);
+
+    React.useEffect(() => {
+        if (carousel?.setSlideVisible && ref?.current) {
+            const parent = ref.current.parentNode;
+            if (parent) {
+                const filtered = Array.from(parent.children).filter(x => window.getComputedStyle(x).display !== 'none');
+                carousel.setSlideLength(filtered.length);
+            }
+        }
+    }, [carousel, ref]);
 
     const css = React.useMemo(() => {
         let lastBreakpoint = {};
         return Object.fromEntries(outerBreakpoints.map(([selected, { query, gap, columns }]) => {
             const {
-                start, span, justify, align, dir, leftGap, rightGap,
+                start, span, justify, align, dir, leftGap, rightGap, hidden,
             } = breakpoints[selected] || lastBreakpoint;
 
             if (breakpoints[selected]) {
@@ -56,7 +83,7 @@ const Col = ({ breakpoints, ...props }: Col): JSX.Element => {
                 gridColumn: getColumnSize(columns, span, start),
                 justifyContent: justify && flexMap[justify],
                 alignItems: align && flexMap[align],
-                display: 'flex',
+                display: hidden ? 'none' : 'flex',
                 flexDirection: dir || 'column',
                 marginInlineStart: lG && `-${lG}px`,
                 marginInlineEnd: rG && `-${rG}px`,
@@ -66,6 +93,8 @@ const Col = ({ breakpoints, ...props }: Col): JSX.Element => {
 
     return (
         <div
+            ref={ref}
+            className="__col"
             css={css}
             {...props}
         />

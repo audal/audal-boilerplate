@@ -13,7 +13,7 @@ export interface ISharpImage {
 }
 
 interface ISharpImageLocalFile {
-    localFile?: ISharpImage;
+    localFile: ISharpImage;
 }
 
 interface UseImageProps {
@@ -37,7 +37,6 @@ export interface GatsbyImageSVGFallbackProps
     extends UseImageProps,
     Omit<ImgHTMLAttributes<any>, keyof UseImageProps>{}
 
-// @ts-ignore
 export const WPImage = ({
     altText,
     localFile,
@@ -56,7 +55,7 @@ export const GatsbyImageSVGFallback = ({
     } if (src?.localFile?.childImageSharp) {
         return (
             <GatsbyImage
-                // placeholder="tracedSVG"
+                placeholder="tracedSVG"
                 alt={alt || ''}
                 image={src.localFile.childImageSharp.gatsbyImageData}
                 {...props}
@@ -74,5 +73,5 @@ export const GatsbyImageSVGFallback = ({
     // add an optional fallback image here
         return <img alt={alt || ''} {...props} />;
     }
-    return <img alt={alt || ''} {...props} />;
+    return <img {...props} />;
 };

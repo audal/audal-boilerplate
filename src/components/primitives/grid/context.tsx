@@ -20,7 +20,7 @@ interface GridContextProvider extends Omit<GridContext, 'sortedBreakpoints'> {
     children: React.ReactNode
 }
 
-const getBaseNum = (number: number, desktopFirst: boolean): number => {
+export const getBaseNum = (number: number, desktopFirst: boolean): number => {
     if (Number.isNaN(number)) {
         if (desktopFirst) {
             return 1000000;

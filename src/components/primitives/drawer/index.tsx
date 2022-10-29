@@ -2,6 +2,7 @@ import React from 'react';
 import { keyframes } from '@emotion/react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { ModalCloseButton } from '../modal';
+import usePartialAtBreakpoint from '../grid/use-partial-at-breakpoint';
 
 const fadeIn = keyframes({
     from: { opacity: '0' },
@@ -26,7 +27,7 @@ const DrawerOverlay: () => React.ReactElement = () => (
             left: 0,
             width: '100%',
             height: '100%',
-            background: 'rgba(0, 0, 0, 0.48)',
+            background: 'rgba(0, 0, 0, 0.1)',
             zIndex: 2000,
             '&[data-state="open"]': {
                 animation: `${fadeIn} 250ms forwards`,
@@ -40,6 +41,8 @@ const DrawerOverlay: () => React.ReactElement = () => (
         }}
     />
 );
+
+type PlacementPosition = 'top' | 'bottom' | 'left' | 'right';
 
 interface DrawerContentProps {
     /**
@@ -58,12 +61,16 @@ interface DrawerContentProps {
     /**
      *  * Positioning of the drawer. The default value is left
      *  */
-    placement: 'top' | 'bottom' | 'left' | 'right';
+    placement: PlacementPosition | { [key: string]: PlacementPosition }
     /**
      *  * The size of the drawer. For horizontally positioned drawers (i.e. left, right), this will affect the width.
      *  * For vertically positioned drawers, this will affect the height(i.e. top, bottom). THe default value is xs
      *  */
     size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+
+    container?: HTMLElement
+
+    animation?: 'slide' | 'fade'
 }
 
 interface DrawerCloseProps {
@@ -88,11 +95,17 @@ interface DrawerCloseProps {
 export const DrawerCloseOnClick: React.FunctionComponent<DrawerCloseProps> = ({ children }: DrawerCloseProps) => (
     <DialogPrimitive.Close asChild>{children}</DialogPrimitive.Close>);
 
+const buildInAnimation = (animation: any): string => `${keyframes(animation)} 360ms forwards`;
+
+const buildOutAnimation = (animation: any): string => `${keyframes(animation)} 250ms forwards`;
+
 export const DrawerContent = ({
     children,
     className,
     placement = 'bottom',
     size = 'xs',
+    container,
+    animation = 'slide',
 }: CustomProps<DrawerContentProps>): React.ReactElement => {
     const sizes = {
         xs: '20rem',
@@ -103,65 +116,99 @@ export const DrawerContent = ({
         full: '100%',
     }[size];
 
-    const placementStyles = {
+    const placementStyles = usePartialAtBreakpoint(placement, {
         top: {
-            transform: 'translate3d(0,-100%,0)',
+            transform: animation === 'slide' && 'translate3d(0,-100%,0)',
             width: '100%',
             height: sizes,
             top: 0,
             bottom: 'auto',
-            slideInFrom: 'translate3d(0,-100%,0)',
-            slideInTo: 'translate3d(0,0,0)',
-            slideOutFrom: 'translate3d(0,0,0)',
-            slideOutTo: 'translate3d(0,-100%,0)',
         },
         right: {
             top: '0',
-            transform: 'translate3d(100%,0,0)',
+            transform: animation === 'slide' && 'translate3d(100%,0,0)',
             right: 0,
             width: sizes,
             height: '100%',
-            slideInFrom: 'translate3d(100%,0,0)',
-            slideInTo: 'translate3d(0,0,0)',
-            slideOutFrom: 'translate3d(0,0,0)',
-            slideOutTo: 'translate3d(100%,0,0)',
         },
         bottom: {
-            transform: 'translate3d(0,100%,0)',
+            transform: animation === 'slide' && 'translate3d(0,100%,0)',
             width: '100%',
             height: sizes,
             bottom: 0,
             top: 'auto',
-            slideInFrom: 'translate3d(0,100%,0)',
-            slideInTo: 'translate3d(0,0,0)',
-            slideOutFrom: 'translate3d(0,0,0)',
-            slideOutTo: 'translate3d(0,100%,0)',
         },
         left: {
             top: 0,
-            transform: 'translate3d(0%,0,0)',
+            transform: animation === 'slide' && 'translate3d(0%,0,0)',
             left: 0,
             width: sizes,
             height: '100%',
-            slideInFrom: 'translate3d(-100%,0,0)',
-            slideInTo: 'translate3d(0,0,0)',
-            slideOutFrom: 'translate3d(0,0,0)',
-            slideOutTo: 'translate3d(-100%,0,0)',
         },
-    }[placement];
-
-    const slideIn = keyframes({
-        from: { transform: placementStyles?.slideInFrom },
-        to: { transform: placementStyles?.slideInTo },
     });
 
-    const slideOut = keyframes({
-        from: { transform: placementStyles?.slideOutFrom },
-        to: { transform: placementStyles?.slideOutTo },
-    });
+    const animations = {
+        slide: {
+            top: {
+                in: {
+                    from: { transform: 'translate3d(0,-100%,0)' },
+                    to: { transform: 'translate3d(0,0,0)' },
+                },
+                out: {
+                    from: { transform: 'translate3d(0,0,0)' },
+                    to: { transform: 'translate3d(0,-100%,0)' },
+                },
+            },
+            right: {
+                in: {
+                    from: { transform: 'translate3d(100%,0,0)' },
+                    to: { transform: 'translate3d(0,0,0)' },
+                },
+                out: {
+                    from: { transform: 'translate3d(0,0,0)' },
+                    to: { transform: 'translate3d(100%,0,0)' },
+                },
+            },
+            bottom: {
+                in: {
+                    from: { transform: 'translate3d(0,100%,0)' },
+                    to: { transform: 'translate3d(0,0,0)' },
+                },
+                out: {
+                    from: { transform: 'translate3d(0,0,0)' },
+                    to: { transform: 'translate3d(0,100%,0)' },
+                },
+            },
+            left: {
+                in: {
+                    from: { transform: 'translate3d(-100%,0,0)' },
+                    to: { transform: 'translate3d(0,0,0)' },
+                },
+                out: {
+                    from: { transform: 'translate3d(0,0,0)' },
+                    to: { transform: 'translate3d(-100%,0,0)' },
+                },
+            },
+        },
+        fade: {
+            ...Object.fromEntries(['top', 'bottom', 'left', 'right'].map(key => [key, {
+                in: {
+                    from: { opacity: '0' },
+                    to: { opacity: '1' },
+                },
+                out: {
+                    from: { opacity: '1' },
+                    to: { opacity: '0' },
+                },
+            }])),
+        },
+    }[animation];
+
+    const animationStylesIn = usePartialAtBreakpoint(placement, animations, 'in');
+    const animationStylesOut = usePartialAtBreakpoint(placement, animations, 'out');
 
     return (
-        <DialogPrimitive.Portal forceMount>
+        <DialogPrimitive.Portal forceMount container={container}>
             <DrawerOverlay />
             <DialogPrimitive.Content
                 css={{
@@ -169,20 +216,17 @@ export const DrawerContent = ({
                     boxShadow:
                     '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
                     position: 'fixed',
-                    top: placementStyles?.top,
-                    bottom: placementStyles?.bottom,
-                    left: placementStyles?.left,
-                    right: placementStyles?.right,
-                    width: placementStyles?.width,
-                    height: placementStyles?.height,
+                    ...placementStyles,
                     maxWidth: '100%',
                     maxHeight: '100%',
                     zIndex: 2000,
                     '&[data-state="open"]': {
-                        animation: `${slideIn} 360ms forwards`,
+                        // animation: `${slideIn} 360ms forwards`,
+                        ...Object.fromEntries(Object.entries(animationStylesIn).map(([query, animation]) => [query, { animation: buildInAnimation(animation) }])),
                     },
                     '&[data-state="closed"]': {
-                        animation: `${slideOut} 250ms forwards`,
+                        ...Object.fromEntries(Object.entries(animationStylesOut).map(([query, animation]) => [query, { animation: buildOutAnimation(animation) }])),
+                        // animation: `${slideOut} 250ms forwards`,
                     },
                 }}
                 className={className}

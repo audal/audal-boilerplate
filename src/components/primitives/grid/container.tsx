@@ -1,27 +1,48 @@
 import React from 'react';
 import { useGridContext } from './context';
 
-type RowSet = HtmlPropsNoRef<HTMLDivElement>;
+type Container = HtmlPropsNoRef<HTMLDivElement> & {
+    removeAt?: string
+};
 
-const Container = (props: RowSet): JSX.Element => {
+export const generateContainerMaxWidth = (query: string, maxDesignWidth: number): string => {
+    return `100%`
+    const breakNum = query.replace(/\D/g, '');
+    if (breakNum) {
+        return `${parseFloat(breakNum) - 300}px`;
+    }
+    return `${maxDesignWidth}px`;
+};
+
+const Container = ({ removeAt, ...props }: Container): JSX.Element => {
     const { breakpoints: outerBreakpoints, maxWidth } = useGridContext();
+
+    const css = React.useMemo(() => {
+        let hasRemoved = false;
+        return {
+            margin: 'auto',
+            //maxWidth: `calc(${maxWidth}px + 20vw)`,
+            ...Object.fromEntries(Object.entries(outerBreakpoints).map(([breakpointName, { query }]) => {
+                if (hasRemoved || breakpointName === removeAt) {
+                    hasRemoved = true;
+                    return [query, {
+                        maxWidth: '100%',
+                        paddingLeft: '0',
+                        paddingRight: '0',
+                    }];
+                }
+                return [query, {
+                    width: '100%',
+                    paddingLeft: '10vw',
+                    paddingRight: '10vw',
+                }];
+            })),
+        };
+    }, [maxWidth, outerBreakpoints, removeAt]);
 
     return (
         <div
-            css={{
-                ...Object.fromEntries(Object.values(outerBreakpoints).map(({ query }) => {
-                    const breakNum = query.replace(/\D/g, '');
-                    if (breakNum) {
-                        return [query, {
-                            maxWidth: `${parseFloat(breakNum) - 300}px`,
-                        }];
-                    }
-                    return [query, {}];
-                })),
-                width: '90%',
-                margin: 'auto',
-                maxWidth: `${maxWidth}px`,
-            }}
+            css={css}
             {...props}
         />
     );

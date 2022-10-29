@@ -13,11 +13,9 @@ HtmlProps<HTMLSpanElement>
         role="alert"
         css={{
             display: 'block',
-            color: 'red',
+            color: 'var(--color-states-error)',
             paddingTop: '6px',
-            textTransform: 'uppercase',
-            fontSize: '12px',
-            fontWeight: 'bold',
+            fontSize: '10px',
         }}
         {...props}
     />

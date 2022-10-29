@@ -139,10 +139,22 @@ const Input = ({
                     className={className}
                     type={type}
                     css={{
-                        padding: '0.5em 1em',
+                        padding: '0.5em 0',
                         width: '100%',
-                        border: '1px solid #04050322',
-                        // borderRadius: "3px",
+                        fontSize: '14px',
+                        borderBottom: '1px solid var(--color-shades-black)',
+                        backgroundColor: 'transparent',
+                        color: 'var(--color-shades-white)',
+                        '&::placeholder': {
+                            fontSize: '14px',
+                            color: 'var(--color-shades-white)',
+                        },
+                        '@media (max-width: 767px)': {
+                            fontSize: '16px',
+                            '&::placeholder': {
+                                fontSize: '16px',
+                            },
+                        },
                     }}
                     {...registerFn}
                     {...props}
@@ -162,8 +174,8 @@ const Input = ({
                     >
                         <span
                             css={{
-                                fontSize: '16px',
-                                paddingTop: '5px',
+                                fontSize: '12px',
+                                paddingTop: '0px',
                                 borderRadius: '999px',
                                 display: 'flex',
                                 alignItems: 'center',
@@ -172,8 +184,8 @@ const Input = ({
                                 width: '16px',
                                 color:
                                     formContext && formContext.errors && formContext.errors[name]
-                                        ? 'red'
-                                        : 'black',
+                                        ? 'var(--color-states-error)'
+                                        : '#fff',
                                 transition: 'color 0.2s',
                                 marginTop: '1px',
                             }}

@@ -1,7 +1,6 @@
 html {
     line-height: 1.5;
     -webkit-text-size-adjust: 100%;
-    font-family: system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
@@ -250,8 +249,8 @@ optgroup:focus-visible,
 select:focus-visible,
 a:focus-visible,
 textarea:focus-visible {
-	box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.6);
-	outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.6);
+    outline: none;
 }
 
 .js-focus-visible :focus:not([data-focus-visible-added]) {

@@ -110,7 +110,7 @@ const TextArea = ({
         };
 
     return (
-        <span css={{ display: 'block', paddingBottom: '36px' }}>
+        <span css={{ display: 'block' }}>
             <span
                 css={{
                     position: 'relative',
@@ -124,14 +124,24 @@ const TextArea = ({
                             : 'false'
                     }
                     css={{
+                        padding: '10px 0',
                         width: '100%',
-                        fontSize: '13px',
-                        fontWeight: '500',
-                        borderRadius: '0',
-                        backgroundColor: '#fff',
-                        border: '1px solid #04050322',
-                        minHeight: '5rem',
-                        padding: '0.5em 1em',
+                        fontSize: '14px',
+                        minHeight: '134px',
+                        borderBottom: '1px solid var(--color-shades-black)',
+                        borderTop: '1px solid var(--color-shades-black)',
+                        backgroundColor: 'transparent',
+                        color: 'var(--color-shades-white)',
+                        '&::placeholder': {
+                            fontSize: '14px',
+                            color: 'var(--color-shades-white)',
+                        },
+                        '@media (max-width: 767px)': {
+                            fontSize: '16px',
+                            '&::placeholder': {
+                                fontSize: '16px',
+                            },
+                        },
                     }}
                     className={className}
                     {...registerFn}
@@ -141,8 +151,7 @@ const TextArea = ({
                     <label
                         htmlFor={id}
                         css={{
-                            height: '100%',
-                            top: 0,
+                            top: '-106px',
                             right: '7px',
                             position: 'absolute',
                             display: 'flex',
@@ -152,7 +161,7 @@ const TextArea = ({
                     >
                         <span
                             css={{
-                                fontSize: '16px',
+                                fontSize: '14px',
                                 paddingTop: '5px',
                                 borderRadius: '999px',
                                 display: 'flex',
@@ -162,8 +171,8 @@ const TextArea = ({
                                 width: '16px',
                                 color:
                                     formContext && formContext.errors && formContext.errors[name]
-                                        ? 'red'
-                                        : 'black',
+                                        ? 'var(--color-states-error)'
+                                        : '#fff',
                                 transition: 'color 0.2s',
                                 marginTop: '1px',
                             }}
