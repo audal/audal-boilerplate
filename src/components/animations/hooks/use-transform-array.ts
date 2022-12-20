@@ -11,7 +11,7 @@ interface UseTransformArrayProps {
 // Very illegal and fun
 const useTransformArray = ({ properties, scrollY }: UseTransformArrayProps):
 { [p: string]: MotionValue<string | number> } => {
-    const physics = { damping: 30, mass: 0.05, stiffness: 200 };
+    const physics = { damping: 10, mass: 0.05, stiffness: 200 };
     const sprungY = useSpring(scrollY, physics);
     return Object.fromEntries(
         Object.entries(properties).map(([key, valArr]) => {
