@@ -6,10 +6,12 @@ import {
     AccordionSingleProps,
 } from '@radix-ui/react-accordion';
 import ChevronDownIcon from '../../../images/cheveron-down-icon.svg';
+import ArrowRightIcon from '../../../images/arrow-right-light.svg';
 
 const slideDown = keyframes({
-    from: { height: 0, opacity: 0 },
-    to: { height: 'var(--radix-accordion-content-height)', opacity: 1 },
+    '0%': { height: 0, opacity: 0 },
+    '99%': { height: 'var(--radix-accordion-content-height)', opacity: 1 },
+    '100%': { '--radix-collapsible-content-height': '100%!important' },
 });
 
 const slideUp = keyframes({
@@ -46,8 +48,8 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
         },
         ref,
     ) => (
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
         <AccordionPrimitive.Root
             className={className}
             ref={ref}
@@ -59,7 +61,9 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
         >
             {React.Children.map(children, (child, index) => {
                 if (React.isValidElement(child)) {
-                    return React.cloneElement(child as any, { value: `accordion-${index}` });
+                    return React.cloneElement(child as any, {
+                        value: `accordion-${index}`,
+                    });
                 }
                 return null;
             })}
@@ -82,7 +86,9 @@ export const AccordionItem = (props: AccordionItemProps): JSX.Element => (
     />
 );
 
-export type AccordionButtonProps = CustomProps<AccordionPrimitive.AccordionTriggerProps>;
+export type AccordionButtonProps = CustomProps<
+AccordionPrimitive.AccordionTriggerProps
+>;
 /**
  * This will open the accordion. Use the asChild prop (set to true) to
  * use your own fully custom button if necessary.
@@ -105,7 +111,9 @@ AccordionButtonProps
 ));
 
 AccordionButton.displayName = 'AccordionButton';
-export type AccordionPanelProps = CustomProps<AccordionPrimitive.AccordionContentProps>;
+export type AccordionPanelProps = CustomProps<
+AccordionPrimitive.AccordionContentProps
+>;
 /**
  * This is the content area that will expand when the accordion is opened.
  * This must be used within an <AccordionItem /> instance.
@@ -149,24 +157,33 @@ AccordionPanel.displayName = 'AccordionPanel';
  * This must be used within an <AccordionItem /> instance.
  * @alias AccordionIconProps
  * */
-export const AccordionIcon = ({ className, disableRotate, ...props }:
-{ disableRotate?: boolean } & React.HTMLProps<SVGSVGElement>): JSX.Element => (
+export const AccordionIcon = ({
+    className,
+    disableRotate,
+    arrow = false,
+    ...props
+}: { disableRotate?: boolean, arrow?: boolean } & React.HTMLProps<
+SVGSVGElement
+>): JSX.Element => {
+    const Icon = arrow ? ArrowRightIcon : ChevronDownIcon;
+    return (
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    <ChevronDownIcon
-        className={className}
-        css={{
-            transition: 'transform 300ms cubic-bezier(0.87, 0, 0.13, 1)',
-            '@media (prefers-reduced-motion: reduce)': {
-                transition: 'none!important',
-            },
-            '[data-state=closed] &': {
-                transform: disableRotate ? '' : 'rotate(-90deg)',
-            },
-        }}
-        {...props}
-    />
-);
+        <Icon
+            className={className}
+            css={{
+                transition: 'transform 300ms cubic-bezier(0.87, 0, 0.13, 1)',
+                '@media (prefers-reduced-motion: reduce)': {
+                    transition: 'none!important',
+                },
+                '[data-state=open] &': {
+                    transform: disableRotate ? '' : 'rotate(180deg)',
+                },
+            }}
+            {...props}
+        />
+    );
+};
 
 AccordionIcon.displayName = 'AccordionIcon';
 

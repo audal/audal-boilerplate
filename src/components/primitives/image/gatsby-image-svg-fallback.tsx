@@ -45,6 +45,47 @@ export const WPImage = ({
     <GatsbyImageSVGFallback src={{ localFile }} alt={altText} {...props} />
 );
 
+interface IPressLessImage {
+    className?: string
+    style?: any
+    image?: PressLessImage
+    objectFit?: any
+    objectPosition?: any
+    borderRadius?: any
+}
+
+export const PressLessImage = ({ image, ...props }: IPressLessImage) => {
+
+    if (image && typeof image === "object") {
+        if ("src" in image && image.src) {
+            const { style, ...rest } = image
+            return <img {...rest} className={`${image?.className || ""} ${props?.className || ""}`} {...props} />
+        } else if ("svgData" in image) {
+            return (
+                <span dangerouslySetInnerHTML={{ __html: image.svgData }} {...props} />
+            )
+        } else if ("images" in image && image.images) {
+            return (
+              <GatsbyImage
+                imgStyle={{
+                  objectFit: props?.objectFit,
+                  objectPosition: props?.objectPosition,
+                  borderRadius: props?.borderRadius,
+                }}
+                alt={image?.alt ? image.alt : ""}
+                image={image}
+                {...props}
+              />
+            );
+        } else if ("localFile" in image) {
+            //@ts-ignore
+            return <WPImage {...image} {...props} />
+        }
+    }
+
+    return <img {...props} />
+}
+
 export const GatsbyImageSVGFallback = ({
     src,
     alt,

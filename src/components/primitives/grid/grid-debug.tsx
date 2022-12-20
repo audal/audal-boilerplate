@@ -1,7 +1,6 @@
 import React from 'react';
 import * as localForage from 'localforage';
 import Button from '../button';
-// eslint-disable-next-line import/no-cycle
 import RowSet from './row-set';
 import Container from './container';
 import Row from './row';
@@ -140,8 +139,8 @@ const GridDebug = (): JSX.Element => {
             {show?.centerLine && (
                 <div css={{
                     position: 'fixed',
-                    left: 'calc(50% - 12px)',
-                    width: '24px',
+                    left: 'calc(50% - 10px)',
+                    width: '20px',
                     height: '100%',
                     backgroundColor: 'green',
                     top: '0',
@@ -150,27 +149,32 @@ const GridDebug = (): JSX.Element => {
                 />
             )}
             {show?.grid && (
-                <Container css={{
+                <div css={{
                     position: 'fixed',
                     pointerEvents: 'none',
                     top: '0',
                     left: '0',
                     width: '100%',
                     height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                 }}
                 >
-                    <Row css={{ height: '100%' }}>
-                        {Array.from([...new Array(cols)]).map((_, idx) => (
-                            <Col
-                                breakpoints={{ dt: { span: 1 } }}
-                                css={{
-                                    backgroundColor: 'green',
-                                    opacity: 0.3,
-                                }}
-                            />
-                        ))}
-                    </Row>
-                </Container>
+                    <Container css={{ height: '100%', position: 'absolute', margin: 'auto' }}>
+                        <Row css={{ height: '100%' }}>
+                            {Array.from([...new Array(cols)]).map((_, idx) => (
+                                <Col
+                                    breakpoints={{ dt: { span: 1 } }}
+                                    css={{
+                                        backgroundColor: 'green',
+                                        opacity: 0.3,
+                                    }}
+                                />
+                            ))}
+                        </Row>
+                    </Container>
+                </div>
             )}
             <GridPanel
                 show={show}

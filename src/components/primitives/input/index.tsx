@@ -139,14 +139,14 @@ const Input = ({
                     className={className}
                     type={type}
                     css={{
-                        padding: '0.5em 0',
+                        padding: '0.4em 0',
                         width: '100%',
-                        fontSize: '14px',
-                        borderBottom: '1px solid var(--color-shades-black)',
+                        fontSize: '18px',
                         backgroundColor: 'transparent',
                         color: 'var(--color-shades-white)',
+                        borderColor: formContext && formContext.errors[name] ? 'var(--color-blue-dunkelblau) !important' : '',
                         '&::placeholder': {
-                            fontSize: '14px',
+                            fontSize: '18px',
                             color: 'var(--color-shades-white)',
                         },
                         '@media (max-width: 767px)': {
@@ -185,14 +185,14 @@ const Input = ({
                                 color:
                                     formContext && formContext.errors && formContext.errors[name]
                                         ? 'var(--color-states-error)'
-                                        : '#fff',
+                                        : 'var(--color-gray-white)',
                                 transition: 'color 0.2s',
                                 marginTop: '1px',
                             }}
                         >
                             *
                             {' '}
-                            <VisuallyHidden>This is a Required Field</VisuallyHidden>
+                            <VisuallyHidden>Das ist ein Pflichtfeld</VisuallyHidden>
                         </span>
                     </label>
                 )}
@@ -200,48 +200,40 @@ const Input = ({
             {formContext
             && formContext.errors
             && formContext.errors[name]
-            && validationErrorMessage && (
-                <FormAlert>
-                    {typeof validationErrorMessage === 'function'
-                        ? validationErrorMessage(formContext.errors[name].type)
-                        : validationErrorMessage}
-                </FormAlert>
-            )}
-            {formContext
-            && formContext.errors
-            && formContext.errors[name]
             && !validationErrorMessage && (
                 <>
                     {formContext.errors[name].type === 'required' && (
-                        <FormAlert>Required</FormAlert>
+                        <FormAlert css={{ fontSize: '12px' }}>Eingabe erforderlich</FormAlert>
                     )}
                     {formContext.errors[name].type === 'pattern' && (
                         <>
                             {type === 'password' && (
-                                <FormAlert>
-                                    This password is not strong enough. Please
-                                </FormAlert>
+                                <FormAlert css={{ fontSize: '12px' }}>Dieses Passwort ist nicht stark genug.</FormAlert>
                             )}
                             {type === 'email' && (
-                                <FormAlert>This is not a valid email.</FormAlert>
+                                <FormAlert css={{ fontSize: '12px' }}>Bitte geben Sie eine valide Email ein.</FormAlert>
                             )}
                             {type === 'tel' && (
-                                <FormAlert>This is not a valid phone number.</FormAlert>
+                                <FormAlert css={{ fontSize: '12px' }}>
+                                    Bitte geben Sie eine valide Telefonnummer ein.
+                                </FormAlert>
                             )}
                             {type === 'number' && (
-                                <FormAlert>This is not a valid phone number.</FormAlert>
+                                <FormAlert css={{ fontSize: '12px' }}>
+                                    Bitte geben Sie eine valide Telefonnummer ein.
+                                </FormAlert>
                             )}
                             {type !== 'password'
                             && type !== 'tel'
                             && type !== 'email'
-                            && type !== 'number' && <FormAlert>This is invalid.</FormAlert>}
+                            && type !== 'number' && <FormAlert css={{ fontSize: '12px' }}>This is invalid.</FormAlert>}
                         </>
                     )}
                     {formContext.errors[name].type === 'maxLength' && (
-                        <FormAlert>Maximum length exceeded</FormAlert>
+                        <FormAlert css={{ fontSize: '12px' }}>Maximale Länge überschritten</FormAlert>
                     )}
                     {formContext.errors[name].type === 'minLength' && (
-                        <FormAlert>Not long enough</FormAlert>
+                        <FormAlert css={{ fontSize: '12px' }}>Nicht lange genug</FormAlert>
                     )}
                 </>
             )}

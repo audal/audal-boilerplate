@@ -8,6 +8,7 @@ import {
     UseFormHandleSubmit,
     UseFormRegister, UseFormReset,
     UseFormSetValue,
+    FormProvider as RootFormProvider,
 } from 'react-hook-form';
 
 export interface FormContext {
@@ -43,6 +44,7 @@ const FormContext = React.createContext<FormContext>(null as any);
  * */
 const FormProvider = React.forwardRef<HTMLFormElement, FormProviderProps>(
     ({ children, onSubmit }, ref) => {
+        const props = useForm();
         const {
             register,
             handleSubmit,
@@ -51,8 +53,7 @@ const FormProvider = React.forwardRef<HTMLFormElement, FormProviderProps>(
             setValue,
             getValues,
             reset,
-        } = useForm();
-
+        } = props;
         const value = React.useMemo(() => ({
             register, control, handleSubmit, errors, setValue, getValues, reset,
         }), [control, errors, getValues, handleSubmit, register, reset, setValue]);
@@ -61,13 +62,15 @@ const FormProvider = React.forwardRef<HTMLFormElement, FormProviderProps>(
             <FormContext.Provider
                 value={value}
             >
-                <form
-                    ref={ref}
-                    css={{ border: '1px solid transparent', width: '100%' }}
-                    onSubmit={handleSubmit(onSubmit)}
-                >
-                    {children}
-                </form>
+                <RootFormProvider {...props}>
+                    <form
+                        ref={ref}
+                        css={{ border: '1px solid transparent', width: '100%' }}
+                        onSubmit={handleSubmit(onSubmit)}
+                    >
+                        {children}
+                    </form>
+                </RootFormProvider>
             </FormContext.Provider>
         );
     },

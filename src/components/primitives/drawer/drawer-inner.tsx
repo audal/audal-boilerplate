@@ -9,7 +9,6 @@ const DrawerInner = ({ title, children, tags }: {
         backgroundColor: 'var(--color-primary-pine)',
         height: '100%',
         color: 'var(--color-shades-white)',
-        width: '100%',
     }}
     >
         <div
@@ -61,7 +60,6 @@ const DrawerInner = ({ title, children, tags }: {
                 width: '56px',
                 display: 'flex',
                 alignItems: 'center',
-                borderColor: 'var(--color-shades-black)',
                 paddingTop: '12px',
                 paddingLeft: '12px',
                 paddingBottom: '12px',

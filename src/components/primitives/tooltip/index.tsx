@@ -47,7 +47,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     asChild = false,
     className,
 }) => (
-    <TooltipPrimitive.Root delayDuration={100} open={show}>
+    <TooltipPrimitive.Root delayDuration={0} open={show ? show : undefined}>
         <TooltipPrimitive.Trigger
             css={{ width: '100%' }}
             asChild={asChild}
@@ -56,16 +56,14 @@ const Tooltip: React.FC<TooltipProps> = ({
             {children}
         </TooltipPrimitive.Trigger>
         <TooltipPrimitive.Content
-            portalled={portalled}
             side={side}
-            forceMount
             css={{
                 borderRadius: 4,
                 padding: '8px 14px',
                 fontSize: 12,
                 lineHeight: 1,
-                color: '#fff',
-                backgroundColor: '#9DB8D1',
+                color: 'var(--color-gray-schwarz)',
+                backgroundColor: 'var(--color-gray-white)',
                 // transformOrigin: "var(--radix-tooltip-content-transform-origin)",
                 boxShadow: 'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
                 animationDuration: '500ms',
@@ -86,14 +84,14 @@ const Tooltip: React.FC<TooltipProps> = ({
                 '&[data-state="closed"]': {
                     animationName: fadeOut,
                 },
-                '@media (prefers-reduced-motion: reduce)': {
-                    animation: 'none!important',
-                },
+                '@media (max-width: 767px)': {
+                    display: 'none'
+                }
             }}
             sideOffset={5}
         >
             {title}
-            <TooltipPrimitive.Arrow css={{ fill: '#9DB8D1' }} />
+            <TooltipPrimitive.Arrow css={{ fill: 'var(--color-gray-white)' }} />
         </TooltipPrimitive.Content>
     </TooltipPrimitive.Root>
 );

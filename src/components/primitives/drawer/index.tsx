@@ -30,10 +30,10 @@ const DrawerOverlay: () => React.ReactElement = () => (
             background: 'rgba(0, 0, 0, 0.1)',
             zIndex: 2000,
             '&[data-state="open"]': {
-                animation: `${fadeIn} 600ms forwards`,
+                animation: `${fadeIn} 250ms forwards`,
             },
             '&[data-state="closed"]': {
-                animation: `${fadeOut} 400ms forwards`,
+                animation: `${fadeOut} 350ms forwards`,
             },
             '@media (prefers-reduced-motion: reduce)': {
                 animation: 'none!important',
@@ -220,6 +220,7 @@ export const DrawerContent = ({
                     maxWidth: '100%',
                     maxHeight: '100%',
                     zIndex: 2000,
+                   
                     '&[data-state="open"]': {
                         // animation: `${slideIn} 360ms forwards`,
                         ...Object.fromEntries(Object.entries(animationStylesIn).map(([query, animation]) => [query, { animation: buildInAnimation(animation) }])),
