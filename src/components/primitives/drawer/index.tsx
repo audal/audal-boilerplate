@@ -30,10 +30,10 @@ const DrawerOverlay: () => React.ReactElement = () => (
             background: 'rgba(0, 0, 0, 0.1)',
             zIndex: 2000,
             '&[data-state="open"]': {
-                animation: `${fadeIn} 250ms forwards`,
+                animation: `${fadeIn} 600ms forwards`,
             },
             '&[data-state="closed"]': {
-                animation: `${fadeOut} 350ms forwards`,
+                animation: `${fadeOut} 400ms forwards`,
             },
             '@media (prefers-reduced-motion: reduce)': {
                 animation: 'none!important',

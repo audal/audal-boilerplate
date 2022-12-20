@@ -41,6 +41,10 @@ const RenderRow = (props: HtmlPropsNoRef<HTMLDivElement>): JSX.Element => {
                 containerSize = {
                     paddingLeft: '10vw',
                     paddingRight: '10vw',
+                    '@media (max-width: 767px)': {
+                        paddingLeft: '20px',
+                        paddingRight: '20px',
+                    },
                 };
             } else if (!hadCarouselBreakpoint) {
                 adjustedCols = columns;

@@ -9,6 +9,7 @@ const DrawerInner = ({ title, children, tags }: {
         backgroundColor: 'var(--color-primary-pine)',
         height: '100%',
         color: 'var(--color-shades-white)',
+        width: '100%',
     }}
     >
         <div
@@ -33,25 +34,25 @@ const DrawerInner = ({ title, children, tags }: {
                         display: 'flex',
                     }}
                 >
-                {
-                    tags.map(({ name }) => (
-                        <div
-                            css={{
-                                textTransform: 'uppercase',
-                                padding: '4px 6px',
-                                background: '#3B7A57',
-                                fontSize: '12px',
-                                lineHeight: '16px',
-                                height: 'fit-content',
-                                display: 'inline-flex',
-                                marginRight: '10px',
-                                letterSpacing: '0.4px'
-                            }}
-                        >
-                            {name}
-                        </div>
-                    ))
-                }
+                    {
+                        tags.map(({ name }) => (
+                            <div
+                                css={{
+                                    textTransform: 'uppercase',
+                                    padding: '4px 6px',
+                                    background: '#3B7A57',
+                                    fontSize: '12px',
+                                    lineHeight: '16px',
+                                    height: 'fit-content',
+                                    display: 'inline-flex',
+                                    marginRight: '10px',
+                                    letterSpacing: '0.4px',
+                                }}
+                            >
+                                {name}
+                            </div>
+                        ))
+                    }
                 </div>
             )}
             <DrawerTrigger css={{

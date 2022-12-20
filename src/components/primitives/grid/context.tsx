@@ -46,11 +46,11 @@ const GridContextProvider = ({ children, breakpoints, maxWidth, desktopFirst }: 
     return (
         <GridContext.Provider value={value}>
             {children}
-            {process.env.NODE_ENV === 'development' && (
+            {/*{process.env.NODE_ENV === 'development' && (*/}
                 <React.Suspense fallback={<div>Loading...</div>}>
                     <GridDebug />
                 </React.Suspense>
-            )}
+            {/*})}*/}
         </GridContext.Provider>
     );
 };

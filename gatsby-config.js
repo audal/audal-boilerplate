@@ -68,7 +68,13 @@ module.exports = {
         {
             resolve: 'gatsby-plugin-netlify',
             options: {
-                mergeLinkHeaders: false,
+                headers: {
+                    '/*': [
+                        'X-XSS-Protection: 1; mode=block',
+                        'X-Content-Type-Options: nosniff',
+                        'Referrer-Policy: same-origin',
+                    ],
+                },
             },
         },
         {

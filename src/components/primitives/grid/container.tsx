@@ -6,7 +6,6 @@ type Container = HtmlPropsNoRef<HTMLDivElement> & {
 };
 
 export const generateContainerMaxWidth = (query: string, maxDesignWidth: number): string => {
-    return `100%`
     const breakNum = query.replace(/\D/g, '');
     if (breakNum) {
         return `${parseFloat(breakNum) - 300}px`;
@@ -35,6 +34,10 @@ const Container = ({ removeAt, ...props }: Container): JSX.Element => {
                     width: '100%',
                     paddingLeft: '10vw',
                     paddingRight: '10vw',
+                    '@media (max-width: 767px)': {
+                        paddingLeft: '20px',
+                        paddingRight: '20px',
+                    },
                 }];
             })),
         };
