@@ -114,8 +114,8 @@ export const CheckBox = ({
                     <CheckboxPrimitive.Root
                         css={{
                             all: 'unset',
-                            backgroundColor: `${value ? '#007FFF' : '#E7E7E7'}`,
-                            border: `${value ? '3px solid #007FFF' : '3px solid #04050322'}`,
+                            backgroundColor: `${value ? '#174874' : '#FFFFFF'}`,
+                            border: `${value ? '1px solid #707070' : '1px solid #707070'}`,
                             width: `${foundSize} !important`,
                             height: `${foundSize} !important`,
                             borderRadius: 2,
@@ -124,6 +124,7 @@ export const CheckBox = ({
                             justifyContent: 'center',
                             boxShadow: '0 2px 10px "#007FFF"',
                             '&:focus': { boxShadow: '0px 0px 5px 2px #47a2ff' },
+                            borderRadius: '50%',
                         }}
                         aria-invalid={
                             formContext && formContext.errors && formContext.errors[name]
@@ -152,11 +153,11 @@ export const CheckBox = ({
                     <label
                         css={{
                             color: '#444444',
-                            fontSize: '12px',
-                            lineHeight: '26px',
-                            fontWeight: '600',
+                            fontSize: '20px',
+                            lineHeight: '27px',
+                            fontWeight: 400,
                             userSelect: 'none',
-                            paddingLeft: 6,
+                            paddingLeft: 10,
                         }}
                         htmlFor={id}
                     >
@@ -165,7 +166,7 @@ export const CheckBox = ({
                 </div>
             </div>
             {formContext?.errors[name]?.type === 'required' && (
-                <FormAlert>Required</FormAlert>
+                <FormAlert css={{ fontSize: '12px' }}>Eingabe erforderlich</FormAlert>
             )}
         </>
     );

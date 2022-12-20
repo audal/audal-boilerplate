@@ -2,42 +2,50 @@ import React from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import CheckIcon from '../../../images/check-icon.svg';
 import ChevronDownIcon from '../../../images/cheveron-down-icon.svg';
-import ChevronUpIcon from '../../../images/cheveron-up-icon.svg';
+import ChevronUpIcon from '../../../images/chevron-up-icon.svg';
 import { useFormProvider } from '../form-provider';
 import throwOnMissing from '../utils/throw-on-missing';
 import FormAlert from '../form-alert';
-import AiFillCaretDown from '../../../images/ai-fill-caret-down-icon.svg';
+import ChevronDownLight from '../../../images/chevron-down-light.svg';
+import ChevronRight from '../../../images/chevron-right.svg';
 
-export const SelectOption: React.FC<{ value: string; disabled?: boolean }> = ({
+export interface SelectOptionProps { children: React.ReactNode | string, value: string; disabled?: boolean }
+
+export const SelectOption: React.FC<SelectOptionProps> = ({
     children,
     value,
     disabled,
 }) => (
     <SelectPrimitive.Item
         css={{
-            fontSize: 13,
+            fontSize: 16,
             lineHeight: 1,
-            color: '#fff',
+            color: '#000',
             borderRadius: 3,
             display: 'flex',
             alignItems: 'center',
-            height: 25,
-            padding: '0 35px 0 25px',
+            height: 'auto',
+            padding: '14px 35px 14px 25px',
             position: 'relative',
             userSelect: 'none',
+
             '&[data-disabled]': {
-                color: '#fff5',
+                color: '#000',
                 pointerEvents: 'none',
             },
             '&:hover': {
-                backgroundColor: '#131416',
+                backgroundColor: '#174874',
+                color: 'var(--color-gray-white)',
             },
+
         }}
         value={value}
         disabled={disabled}
         aria-disabled={disabled}
     >
-        <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+        <SelectPrimitive.ItemText>
+            {children}
+        </SelectPrimitive.ItemText>
         <SelectPrimitive.ItemIndicator
             css={{
                 position: 'absolute',
@@ -48,7 +56,7 @@ export const SelectOption: React.FC<{ value: string; disabled?: boolean }> = ({
                 justifyContent: 'center',
             }}
         >
-            <CheckIcon />
+            {value !== "" && <CheckIcon />}
         </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
 );
@@ -64,6 +72,7 @@ export interface SelectProps
     value?: string;
     children: any;
     name: string;
+    arrowLeft?: boolean
 }
 
 const Select = ({
@@ -76,8 +85,8 @@ const Select = ({
     disabled,
     value,
     className,
-    paddingTop = '20px',
     width = '100%',
+    arrowLeft = false,
 }: SelectProps) : JSX.Element => {
     throwOnMissing(name, 'name', 'Select');
 
@@ -114,7 +123,7 @@ const Select = ({
     }, [children, formContext, name, placeholder]);
 
     return (
-        <div css={{ paddingBottom: paddingTop, width }}>
+        <div css={{ paddingBottom: '0px', width, height: '100%', position: 'relative' }}>
             <SelectPrimitive.Root
                 onValueChange={(e) => {
                     if (onChange) {
@@ -127,6 +136,9 @@ const Select = ({
                 onOpenChange={onBlur}
                 value={value}
                 name={name}
+                css={{
+                    position: 'relative',
+                }}
                 defaultValue={children[0].props.value}
                 {...formContext?.register(name, { required })}
             >
@@ -135,79 +147,103 @@ const Select = ({
                         width: '100%',
                         display: 'inline-flex',
                         alignItems: 'center',
-                        justifyContent: 'space-between',
+                        justifyContent: arrowLeft ? 'flex-start' : 'space-between',
                         fontSize: 15,
                         lineHeight: 1,
                         userSelect: 'none',
-                        height: 40,
+                        height: '100%',
+                        paddingLeft: '25px',
+                        paddingRight: '25px',
                         gap: 5,
                         textAlign: 'left',
-                        backgroundColor: '#fff',
-                        border: '1px solid transparent',
+                        backgroundColor: 'var(--color-gray-white)',
+                        border: '1px solid #707070',
                         color: '#040503',
+                        borderRadius: '30px',
+                        '@media (max-width: 1200px)': {
+                            height: '59px',
+                        },
+                        '@media (max-width: 767px)': {
+                            paddingTop: '14px',
+                            paddingBottom: '14px',
+                            height: 'auto',
+                        },
                     }}
                     className={className}
                     aria-label={name}
                     disabled={disabled}
                     aria-disabled={disabled}
                 >
-                    <SelectPrimitive.Value />
-                    <SelectPrimitive.Icon>
-                        <AiFillCaretDown
-                            style={{
-                                width: '10px',
-                                height: '10px',
-                            }}
-                        />
-                    </SelectPrimitive.Icon>
+                    {arrowLeft && (
+                        <div css={{ paddingRight: '8px' }}>
+                            <ChevronRight />
+                        </div>
+                    )}
+                    <SelectPrimitive.Value css={{ width: '100%', textAlign: 'left' }} />
+                    {!arrowLeft && (
+                        <SelectPrimitive.Icon>
+                            <ChevronDownLight
+                                style={{
+                                    width: '24px',
+                                    height: '12px',
+                                }}
+                            />
+                        </SelectPrimitive.Icon>
+                    )}
                 </SelectPrimitive.SelectTrigger>
-                <SelectPrimitive.Content
-                    css={{
-                        overflow: 'hidden',
-                        backgroundColor: '#9db8d1',
-                        borderRadius: 6,
-                        boxShadow: '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
-                    }}
-                >
-                    <SelectPrimitive.SelectScrollUpButton
+                <div css={{ position: 'relative' }}>
+                    <SelectPrimitive.Content
                         css={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            height: 25,
-                            margin: '0 -1px',
-                            backgroundColor: '#9db8d1',
-                            color: '#fff',
-                            cursor: 'default',
+                            overflow: 'hidden',
+                            background: '#fefefe',
+                            position: 'relative',
+                            width: '100%',
+                            borderRadius: '8px',
+                            border: '1px solid var(--color-gray-mittelgrau)',
+                            boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.0784314)',
+
                         }}
                     >
-                        <ChevronUpIcon />
-                    </SelectPrimitive.SelectScrollUpButton>
-                    <SelectPrimitive.Viewport
-                        css={{
-                            padding: '5px',
-                        }}
-                    >
-                        {children}
-                    </SelectPrimitive.Viewport>
-                    <SelectPrimitive.SelectScrollDownButton
-                        css={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            height: 25,
-                            margin: '0 -1px',
-                            backgroundColor: '#9db8d1',
-                            color: '#fff',
-                            cursor: 'default',
-                        }}
-                    >
-                        <ChevronDownIcon />
-                    </SelectPrimitive.SelectScrollDownButton>
-                </SelectPrimitive.Content>
+                        <SelectPrimitive.SelectScrollUpButton
+                            css={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                height: 25,
+                                margin: '0 -1px',
+                                backgroundColor: '#9db8d1',
+                                color: 'var(--color-gray-white)',
+                                cursor: 'default',
+                            }}
+                        >
+                            <ChevronUpIcon />
+                        </SelectPrimitive.SelectScrollUpButton>
+                        <SelectPrimitive.Viewport
+                            css={{
+                                padding: '5px',
+                            }}
+                        >
+                            {children}
+                        </SelectPrimitive.Viewport>
+                        <SelectPrimitive.SelectScrollDownButton
+                            css={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                height: 25,
+                                margin: '0 -1px',
+                                backgroundColor: '#9db8d1',
+                                color: 'var(--color-gray-white)',
+                                cursor: 'default',
+                            }}
+                        >
+                            <ChevronDownIcon />
+                        </SelectPrimitive.SelectScrollDownButton>
+                    </SelectPrimitive.Content>
+                </div>
             </SelectPrimitive.Root>
             {formContext?.errors[name]?.type === 'required' && (
-                <FormAlert>Required</FormAlert>
+                <FormAlert css={{ fontSize: '12px' }}>Eingabe erforderlich</FormAlert>
             )}
         </div>
     );

@@ -220,6 +220,7 @@ export const DrawerContent = ({
                     maxWidth: '100%',
                     maxHeight: '100%',
                     zIndex: 2000,
+                   
                     '&[data-state="open"]': {
                         // animation: `${slideIn} 360ms forwards`,
                         ...Object.fromEntries(Object.entries(animationStylesIn).map(([query, animation]) => [query, { animation: buildInAnimation(animation) }])),

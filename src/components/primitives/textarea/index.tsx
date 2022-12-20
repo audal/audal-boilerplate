@@ -110,7 +110,7 @@ const TextArea = ({
         };
 
     return (
-        <span css={{ display: 'block' }}>
+        <span css={{ display: 'block', width: '100%' }}>
             <span
                 css={{
                     position: 'relative',
@@ -126,14 +126,11 @@ const TextArea = ({
                     css={{
                         padding: '10px 0',
                         width: '100%',
-                        fontSize: '14px',
-                        minHeight: '134px',
-                        borderBottom: '1px solid var(--color-shades-black)',
-                        borderTop: '1px solid var(--color-shades-black)',
+                        fontSize: '18px',
                         backgroundColor: 'transparent',
                         color: 'var(--color-shades-white)',
                         '&::placeholder': {
-                            fontSize: '14px',
+                            fontSize: '18px',
                             color: 'var(--color-shades-white)',
                         },
                         '@media (max-width: 767px)': {
@@ -173,13 +170,14 @@ const TextArea = ({
                                     formContext && formContext.errors && formContext.errors[name]
                                         ? 'var(--color-states-error)'
                                         : '#fff',
+                                borderColor: formContext && formContext.errors[name] ? 'var(--color-blue-dunkelblau) !important' : '',
                                 transition: 'color 0.2s',
                                 marginTop: '1px',
                             }}
                         >
                             *
                             {' '}
-                            <VisuallyHidden>This is a Required Field</VisuallyHidden>
+                            <VisuallyHidden>Das ist ein Pflichtfeld</VisuallyHidden>
                         </span>
                     </label>
                 )}
@@ -188,7 +186,7 @@ const TextArea = ({
             && formContext.errors
             && formContext.errors[name]
             && validationErrorMessage && (
-                <FormAlert>
+                <FormAlert css={{ fontSize: '12px' }}>
                     {typeof validationErrorMessage === 'function'
                         ? validationErrorMessage(formContext.errors[name].type)
                         : validationErrorMessage}
@@ -200,13 +198,13 @@ const TextArea = ({
             && !validationErrorMessage && (
                 <>
                     {formContext.errors[name].type === 'required' && (
-                        <FormAlert>Required</FormAlert>
+                        <FormAlert css={{ fontSize: '12px' }}>Eingabe erforderlich</FormAlert>
                     )}
                     {formContext.errors[name].type === 'maxLength' && (
-                        <FormAlert>Maximum length exceeded</FormAlert>
+                        <FormAlert css={{ fontSize: '12px' }}>Maximale länge überschritten</FormAlert>
                     )}
                     {formContext.errors[name].type === 'minLength' && (
-                        <FormAlert>Not long enough</FormAlert>
+                        <FormAlert css={{ fontSize: '12px' }}>Nicht lang genug</FormAlert>
                     )}
                 </>
             )}

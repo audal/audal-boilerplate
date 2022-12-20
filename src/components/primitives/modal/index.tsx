@@ -5,7 +5,7 @@ import {
     DialogCloseProps,
     DialogContentImplProps,
 } from '@radix-ui/react-dialog';
-import Cross2Icon from '../../../images/cross2icon.svg';
+import CloseIcon from '../../../images/close-icon.svg';
 
 const overlayShow = keyframes({
     '0%': { opacity: 0 },
@@ -35,7 +35,7 @@ export const ModalTrigger = DialogPrimitive.Trigger;
 /* This component houses the modal content */
 
 export const ModalContent = (
-    props: CustomProps<DialogContentImplProps>,
+    { className, ...props }: CustomProps<DialogContentImplProps>,
 ): JSX.Element => (
     <DialogPrimitive.Portal forceMount>
         <DialogPrimitive.Overlay
@@ -67,8 +67,8 @@ export const ModalContent = (
                 css={{
                     backgroundColor: 'white',
                     borderRadius: 6,
-                    zIndex: 20,
-                    boxShadow: 'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
+                    zIndex: 140,
+                    //boxShadow: 'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
                     width: '90vw',
                     maxWidth: '450px',
                     maxHeight: '85vh',
@@ -84,6 +84,7 @@ export const ModalContent = (
                     },
                     '&:focus': { outline: 'none' },
                 }}
+                className={className}
                 {...props}
             />
         </DialogPrimitive.Overlay>
@@ -114,6 +115,6 @@ export const ModalCloseButton = (
         }}
         {...props}
     >
-        <Cross2Icon width="100%" height="100%" />
+        <CloseIcon width="100%" height="100%" />
     </DialogPrimitive.Close>
 );

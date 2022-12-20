@@ -33,25 +33,25 @@ const DrawerInner = ({ title, children, tags }: {
                         display: 'flex',
                     }}
                 >
-                {
-                    tags.map(({ name }) => (
-                        <div
-                            css={{
-                                textTransform: 'uppercase',
-                                padding: '4px 6px',
-                                background: '#3B7A57',
-                                fontSize: '12px',
-                                lineHeight: '16px',
-                                height: 'fit-content',
-                                display: 'inline-flex',
-                                marginRight: '10px',
-                                letterSpacing: '0.4px'
-                            }}
-                        >
-                            {name}
-                        </div>
-                    ))
-                }
+                    {
+                        tags.map(({ name }) => (
+                            <div
+                                css={{
+                                    textTransform: 'uppercase',
+                                    padding: '4px 6px',
+                                    background: '#3B7A57',
+                                    fontSize: '12px',
+                                    lineHeight: '16px',
+                                    height: 'fit-content',
+                                    display: 'inline-flex',
+                                    marginRight: '10px',
+                                    letterSpacing: '0.4px',
+                                }}
+                            >
+                                {name}
+                            </div>
+                        ))
+                    }
                 </div>
             )}
             <DrawerTrigger css={{
@@ -60,7 +60,6 @@ const DrawerInner = ({ title, children, tags }: {
                 width: '56px',
                 display: 'flex',
                 alignItems: 'center',
-                borderColor: 'var(--color-shades-black)',
                 paddingTop: '12px',
                 paddingLeft: '12px',
                 paddingBottom: '12px',

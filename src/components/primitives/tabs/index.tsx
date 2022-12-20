@@ -2,6 +2,7 @@ import React from 'react';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { keyframes } from '@emotion/react';
 import { useDraggable } from '../../../utils/use-draggable-scroll';
+import Container from '../grid/container';
 
 export interface TabsProps
     extends Omit<
@@ -45,33 +46,42 @@ export const TabList = ({ className, children, ...props }: TabListProps): JSX.El
     });
 
     return (
-        <TabsPrimitive.TabsList
-            ref={containerRef}
-            {...events}
-            css={{
-                flexShrink: 0,
-                display: 'flex',
-                alignItems: 'flex-start',
-                width: '100%',
-                '@media (max-width: 991px)': {
-                    height: 'auto',
-                },
-                MsOverflowStyle: 'none',
-                scrollbarWidth: 'none',
-                '::-webkit-scrollbar': { display: 'none' },
-            }}
-            className={className}
-            {...props}
+        <div css={{
+            width: '100%',
+            backgroundColor: 'var(--color-blue-mittelblau)',
+        }}
         >
-            {React.Children.map(children, (child, index) => {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                if (React.isValidElement(child)) {
-                    return React.cloneElement(child as any, { value: `tabs-${index}` });
-                }
-                return null;
-            })}
-        </TabsPrimitive.TabsList>
+            <Container removeAt="mb">
+                <TabsPrimitive.TabsList
+                    ref={containerRef}
+                    {...events}
+                    css={{
+                        flexShrink: 0,
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        width: '100%',
+                        '@media (max-width: 991px)': {
+                            height: 'auto',
+                        },
+
+                        MsOverflowStyle: 'none',
+                        scrollbarWidth: 'none',
+                        '::-webkit-scrollbar': { display: 'none' },
+                    }}
+                    className={className}
+                    {...props}
+                >
+                    {React.Children.map(children, (child, index) => {
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-ignore
+                        if (React.isValidElement(child)) {
+                            return React.cloneElement(child as any, { value: `tabs-${index}` });
+                        }
+                        return null;
+                    })}
+                </TabsPrimitive.TabsList>
+            </Container>
+        </div>
     );
 };
 
@@ -95,31 +105,37 @@ export interface TabProps
     HtmlPropsNoRef<HTMLButtonElement>,
     'value' | 'defaultValue' | 'dir' | 'as' | 'type'
     > {
-    value: string
+    value: string;
+    children: any;
 }
 
-export const Tab = ({ className, value, ...props }: TabProps): JSX.Element => (
+export const Tab = ({ className, value, children, ...props }: TabProps): JSX.Element => (
     <TabsPrimitive.Trigger
         value={value as string}
-        className="keen-slider__slide"
+        className="p1"
         css={{
             display: 'flex',
             alignItems: 'flex-start',
             flexShrink: '0',
-            paddingTop: '13px',
+            paddingTop: '20px',
             marginRight: '50px',
             width: 'auto !important',
-            paddingBottom: '13px',
+            paddingBottom: '18px',
             '&:last-of-type': {
                 marginRight: '0px',
             },
             '@media (max-width: 767px)': {
-                marginRight: '50px',
+                marginRight: '0px',
+                width: '100%',
+                borderBottom: '1px solid #FEFEFE',
+                padding: '0px',
+                '&:nth-of-type(odd)': {
+                    borderRight: '1px solid #FEFEFE',
+                },
             },
             '@media (max-width: 479px)': {
-                paddingTop: '10px',
-                marginRight: '22px',
-                paddingBottom: '10px',
+                marginRight: '0px',
+                padding: '0px',
             },
             '&[data-state="active"] span': {
                 '&:before': {
@@ -128,15 +144,14 @@ export const Tab = ({ className, value, ...props }: TabProps): JSX.Element => (
                 },
             },
         }}
+        {...props}
     >
         <span
             css={{
-                color: '#040503',
-                fontSize: '13px',
+                color: 'var(--color-gray-white)',
                 fontStyle: 'normal',
-                fontWeight: '700',
+                fontWeight: 600,
                 lineHeight: '15px',
-                textTransform: 'uppercase',
                 position: 'relative',
                 cursor: 'pointer',
                 '&:before': {
@@ -147,10 +162,13 @@ export const Tab = ({ className, value, ...props }: TabProps): JSX.Element => (
                     height: '2px',
                     bottom: '0',
                     right: '0',
-                    top: '20px',
-                    backgroundColor: '#9db8d1',
+                    top: '30px',
+                    backgroundColor: 'var(--color-gray-white)',
                     transformOrigin: 'bottom right ',
                     transition: 'transform 0.3s ease-out',
+                    '@media (max-width: 767px)': {
+                        backgroundColor: 'transparent',
+                    },
                 },
                 '&:hover:before': {
                     transform: 'scale(1)',
@@ -159,15 +177,39 @@ export const Tab = ({ className, value, ...props }: TabProps): JSX.Element => (
                 '@media (max-width: 767px)': {
                     fontSize: '13px',
                     lineHeight: '18px',
+                    width: 'auto',
                 },
                 '@media (max-width: 479px)': {
-                    fontSize: '10px',
+                    fontSize: '17px',
                     lineHeight: '14px',
                 },
             }}
             className={className}
-            {...props}
-        />
+        >
+            <span css={{
+                height: '100%',
+                '@media (max-width: 767px)': {
+                    position: 'relative',
+                    cursor: 'pointer',
+                    '&:before': {
+                        content: '""',
+                        position: 'absolute',
+                        width: '100%',
+                        transform: 'scale(0)',
+                        height: '1px',
+                        bottom: '0',
+                        right: '0',
+                        top: '20px',
+                        backgroundColor: 'var(--color-gray-white)',
+                        transformOrigin: 'bottom right ',
+                        transition: 'transform 0.3s ease-out',
+                    },
+                },
+            }}
+            >
+                {children}
+            </span>
+        </span>
     </TabsPrimitive.Trigger>
 );
 export interface TabPanelProps
@@ -188,13 +230,17 @@ export const TabPanel = ({ value, className, ...props }: TabPanelProps): JSX.Ele
         value={value}
         css={{
             flexGrow: 1,
-            padding: 0,
+            padding: '70px 0',
             outline: 'none',
             animation: `${fadeIn} 300ms ease`,
+            '@media (max-width: 767px)': {
+                padding: '20px 0 30px',
+            },
         }}
         className={className}
-        {...props}
-    />
+    >
+        <Container {...props} />
+    </TabsPrimitive.Content>
 );
 
 export default Tabs;

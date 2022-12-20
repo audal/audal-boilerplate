@@ -1,4 +1,5 @@
 import React from 'react';
+import sortBreakpoints from './sort-breakpoints';
 
 const GridDebug = React.lazy(() => import('./grid-debug'));
 
@@ -32,14 +33,7 @@ export const getBaseNum = (number: number, desktopFirst: boolean): number => {
 
 const GridContextProvider = ({ children, breakpoints, maxWidth, desktopFirst }: GridContextProvider): JSX.Element => {
     const value = React.useMemo(() => {
-        const sortedBreakpoints = Object.entries(breakpoints).sort((x, y) => {
-            const breakNumX = getBaseNum(parseFloat(x[1].query.replace(/\D/g, '')), desktopFirst);
-            const breakNumY = getBaseNum(parseFloat(y[1].query.replace(/\D/g, '')), desktopFirst);
-            if (desktopFirst) {
-                return breakNumY - breakNumX;
-            }
-            return breakNumX - breakNumY;
-        });
+        const sortedBreakpoints = sortBreakpoints(breakpoints, desktopFirst) as [string, { query: string, columns: number, gap: number }][];
         return { breakpoints, sortedBreakpoints, maxWidth, desktopFirst };
     }, [breakpoints, desktopFirst, maxWidth]);
 

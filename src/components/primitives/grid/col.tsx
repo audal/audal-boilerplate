@@ -1,12 +1,15 @@
 import React from 'react';
-import { useInView } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 import { useGridContext } from './context';
 import { useCarouselContext } from './row';
+import useResizeEvent from "../../../utils/use-resize-event";
 
-interface Col extends HtmlPropsNoRef<HTMLDivElement> {
-    breakpoints: {
-        [key: string]: { start?: number, span: number, hidden?: boolean, justify?: 'between' | 'around' | 'center' | 'start' | 'end', align?: 'between' | 'around' | 'center' | 'start' | 'end', dir?: 'column' | 'row', leftGap?: 'half' | 'none' | 'full', rightGap?: 'half' | 'none' | 'full' }
-    },
+export interface ColBreakpointProps {
+    [key: string]: { start?: number, span: number, hidden?: boolean, justify?: 'between' | 'around' | 'center' | 'start' | 'end', align?: 'between' | 'around' | 'center' | 'start' | 'end', dir?: 'column' | 'row', leftGap?: 'half' | 'none' | 'full', rightGap?: 'half' | 'none' | 'full' }
+}
+
+export interface ColProps extends HtmlPropsNoRef<HTMLDivElement> {
+    breakpoints: ColBreakpointProps
 }
 
 const flexMap = {
@@ -38,12 +41,27 @@ const getColumnSize = (columns: number, span?: number, start?: number): string =
     return `span ${columns}`;
 };
 
-const Col = ({ breakpoints, ...props }: Col): JSX.Element => {
+const Col = ({ breakpoints, ...props }: ColProps): JSX.Element => {
     const { sortedBreakpoints: outerBreakpoints } = useGridContext();
     const carousel = useCarouselContext();
 
     const ref = React.useRef<HTMLDivElement>(null);
-    const inView = useInView(ref, { amount: 0.8 });
+    //const inView = useInView(ref, { amount: 0.6, once: false });
+
+    const { inView, ref: inViewRef } = useInView({ threshold: 0.6 })
+    const size = useResizeEvent(ref)
+
+    // Use `useCallback` so we don't recreate the function on each render
+    const setRefs = React.useCallback(
+        (node) => {
+            // Ref's from useRef needs to have the node assigned to `current`
+            ref.current = node;
+            // Callback refs, like the one from `useInView`, is a function that takes the node as an argument
+            inViewRef(node);
+        },
+        [inViewRef],
+    );
+
 
     React.useEffect(() => {
         if (carousel?.setSlideVisible && inView && ref?.current) {
@@ -54,7 +72,7 @@ const Col = ({ breakpoints, ...props }: Col): JSX.Element => {
                 carousel.setSlideVisible(childIndex);
             }
         }
-    }, [carousel, inView]);
+    }, [carousel, inView, size]);
 
     React.useEffect(() => {
         if (carousel?.setSlideVisible && ref?.current) {
@@ -64,7 +82,7 @@ const Col = ({ breakpoints, ...props }: Col): JSX.Element => {
                 carousel.setSlideLength(filtered.length);
             }
         }
-    }, [carousel, ref]);
+    }, [carousel, ref, size]);
 
     const css = React.useMemo(() => {
         let lastBreakpoint = {};
@@ -93,7 +111,7 @@ const Col = ({ breakpoints, ...props }: Col): JSX.Element => {
 
     return (
         <div
-            ref={ref}
+            ref={setRefs}
             className="__col"
             css={css}
             {...props}

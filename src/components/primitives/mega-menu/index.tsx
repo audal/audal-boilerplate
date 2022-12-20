@@ -1,16 +1,12 @@
 import React from 'react';
 import { keyframes } from '@emotion/react';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
+// import CaretDownIcon  from '../../../images/caret-down-icon.svg';
 import {
-    NavigationMenuContentProps,
-    NavigationMenuItemProps,
-    NavigationMenuLinkProps,
-    NavigationMenuListProps,
-    NavigationMenuSubProps,
-    NavigationMenuTriggerProps,
+    NavigationMenuContentProps, NavigationMenuItemProps,
+    NavigationMenuLinkProps, NavigationMenuListProps, NavigationMenuSubProps, NavigationMenuTriggerProps,
     NavigationMenuViewportImplProps,
 } from '@radix-ui/react-navigation-menu';
-import CaretDownIcon from '../../../images/caret-down-icon.svg';
 
 const enterFromRight = keyframes({
     from: { transform: 'translateX(200px)', opacity: 0 },
@@ -45,74 +41,61 @@ const fadeOut = keyframes({
 /*
 **** This short demo shows how the navigation should be used
 <MegaMenu>
-            <MegaMenuDropdown>
-                 <MenuList>
-                   <MenuItem >
-                      <DropdownTrigger>
-                         Learn
-                         <DropdownTriggerIndicator/>
-                      </DropdownTrigger>
-                      <DropdownInsert>
-                           <SubMenu>
-                             <MenuList>
-                               <MenuItem>
-                                 <DropdownTrigger>
-                                     Hello
-                      </DropdownTrigger>
-                      <DropdownInsert>
-                         <MenuLink>
-                            Github
-                         </MenuLink>
-                     </DropdownInsert>
-                   </MenuItem>
-                </MenuList>
-               </SubMenu>
-             </DropdownInsert>
-           </MenuItem>
-          <MenuItem>
-            <DropdownTrigger>
-                 Overview
-             </DropdownTrigger>
-            <DropdownInsert>
-                       <MenuLink>
-                           Github
-                       </MenuLink>
-            </DropdownInsert>
-          </MenuItem>
-
-         <MenuItem>
-             <MenuLink>
-                 Github
-             </MenuLink>
-       </MenuItem>
-
-       <MegaMenuIndicator />
-
-        </MenuList>
-     </MegaMenuDropdown>
-   </MegaMenu>
+			  <MegaMenuDropdown>
+				  <MenuList>
+					  <MenuItem >
+						  <DropdownTrigger>
+							  Learn
+							  <DropdownTriggerIndicator/>
+						  </DropdownTrigger>
+						  <DropdownInsert>
+							  <SubMenu>
+								  <MenuList>
+									  <MenuItem>
+										  <DropdownTrigger>
+											  Hello
+										  </DropdownTrigger>
+										  <DropdownInsert>
+											  <MenuLink>
+												  Github
+											  </MenuLink>
+										  </DropdownInsert>
+									  </MenuItem>
+								  </MenuList>
+							  </SubMenu>
+						  </DropdownInsert>
+					  </MenuItem>
+					  <MenuItem>
+						  <DropdownTrigger>
+							  Overview
+						  </DropdownTrigger>
+						  <DropdownInsert>
+							  <MenuLink>
+								  Github
+							  </MenuLink>
+						  </DropdownInsert>
+					  </MenuItem>
+					  <MenuItem>
+						  <MenuLink>
+							  Github
+						  </MenuLink>
+					  </MenuItem>
+					  <MegaMenuIndicator />
+				  </MenuList>
+			  </MegaMenuDropdown>
+	      </MegaMenu>
 */
 
 const itemStyles = {
-    padding: '8px 12px',
     outline: 'none',
     userSelect: 'none',
-    fontWeight: 500,
-    lineHeight: 1,
-    borderRadius: 4,
-    fontSize: 15,
-    color: 'black',
 };
 
 /*
 This is the drop down icon
-
 */
 
-export const DropdownTriggerIndicator = ({
-    className,
-    style,
-}: HtmlPropsNoRef<{ className?: string }>): JSX.Element => (
+/* export const DropdownTriggerIndicator = ({ className, style }: HtmlPropsNoRef<{ className?: string }>): JSX.Element => (
     <CaretDownIcon
         aria-hidden
         className={className}
@@ -122,21 +105,17 @@ export const DropdownTriggerIndicator = ({
             top: 1,
             transition: 'transform 250ms ease',
             '[data-state=open] &': { transform: 'rotate(-180deg)' },
+
         }}
         style={style}
     />
-);
+) */
 
 /*
-
 Megamenu indicator controls the styling of the mega menu content
-
 */
 
-export const MegaMenuIndicator = ({
-    className,
-    ...props
-}: HtmlPropsNoRef<HTMLDivElement>): JSX.Element => (
+export const MegaMenuIndicator = ({ className, ...props }: HtmlPropsNoRef<HTMLDivElement>): JSX.Element => (
     <NavigationMenuPrimitive.Indicator
         className={className}
         css={{
@@ -150,10 +129,7 @@ export const MegaMenuIndicator = ({
             marginTop: '-6px',
             transition: 'width, transform 250ms ease',
             '&[data-state="visible"]': { animation: `${fadeIn} 200ms ease` },
-            '&[data-state="hidden"]': {
-                transition: 'none',
-                animation: `${fadeOut} 200ms ease`,
-            },
+            '&[data-state="hidden"]': { transition: 'none', animation: `${fadeOut} 200ms ease` },
         }}
         {...props}
     >
@@ -172,10 +148,7 @@ export const MegaMenuIndicator = ({
 /*
 These triggers open up the submenu
 */
-export const DropdownTrigger = ({
-    className,
-    ...props
-}: CustomProps<NavigationMenuTriggerProps>): JSX.Element => (
+export const DropdownTrigger = ({ className, ...props }: CustomProps<NavigationMenuTriggerProps>): JSX.Element => (
     <NavigationMenuPrimitive.Trigger
         className={className}
         css={{
@@ -183,7 +156,6 @@ export const DropdownTrigger = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            gap: 2,
             cursor: 'pointer',
         }}
         {...props}
@@ -195,9 +167,8 @@ This is the root of the mega menu
 */
 
 export const MegaMenu = React.forwardRef<
-HTMLDivElement,
-CustomProps<NavigationMenuPrimitive.NavigationMenuProps>
->(({ className, ...props }, ref) => (
+HTMLDivElement, CustomProps<NavigationMenuPrimitive.NavigationMenuProps
+>>(({ className, ...props }, ref) => (
     <NavigationMenuPrimitive.Root
         ref={ref}
         className={className}
@@ -227,17 +198,53 @@ MegaMenu.displayName = 'MegaMenu';
  Subroot of the mega menu that houses the menu components
 */
 
-export const MegaMenuDropdown = ({ children }: CustomProps<Omit<NavigationMenuViewportImplProps, 'activeContentValue'>>): React.ReactNode => children;
+export const MegaMenuDropdown = React.forwardRef<HTMLDivElement, CustomProps<Omit<NavigationMenuViewportImplProps, 'activeContentValue'>>>(({ className, children, ...props }, ref) => (
+    <>
+        {children}
+        {/* <div
+			css={{
+				position: 'absolute',
+				display: 'flex',
+				justifyContent: 'center',
+				width: '100%',
+				top: '100%',
+				left: 0,
+				perspective: '2000px',
+			}}
+		>
+			<NavigationMenuPrimitive.Viewport
+				ref={ref}
+				className={className}
+				css={{
+					position: 'relative',
+					transformOrigin: 'top center',
+					width: '100%',
+					backgroundColor: 'white',
+					overflow: 'hidden',
+					height: 'var(--radix-navigation-menu-viewport-height)',
+					'@media only screen and (min-width: 600px)': {
+						width: 'var(--radix-navigation-menu-viewport-width)',
+					},
+					marginTop: '1px',
+					transition: 'width, height, 300ms ease',
+					'&[data-state="open"]': { animation: `${scaleIn} 400ms ease` },
+					'&[data-state="closed"]': { animation: `${scaleOut} 400ms ease` },
+					'@media (prefers-reduced-motion: reduce)': {
+						animation: 'none!important',
+					},
+				}}
+				{...props}
+			/>
+		</div> */}
+    </>
+));
 
 MegaMenuDropdown.displayName = 'MegaMenuDropdown';
 
 /*
  This menu is used for menu items that have a link, external or internal
 */
-export const MenuLink = React.forwardRef<
-HTMLAnchorElement,
-CustomProps<NavigationMenuLinkProps>
->(({ className, link, ...props }, ref) => (
+export const MenuLink = React.forwardRef<HTMLAnchorElement, CustomProps<NavigationMenuLinkProps>>(({ className, link, ...props }, ref) => (
     <NavigationMenuPrimitive.Link
         ref={ref}
         href={link}
@@ -253,23 +260,17 @@ CustomProps<NavigationMenuLinkProps>
     />
 ));
 
-MenuLink.displayName = 'MenuLink';
-
 /* this component is used for menu items that have no links */
 
-export const MenuItem = ({
-    className,
-    ...props
-}: CustomProps<NavigationMenuItemProps>):
-JSX.Element => <NavigationMenuPrimitive.Item className={className} {...props} />;
+export const MenuItem = ({ className, ...props }: CustomProps<NavigationMenuItemProps>): JSX.Element => (
+    <NavigationMenuPrimitive.Item className={className} {...props} />
+);
 
 /* This is also a subroot. Comes after mega menu dropdown. */
 
-export const MenuList = ({
-    className,
-    ...props
-}: CustomProps<NavigationMenuListProps>): JSX.Element => (
+export const MenuList = ({ className, ...props }: CustomProps<NavigationMenuListProps>): JSX.Element => (
     <NavigationMenuPrimitive.List
+
         className={className}
         css={{
             width: 'auto',
@@ -285,18 +286,15 @@ export const MenuList = ({
 
 /* This component acts as the root for the submenu */
 
-export const DropdownInsert = ({
-    className,
-    ...props
-}: CustomProps<NavigationMenuContentProps>): JSX.Element => (
+export const DropdownInsert = ({ className, ...props }: CustomProps<NavigationMenuContentProps>): JSX.Element => (
     <NavigationMenuPrimitive.Content
         className={className}
         css={{
             position: 'absolute',
-            marginTop: '1px',
             left: 0,
+            top: '100%',
             width: '100%',
-            height: '100%',
+            // height: '100%',
             backgroundColor: 'white',
             '&[data-motion="from-start"]': { animationName: enterFromLeft },
             '&[data-motion="from-end"]': { animationName: enterFromRight },
@@ -309,6 +307,7 @@ export const DropdownInsert = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+
             },
             transition: 'width, height, 300ms ease',
             '&[data-state="open"]': { animation: `${fadeIn} 400ms ease` },
@@ -323,13 +322,11 @@ export const DropdownInsert = ({
 
 /* This component houses the submenu and all its components */
 
-export const SubMenu = ({
-    className,
-    ...props
-}: CustomProps<NavigationMenuSubProps>): JSX.Element => (
+export const SubMenu = ({ className, ...props }: CustomProps<NavigationMenuSubProps>): JSX.Element => (
     <NavigationMenuPrimitive.Sub
         className={className}
         css={{
+            width: '100%',
             margin: 0,
             listStyle: 'none',
             '& div:first-child': {

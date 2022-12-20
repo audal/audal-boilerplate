@@ -2,9 +2,10 @@ import React from 'react';
 
 interface Props {
     shouldChange: string;
+    transitionDuration?: number;
 }
 
-const FadeTransition: React.FC<Props> = ({ shouldChange, children }) => {
+const FadeTransition: React.FC<Props> = ({ shouldChange, transitionDuration, children }) => {
     const prevChildren = React.useRef<React.ReactNode>(null);
     const currentChildren = React.useRef<React.ReactNode>(null);
     const currentContainer = React.useRef<HTMLDivElement>(null);
@@ -22,7 +23,7 @@ const FadeTransition: React.FC<Props> = ({ shouldChange, children }) => {
         currentKey.current = shouldChange;
         prevChildren.current = currentChildren.current;
         setIsAnimating(true);
-        setTimeout(() => setIsAnimating(false), 200);
+        setTimeout(() => setIsAnimating(false), transitionDuration || 200);
     } else {
         currentChildren.current = children;
         currentKey.current = shouldChange;
@@ -41,8 +42,8 @@ const FadeTransition: React.FC<Props> = ({ shouldChange, children }) => {
                 css={{
                     display: 'flex',
                     width: '100%',
-                    height: '100%',
-                    transition: '0.2s',
+                    // height: '100%',
+                    transition: transitionDuration ? `${transitionDuration / 1000}s` : '0.2s',
                     opacity: isAnimating ? 0 : 1,
                     flexGrow: 1,
                 }}

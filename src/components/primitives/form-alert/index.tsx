@@ -13,7 +13,7 @@ HtmlProps<HTMLSpanElement>
         role="alert"
         css={{
             display: 'block',
-            color: 'var(--color-states-error)',
+            color: 'var(--color-blue-dunkelblau)',
             paddingTop: '6px',
             fontSize: '10px',
         }}

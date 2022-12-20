@@ -23,7 +23,7 @@ const StyledPillButton = (props: GatsbyLinkProps<any>): JSX.Element => (
     />
 );
 
-export const StyledPillButtonGroup = (props: HtmlPropsNoRef<HTMLDivElement>) => (
+export const StyledPillButtonGroup = (props: HtmlPropsNoRef<HTMLDivElement>): JSX.Element => (
     <div
         css={{
             display: 'flex',

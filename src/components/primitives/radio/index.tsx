@@ -63,7 +63,7 @@ export const Radio = ({
                     borderImage: 'initial',
                     borderRadius: '50%',
                     borderColor: '#1A2027',
-                    color: '#fff',
+                    color: 'var(--color-gray-white)',
                     transition: 'all 0.3s',
                     '&:hover': { backgroundColor: '#04050311' },
                     '&[data-state=checked], &:hover[data-state=checked]': {
@@ -145,24 +145,18 @@ const RadioGroupBase = ({
         // eslint-disable-next-line no-param-reassign
         children = [children];
     }
-    React.useEffect(() => {
-        if (formContext) {
-            formContext?.setValue(name, children[0].props.value);
-        }
-    }, [children, formContext, name]);
     return (
         <>
             <RadioGroupPrimitive.Root
                 onValueChange={onChange}
                 value={value}
                 name={name}
-                defaultValue={children[0]?.props?.value}
                 {...formContext?.register(name, { required })}
             >
                 {children}
             </RadioGroupPrimitive.Root>
             {formContext?.errors[name]?.type === 'required' && (
-                <FormAlert>Required</FormAlert>
+                <FormAlert css={{ fontSize: '12px' }}>Eingabe erforderlich</FormAlert>
             )}
         </>
     );

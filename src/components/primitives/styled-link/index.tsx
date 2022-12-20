@@ -1,14 +1,21 @@
 import React from 'react';
 import { Link, GatsbyLinkProps } from 'gatsby';
 
-const StyledLink = (props: GatsbyLinkProps<any>): JSX.Element => (
+const StyledLink = ({
+    small,
+    variant = 'normal',
+    ...props
+}: GatsbyLinkProps<any> & {
+    small?: boolean;
+    variant?: 'normal' | 'underlined';
+}): JSX.Element => (
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     <Link
         css={{
             position: 'relative',
             transition: '0.3s',
-            '[role=group]:hover &': {
+            '[role=group]:hover, [data-state="open"] &': {
                 '&::before': {
                     transform: 'scale(1)',
                     right: '0',
@@ -19,21 +26,21 @@ const StyledLink = (props: GatsbyLinkProps<any>): JSX.Element => (
                 content: '""',
                 position: 'absolute',
                 left: '0',
-                height: '1px',
+                height: small ? '1px' : '2px',
                 bottom: '-2px',
                 width: '100%',
                 backgroundColor: 'currentColor',
                 transition: '0.3s transform ease-out',
-                transform: 'scale(0)',
-                transformOrigin: 'bottom right',
+                transform: variant === 'normal' ? 'scaleX(0)' : 'scaleX(1)',
+                transformOrigin: variant === 'normal' ? 'bottom right' : 'bottom left',
             },
             '&:hover::before': {
-                transform: 'scale(1)',
+                transform: variant === 'normal' ? 'scaleX(1)' : 'scaleX(0)',
                 right: '0',
-                transformOrigin: 'bottom left',
+                transformOrigin: variant === 'normal' ? 'bottom left' : 'bottom right',
             },
             '&:hover': {
-                opacity: 0.8,
+                opacity: variant === 'normal' ? 0.8 : 1,
             },
         }}
         {...props}
